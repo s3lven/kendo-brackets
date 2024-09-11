@@ -1,5 +1,7 @@
 import { StatusType, Tournament } from "@/types/bracket_t";
 
+import BracketDialog from "./bracket-dialog";
+
 type DashboardItemProps = {
   tournamentData: Tournament[];
   status: StatusType;
@@ -15,16 +17,13 @@ const DashboardItem = ({ tournamentData, status }: DashboardItemProps) => {
       </div>
       {/* List */}
       <div className="w-full flex flex-wrap gap-6">
-        {[...tournamentData]
+        {tournamentData
           .filter((item) => item.status == status)
           .map((item) => (
-            // TODO: Calculate the width of the item based on the width of the flexbox (or how big the screen is)
-            <div
+            <BracketDialog
               key={`${item.tournamentName}-${item.status}`}
-              className="w-[392px] h-[210px] bg-slate-300 flex flex-col items-center justify-center"
-            >
-              {item.tournamentName}
-            </div>
+              item={item}
+            />
           ))}
       </div>
     </>

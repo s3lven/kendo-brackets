@@ -4,11 +4,13 @@ import DashboardItem from "@/app/features/dashboard/dashboard-item";
 import EmptyDashboard from "@/app/features/dashboard/empty-dashboard";
 
 const getTournamentData = () => {
-    return new Promise((resolve) => setTimeout(() => resolve(dummyTournamentData), 0))
-}
+  return new Promise<void>((resolve) => setTimeout(() => resolve(), 0));
+};
 
- const DashboardContent = async () => {
-  const tournamentData: Tournament[] = await getTournamentData().then(() => dummyTournamentData)
+const DashboardContent = async () => {
+  const tournamentData: Tournament[] = await getTournamentData().then(
+    () => dummyTournamentData
+  );
   return tournamentData.length != 0 ? (
     <div className="w-full flex flex-col gap-5">
       {/* Active Tournaments */}
