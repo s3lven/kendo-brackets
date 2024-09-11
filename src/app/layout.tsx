@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import DashboardNav from "@/components/navigation/dashboard-nav";
 
 const poppins = localFont({
   src: [
@@ -30,7 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable}`}>
-      <body>{children}</body>
+      <body>
+        <DashboardNav />
+        <div className="w-full flex flex-col gap-5 px-[108px] pb-8">{children}</div>
+      </body>
     </html>
   );
 }

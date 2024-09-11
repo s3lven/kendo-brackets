@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <div>
-      <p className="text-label uppercase">
+      <p className="text-shade2_30">
         New Project
       </p>
     </div>
