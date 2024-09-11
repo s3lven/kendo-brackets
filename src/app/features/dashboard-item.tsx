@@ -1,11 +1,11 @@
-import { Bracket, StatusType } from "@/types/bracket_t";
+import { StatusType, Tournament } from "@/types/bracket_t";
 
 type DashboardItemProps = {
-  bracketData: Bracket[];
+  tournamentData: Tournament[];
   status: StatusType
 };
 
-const DashboardItem = ({ bracketData, status }: DashboardItemProps) => {
+const DashboardItem = ({ tournamentData, status }: DashboardItemProps) => {
   return (
     <>
       {/* Header */}
@@ -15,15 +15,15 @@ const DashboardItem = ({ bracketData, status }: DashboardItemProps) => {
       </div>
       {/* List */}
       <div className="w-full flex flex-wrap gap-6">
-        {[...bracketData]
-          .filter((item) => item.status == "Active")
+        {[...tournamentData]
+          .filter((item) => item.status == status)
           .map((item) => (
             // TODO: Calculate the width of the item based on the width of the flexbox (or how big the screen is)
             <div
-              key={`${item.tournamentName}-${item.bracketName}-${item.status}`}
+              key={`${item.tournamentName}-${item.status}`}
               className="w-[392px] h-[210px] bg-slate-300 flex flex-col items-center justify-center"
             >
-              {item.bracketName}
+              {item.tournamentName}
             </div>
           ))}
       </div>
