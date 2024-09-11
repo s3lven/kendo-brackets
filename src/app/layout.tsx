@@ -31,9 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable}`}>
-      <body>
+      <body className="flex flex-col h-screen">
         <DashboardNav />
-        <div className="w-full flex flex-col gap-5 px-[108px] pb-8">{children}</div>
+        <div className="w-full h-full flex flex-col gap-5 px-[108px] pb-8 flex-1 overflow-auto">{children}</div>
       </body>
     </html>
   );

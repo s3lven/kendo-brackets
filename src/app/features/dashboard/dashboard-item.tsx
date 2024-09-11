@@ -2,7 +2,7 @@ import { StatusType, Tournament } from "@/types/bracket_t";
 
 type DashboardItemProps = {
   tournamentData: Tournament[];
-  status: StatusType
+  status: StatusType;
 };
 
 const DashboardItem = ({ tournamentData, status }: DashboardItemProps) => {
