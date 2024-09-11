@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -10,29 +11,29 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#25DAC5',
-          hover: '#1EAE9E'
+          DEFAULT: "#25DAC5",
+          hover: "#1EAE9E",
         },
-        secondary: '#482BE7',
-        third: '#E93A7D',
-        dark: '#2F1893',
-        dark_90: '#EAE8F4',
-        heading: '#1E0E62',
-        text: '#15143966',
-        grey: '#EBEAED',
-        error: '#C84545',
-        shade1: '#FFFFFF',
-        shade2: '#222222',
-        shade2_5: '#2222220D',
-        shade2_30: '#2222224D',
-        neutral1: '#F7F7F7',
-        neutral2: '#EBEBEB',
-        neutral3: '#DDDDDD',
-        neutral4: '#D3D3D3',
-        neutral5: '#C2C2C2',
-        neutral6: '#B0B0B0',
-        neutral7: '#717171',
-        neutral8: '#5E5E5E',
+        secondary: "#482BE7",
+        third: "#E93A7D",
+        dark: "#2F1893",
+        dark_90: "#EAE8F4",
+        heading: "#1E0E62",
+        text: "#15143966",
+        grey: "#EBEAED",
+        error: "#C84545",
+        shade1: "#FFFFFF",
+        shade2: "#222222",
+        shade2_5: "#2222220D",
+        shade2_30: "#2222224D",
+        neutral1: "#F7F7F7",
+        neutral2: "#EBEBEB",
+        neutral3: "#DDDDDD",
+        neutral4: "#D3D3D3",
+        neutral5: "#C2C2C2",
+        neutral6: "#B0B0B0",
+        neutral7: "#717171",
+        neutral8: "#5E5E5E",
       },
       fontFamily: {
         poppins: ["var(--font-poppins)"],
@@ -71,7 +72,7 @@ const config: Config = {
           },
         ],
         label: [
-          "18px",
+          "14px",
           {
             lineHeight: "26px",
             letterSpacing: "2px",
@@ -145,20 +146,46 @@ const config: Config = {
       },
       keyframes: {
         overlayShow: {
-          from: { opacity: '0' },
-          to: { opacity: '1' },
+          from: { opacity: "0" },
+          to: { opacity: "1" },
         },
         contentShow: {
-          from: { opacity: '0', transform: 'translate(-50%, -48%) scale(0.96)' },
-          to: { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+          from: {
+            opacity: "0",
+            transform: "translate(-50%, -48%) scale(0.96)",
+          },
+          to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
       },
       animation: {
-        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
-        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        ".scrollbar-thin": {
+          scrollbarWidth: "thin",
+          scrollbarcolor: "rgb(31 29 29) white",
+        },
+        ".scrollbar-webkit": {
+          "&::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "white",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgb(31 41 55)",
+            borderRadius: "20px",
+            border: "1px solid white",
+          },
+        },
+      };
+      addUtilities(newUtilities);
+    }),
+  ],
 };
 export default config;
