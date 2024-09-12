@@ -1,46 +1,46 @@
 type BracketType =
-  | "SingleElimination"
-  | "DoubleElimination"
+  | "Single Elimination"
+  | "Double Elimination"
   | "Round Robin"
   | "Group Stage";
 type StatusType = "Active" | "Upcoming" | "Past";
-type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku"
+type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku";
 
 type Player = {
   name: string;
-  id: number
-}
+  id: number;
+};
 
 type Slot = {
   color?: "Red" | "White";
   score?: IpponType;
-  isWinner?: boolean
-  player: Player
-  sequence: number
-  id: number
-}
+  isWinner?: boolean;
+  player: Player;
+  sequence: number;
+  id: number;
+};
 
 type Bracket = {
   bracketName: string;
   bracketType: BracketType;
   status: StatusType;
-  slots: Slot[]
+  slots: Slot[];
   // seed: Match[]
   // players: Player[]
   // winner: Player
-  bracketCode: string
+  bracketCode: string;
 };
 
 type Tournament = {
   tournamentName: string;
   brackets: Bracket[];
-  status: StatusType
+  status: StatusType;
 };
 
 const dummyBracketData: Bracket[] = [
   {
     bracketName: "Adult Kyu 4-6",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Upcoming",
     bracketCode: "0",
     slots: [
@@ -66,7 +66,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -74,13 +74,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Adult Kyu 1-3",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Active",
     bracketCode: "1",
     slots: [
@@ -106,7 +106,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -114,13 +114,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "1-2 Dan",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Upcoming",
     bracketCode: "2",
     slots: [
@@ -146,7 +146,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -154,13 +154,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "3 Dan and Up",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Upcoming",
     bracketCode: "3",
     slots: [
@@ -186,7 +186,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -194,13 +194,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Womens Kyu",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Active",
     bracketCode: "4",
     slots: [
@@ -226,7 +226,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -234,13 +234,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Womens Dan",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Upcoming",
     bracketCode: "5",
     slots: [
@@ -266,7 +266,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -274,13 +274,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Senior Men",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Past",
     bracketCode: "6",
     slots: [
@@ -306,7 +306,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -314,13 +314,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Seniors Women",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Past",
     bracketCode: "7",
     slots: [
@@ -346,7 +346,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -354,13 +354,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Super Seniors",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Past",
     bracketCode: "8",
     slots: [
@@ -386,7 +386,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -394,13 +394,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Adult Kyu 4-6",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Active",
     bracketCode: "9",
     slots: [
@@ -426,7 +426,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -434,13 +434,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Youth 8-10 Years",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Past",
     bracketCode: "10",
     slots: [
@@ -466,7 +466,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -474,13 +474,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Youth 11-14 Years",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Past",
     bracketCode: "11",
     slots: [
@@ -506,7 +506,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -514,13 +514,13 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
   {
     bracketName: "Youth 15-18",
-    bracketType: "SingleElimination",
+    bracketType: "Single Elimination",
     status: "Past",
     bracketCode: "12",
     slots: [
@@ -546,7 +546,7 @@ const dummyBracketData: Bracket[] = [
           id: 3,
         },
         sequence: 3,
-        id: 3
+        id: 3,
       },
       {
         player: {
@@ -554,7 +554,7 @@ const dummyBracketData: Bracket[] = [
           id: 4,
         },
         sequence: 4,
-        id:4,
+        id: 4,
       },
     ],
   },
@@ -583,5 +583,5 @@ const dummyTournamentData: Tournament[] = [
   },
 ];
 
-export type { StatusType, Player, Slot, Bracket, Tournament };
+export type { StatusType, BracketType, Player, Slot, Bracket, Tournament };
 export { dummyTournamentData };

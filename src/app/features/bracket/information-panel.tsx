@@ -1,18 +1,28 @@
 "use client";
 
-import { Bracket } from "@/types/bracket_t";
+import { Bracket, BracketType } from "@/types/bracket_t";
 import { Button, Input } from "@headlessui/react";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 
 type InformationPanelProps = {
-    bracketData: Bracket | undefined
-}
+  bracketData: Bracket | undefined;
+};
 
-const InformationPanel = ({bracketData} : InformationPanelProps) => {
-  const [typeSelect, setTypeSelect] = useState("Single Elimination");
+const InformationPanel = ({ bracketData }: InformationPanelProps) => {
+  const [typeSelect, setTypeSelect] = useState(bracketData?.bracketType);
   const [showPassword, setShowPassword] = useState(false);
+
+  const isOfBracketType = (value: string): value is BracketType => {
+    return [
+      "Single Elimination",
+      "Double Elimination",
+      "Round Robin",
+      "Group Stage",
+    ].includes(value);
+  };
+
   return (
     <div className="w-full h-full flex flex-col gap-2.5 p-4">
       <p className="text-grey text-label uppercase w-fit">
@@ -34,7 +44,9 @@ const InformationPanel = ({bracketData} : InformationPanelProps) => {
           <Select.Root
             defaultValue={typeSelect}
             value={typeSelect}
-            onValueChange={setTypeSelect}
+            onValueChange={(value) => {
+              if (isOfBracketType(value)) setTypeSelect(value);
+            }}
           >
             <Select.Trigger
               aria-label="bracket type"
