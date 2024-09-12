@@ -4,12 +4,27 @@ type BracketType =
   | "Round Robin"
   | "Group Stage";
 type StatusType = "Active" | "Upcoming" | "Past";
+type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku"
+
+type Player = {
+  name: string;
+  id: number
+}
+
+type Slot = {
+  color?: "Red" | "White";
+  score?: IpponType;
+  isWinner?: boolean
+  player: Player
+  sequence: number
+  id: number
+}
 
 type Bracket = {
   bracketName: string;
   bracketType: BracketType;
   status: StatusType;
-
+  slots: Slot[]
   // seed: Match[]
   // players: Player[]
   // winner: Player
@@ -27,79 +42,521 @@ const dummyBracketData: Bracket[] = [
     bracketName: "Adult Kyu 4-6",
     bracketType: "SingleElimination",
     status: "Upcoming",
-    bracketCode: "0"
+    bracketCode: "0",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Adult Kyu 1-3",
     bracketType: "SingleElimination",
     status: "Active",
-    bracketCode: "1"
+    bracketCode: "1",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "1-2 Dan",
     bracketType: "SingleElimination",
     status: "Upcoming",
-    bracketCode: "2"
+    bracketCode: "2",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "3 Dan and Up",
     bracketType: "SingleElimination",
     status: "Upcoming",
-    bracketCode: "3"
+    bracketCode: "3",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Womens Kyu",
     bracketType: "SingleElimination",
     status: "Active",
-    bracketCode: "4"
+    bracketCode: "4",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Womens Dan",
     bracketType: "SingleElimination",
     status: "Upcoming",
-    bracketCode: "5"
+    bracketCode: "5",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Senior Men",
     bracketType: "SingleElimination",
     status: "Past",
-    bracketCode: "6"
+    bracketCode: "6",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Seniors Women",
     bracketType: "SingleElimination",
     status: "Past",
-    bracketCode: "7"
+    bracketCode: "7",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Super Seniors",
     bracketType: "SingleElimination",
     status: "Past",
-    bracketCode: "8"
+    bracketCode: "8",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Adult Kyu 4-6",
     bracketType: "SingleElimination",
     status: "Active",
-    bracketCode: "9"
+    bracketCode: "9",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Youth 8-10 Years",
     bracketType: "SingleElimination",
     status: "Past",
-    bracketCode: "10"
+    bracketCode: "10",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Youth 11-14 Years",
     bracketType: "SingleElimination",
     status: "Past",
-    bracketCode: "11"
+    bracketCode: "11",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
   {
     bracketName: "Youth 15-18",
     bracketType: "SingleElimination",
     status: "Past",
-    bracketCode: "12"
+    bracketCode: "12",
+    slots: [
+      {
+        player: {
+          name: "Team 1",
+          id: 1,
+        },
+        sequence: 1,
+        id: 1,
+      },
+      {
+        player: {
+          name: "Team 2",
+          id: 2,
+        },
+        sequence: 2,
+        id: 2,
+      },
+      {
+        player: {
+          name: "Team 3",
+          id: 3,
+        },
+        sequence: 3,
+        id: 3
+      },
+      {
+        player: {
+          name: "Team 4",
+          id: 4,
+        },
+        sequence: 4,
+        id:4,
+      },
+    ],
   },
 ];
 
@@ -126,5 +583,5 @@ const dummyTournamentData: Tournament[] = [
   },
 ];
 
-export type { Bracket, StatusType, Tournament };
+export type { StatusType, Player, Slot, Bracket, Tournament };
 export { dummyTournamentData };

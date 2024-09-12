@@ -14,7 +14,7 @@ const InformationPanel = ({bracketData} : InformationPanelProps) => {
   const [typeSelect, setTypeSelect] = useState("Single Elimination");
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <>
+    <div className="w-full h-full flex flex-col gap-2.5 p-4">
       <p className="text-grey text-label uppercase w-fit">
         bracket information
       </p>
@@ -104,7 +104,7 @@ const InformationPanel = ({bracketData} : InformationPanelProps) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

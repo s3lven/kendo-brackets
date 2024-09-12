@@ -4,6 +4,7 @@ import { TbTournament } from "react-icons/tb";
 import { Play, Users } from "lucide-react";
 import { Bracket } from "@/types/bracket_t";
 import InformationPanel from "./information-panel";
+import ParticipantsPanel from "./participants-panel";
 
 type NavItemType = {
   value: string;
@@ -11,7 +12,7 @@ type NavItemType = {
 };
 
 type BracketPanelProps = {
-  bracketData: Bracket | undefined;
+  bracketData: Bracket;
 };
 
 const NavItems: NavItemType[] = [
@@ -58,11 +59,11 @@ const BracketPanel = ({ bracketData }: BracketPanelProps) => {
           <TriggerItem key={item.value} value={item.value} icon={item.icon} />
         ))}
       </Tabs.List>
-      <Tabs.Content
-        value="bracketInfo"
-        className="w-full h-full flex flex-col gap-2.5 p-4"
-      >
+      <Tabs.Content value="bracketInfo" className="w-full">
         <InformationPanel bracketData={bracketData} />
+      </Tabs.Content>
+      <Tabs.Content value="bracketParticipants" className="w-full">
+        <ParticipantsPanel bracketParticipants={bracketData.slots}/>
       </Tabs.Content>
     </Tabs.Root>
   );
