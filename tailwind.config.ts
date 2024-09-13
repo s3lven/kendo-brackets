@@ -22,6 +22,7 @@ const config: Config = {
         text: "#15143966",
         grey: "#EBEAED",
         error: "#C84545",
+        green: "#2ECC71",
         shade1: "#FFFFFF",
         shade2: "#222222",
         shade2_5: "#2222220D",

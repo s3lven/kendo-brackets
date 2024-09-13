@@ -1,10 +1,10 @@
 "use client";
 
 import ParticipantsList from "./participants-list";
-import { Button } from "@headlessui/react";
 import { Shuffle } from "lucide-react";
 import { useSlotStore } from "./stores/slots-store";
 import { useBracketStore } from "./stores/bracket-store";
+import EditorButton from "@/components/ui/editor-button";
 
 const ParticipantsPanel = () => {
   const addSlot = useSlotStore((state) => state.addSlot);
@@ -17,26 +17,20 @@ const ParticipantsPanel = () => {
       <div className="w-full flex flex-col gap-8 px-2 py-4 bg-shade2_30 shadow rounded-sm ">
         <ParticipantsList />
 
-        {bracketStatus == "Editing" ? (
+        {bracketStatus === "Editing" ? (
           <div className="w-full flex justify-between">
-            <Button
-              className="flex justify-center items-center px-5 py-1.5 rounded
-            bg-secondary text-white text-label uppercase hover:bg-secondary/80"
-              onClick={shuffleSlots}
-            >
-              <Shuffle size={"24px"} />
-            </Button>
-            <Button
-              className="flex justify-center items-center px-5 py-1.5 rounded
-            bg-secondary text-white text-label uppercase hover:bg-secondary/80"
-              onClick={addSlot}
-            >
-              Add Participant
-            </Button>
+            <EditorButton
+              text={<Shuffle size={"24px"} />}
+              onClickHandler={shuffleSlots}
+            />
+            <EditorButton 
+              text="Add Participant"
+              onClickHandler={addSlot}
+            />
           </div>
         ) : null}
       </div>
-      {bracketStatus == "Running" ? (
+      {bracketStatus !== "Editing" ? (
         <p className="text-center text-grey text-desc">
           Note: You cannot edit the participants after the bracket has started.
           Reset the bracket to make changes.

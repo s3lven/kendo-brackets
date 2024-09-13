@@ -9,6 +9,11 @@ export type BracketState = {
 export type BracketActions = {
   setBracket: (bracket: Bracket) => void;
   fetchBracket: (params: { tournament: string; bracketCode: string }) => void;
+  runBracket: () => void;
+  resetBracket: () => void;
+  completeBracket: () => void;
+  openBracket: () => void;
+  testBracket: () => void;
 };
 
 export type BracketStore = BracketState & BracketActions;
@@ -18,9 +23,10 @@ export const useBracketStore = create<BracketStore>()(
     bracket: {
       bracketName: "",
       bracketType: "Single Elimination",
-      status: "Upcoming",
+      status: "Editing",
       slots: [],
       bracketCode: "",
+      progress: 10,
     },
     setBracket: (bracket: Bracket) => {
       set((state) => {
@@ -52,6 +58,40 @@ export const useBracketStore = create<BracketStore>()(
         } catch (error) {
           console.log(error);
         }
+      });
+    },
+    runBracket: () => {
+      set((state) => {
+        state.bracket.status = "In Progress";
+      });
+    },
+    resetBracket: () => {
+      set((state) => {
+        state.bracket.status = "Editing";
+        state.bracket.progress = 0;
+      });
+    },
+    completeBracket: () => {
+      set((state) => {
+        if (state.bracket.progress !== 100) {
+          console.log(
+            "Error: Bracket is at %c% and is not supposed to be finished",
+            state.bracket.progress
+          );
+          return;
+        } else {
+          state.bracket.status = "Completed";
+        }
+      });
+    },
+    openBracket: () => {
+      set((state) => {
+        state.bracket.status = "In Progress";
+      });
+    },
+    testBracket: () => {
+      set((state) => {
+        state.bracket.progress = state.bracket.progress + 20;
       });
     },
   }))

@@ -4,8 +4,9 @@ type BracketType =
   | "Round Robin"
   | "Group Stage";
 type TournamentStatusType = "Active" | "Upcoming" | "Past";
-type BracketStatusType = "Editing" | "Running";
+type BracketStatusType = "Editing" | "In Progress" | "Completed";
 type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku";
+type RoundType = "Round 1" | "Round 2" | "Round 3" | "Quarter-Finals" | "Semi-Finals" | "Finals"
 
 type Player = {
   name: string;
@@ -30,6 +31,7 @@ type Bracket = {
   // players: Player[]
   // winner: Player
   bracketCode: string;
+  progress: number
 };
 
 type Tournament = {
@@ -43,329 +45,227 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "HSSK Taikai",
     brackets: [
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ea7e5a767d007baf8f",
-            player: {
-              name: "Mcneil Robinson",
+            "id": "66e3c382b37495c0614c01e9",
+            "player": {
+              "name": "Clarice Hoffman"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ea84a5316216856f12",
-            player: {
-              name: "Lily Richmond",
+            "id": "66e3c382013da7bd163dc275",
+            "player": {
+              "name": "Holland Hale"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ea21dd5af95f462286",
-            player: {
-              name: "Sally Kirby",
+            "id": "66e3c3823e4c8a9a07b1282f",
+            "player": {
+              "name": "Emily Talley"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ea63e517d87ce57b71",
-            player: {
-              name: "Natalie Gonzales",
+            "id": "66e3c3829ba1ffc13464fb30",
+            "player": {
+              "name": "Chandra Vinson"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1ea41a23b0e1dc59eb7",
-        bracketName: "Youth",
-        bracketType: "Round Robin",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c38253dff2e677e2f375",
+        "bracketName": "Adult Kyu",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1eaf6446b2434e29ff3",
-            player: {
-              name: "Peggy Brock",
+            "id": "66e3c382d3ddfe7d526b010b",
+            "player": {
+              "name": "Valencia Jacobs"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ea2d121f32dcb98a71",
-            player: {
-              name: "Marina Velasquez",
+            "id": "66e3c38205a63641bc7953dd",
+            "player": {
+              "name": "Chris Palmer"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ea5926352db271c9b8",
-            player: {
-              name: "Stone Serrano",
+            "id": "66e3c3826a0494418e34f871",
+            "player": {
+              "name": "Ernestine Bernard"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1eaca823f42bcfb3d5a",
-            player: {
-              name: "Althea Patel",
+            "id": "66e3c38266c5969a56692fbb",
+            "player": {
+              "name": "Chambers Sandoval"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1eae63b9d1aef60a87b",
-        bracketName: "Youth",
-        bracketType: "Double Elimination",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c3826d9dacd3be77bb7b",
+        "bracketName": "Dan 4 and up",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1eafd3a596bca63fc5c",
-            player: {
-              name: "Louella Wise",
+            "id": "66e3c3821a414e3fb1776326",
+            "player": {
+              "name": "Tessa Acevedo"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ead6ea97b7bb85ad81",
-            player: {
-              name: "Wilkerson Silva",
+            "id": "66e3c38275903ff6bf270f3e",
+            "player": {
+              "name": "Cotton Bell"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1eae2b6ca8a0d0aeb3e",
-            player: {
-              name: "Henrietta Sosa",
+            "id": "66e3c3828b1480c5f7854950",
+            "player": {
+              "name": "Weaver Velez"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ead59444de43d7e441",
-            player: {
-              name: "Kendra Moreno",
+            "id": "66e3c3829305ed8dd0852b8e",
+            "player": {
+              "name": "Wendi Moses"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ea3558a99923f96d4d",
-        bracketName: "Dan 1-3",
-        bracketType: "Round Robin",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c382856050fe53a5d9e6",
+        "bracketName": "Adult Kyu",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ead2ba4732b8b409d2",
-            player: {
-              name: "Neva Blevins",
+            "id": "66e3c382ea24529b2620a85e",
+            "player": {
+              "name": "Maude Becker"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ea8e46c5353201940d",
-            player: {
-              name: "Cash Dixon",
+            "id": "66e3c382d17fcd3d33c8f1ba",
+            "player": {
+              "name": "Fernandez Donovan"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ea3aae5a5c2980b7c9",
-            player: {
-              name: "Mathews Armstrong",
+            "id": "66e3c382fa8b2795c795bf37",
+            "player": {
+              "name": "Armstrong Espinoza"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ea71d11831418b834f",
-            player: {
-              name: "Roseann Leon",
+            "id": "66e3c3823e05b600b6bc569e",
+            "player": {
+              "name": "Fleming Bradley"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ea36593b1f94b631fe",
-        bracketName: "Youth",
-        bracketType: "Double Elimination",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c3824ba57d26cdaa1ef0",
+        "bracketName": "Dan 4 and up",
+        "bracketType": "Round Robin"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ea5090c431e631d81d",
-            player: {
-              name: "Cook Donovan",
+            "id": "66e3c382ebe105e3b28ec00b",
+            "player": {
+              "name": "Byers Morse"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ea92618d9efdf8e697",
-            player: {
-              name: "Faith Santos",
+            "id": "66e3c382ce0211710f3afd3c",
+            "player": {
+              "name": "Hall Rosales"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1eaca113532eda37654",
-            player: {
-              name: "Melton Fowler",
+            "id": "66e3c382356b4c14bdd88e72",
+            "player": {
+              "name": "Concetta Howe"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ea66f8d4012bf80348",
-            player: {
-              name: "Gonzalez Larsen",
+            "id": "66e3c3829ad61e70661a052d",
+            "player": {
+              "name": "Caroline Gilbert"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ea2eda014d844efb14",
-        bracketName: "Dan 4 and up",
-        bracketType: "Round Robin",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c382f6e184eb761a14ce",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Group Stage"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1eaf40c73694f23bcba",
-            player: {
-              name: "Toni Curtis",
+            "id": "66e3c382bfa05b90d015f312",
+            "player": {
+              "name": "Mccoy Morrison"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1eac26b813c9f77b79b",
-            player: {
-              name: "Brandie Contreras",
+            "id": "66e3c382cfac73f3a99e3312",
+            "player": {
+              "name": "Rodgers Reid"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ea11032c0afea93f48",
-            player: {
-              name: "Turner Morin",
+            "id": "66e3c382ba4201fb3097a438",
+            "player": {
+              "name": "Holly Navarro"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ea574055a9f45c3e8b",
-            player: {
-              name: "Janine Alexander",
+            "id": "66e3c382aef4a1046e50e385",
+            "player": {
+              "name": "Coleman Garner"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ea1d0d1c54dbdefd74",
-        bracketName: "Dan 4 and up",
-        bracketType: "Single Elimination",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1ea15abec316dad3a30",
-            player: {
-              name: "Casandra Glass",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1ea0db148f9fd2898f6",
-            player: {
-              name: "Dolly Goff",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1ea91eac1242b11d97b",
-            player: {
-              name: "Albert Boyd",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1ea2d48fc62cb6ac41a",
-            player: {
-              name: "Deborah Hayden",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Running",
-        bracketCode: "66e3b1eade4095c3771f5cc1",
-        bracketName: "Adult Kyu",
-        bracketType: "Group Stage",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1ea9bc62c8aec4d799b",
-            player: {
-              name: "Potter Jennings",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1ea5d2dc65b56fa7475",
-            player: {
-              name: "Webb Crane",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1ea6a3378962c746995",
-            player: {
-              name: "Gwendolyn Washington",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1ea05707efef8333379",
-            player: {
-              name: "Deanna Nichols",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Running",
-        bracketCode: "66e3b1eaa2728843a4d98928",
-        bracketName: "Dan 1-3",
-        bracketType: "Group Stage",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1eac1b8e307c05cca65",
-            player: {
-              name: "Davidson Lowery",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1eae77e966894fe04cd",
-            player: {
-              name: "Farley Baker",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1ea8b7461749ebcdd5d",
-            player: {
-              name: "Tricia Mcmahon",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1eabec63ae2af4f589b",
-            player: {
-              name: "Rutledge Newman",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Running",
-        bracketCode: "66e3b1ead6a38e782e7c8424",
-        bracketName: "Youth",
-        bracketType: "Group Stage",
-      },
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c382c371a820348a681f",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Double Elimination"
+      }
     ],
     status: "Active",
   },
@@ -373,329 +273,375 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "Sacramento Taikai",
     brackets: [
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1edc185411ebaf1081a",
-            player: {
-              name: "Warner Weeks",
+            "id": "66e3c396d095ec9e91bc1dbd",
+            "player": {
+              "name": "Cannon Thomas"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ed105cb55f0ccc2599",
-            player: {
-              name: "Veronica Rich",
+            "id": "66e3c396b0ffd0c0d1f7c549",
+            "player": {
+              "name": "Faulkner Nguyen"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ed803b860ad5e72b8e",
-            player: {
-              name: "Stout Flowers",
+            "id": "66e3c3961a1cb326f3071fac",
+            "player": {
+              "name": "Marsha Dalton"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ed040085160717deba",
-            player: {
-              name: "Kathy Mays",
+            "id": "66e3c3967ed8f16f80ac3618",
+            "player": {
+              "name": "Burns Gregory"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1eda3fda53eff977841",
-        bracketName: "Youth",
-        bracketType: "Group Stage",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c3969e692693943644db",
+        "bracketName": "Youth",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ed2b2563247de6eb2f",
-            player: {
-              name: "Wilkerson Duffy",
+            "id": "66e3c3963dd4c8ab99f961fd",
+            "player": {
+              "name": "Nettie Stanley"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ed6aec2a15ba88b826",
-            player: {
-              name: "Gutierrez Daniel",
+            "id": "66e3c3966f797262ff00a7ce",
+            "player": {
+              "name": "Pat Walter"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ed8560cae7f13307dc",
-            player: {
-              name: "Claudette Reeves",
+            "id": "66e3c396364b8be9fea3fccd",
+            "player": {
+              "name": "Head Albert"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ede0d7f77a817cdccb",
-            player: {
-              name: "Cherry Preston",
+            "id": "66e3c396f432bd8b477594ff",
+            "player": {
+              "name": "Lora Tran"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ed5ce62b41872c11af",
-        bracketName: "Dan 4 and up",
-        bracketType: "Round Robin",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39625a6d3106f314590",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ed4932a524ad199f76",
-            player: {
-              name: "Lolita Robles",
+            "id": "66e3c396515b5db2397898eb",
+            "player": {
+              "name": "Craig Waller"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1edfdad236609fe0938",
-            player: {
-              name: "Raymond Gray",
+            "id": "66e3c3966aa507fc49755313",
+            "player": {
+              "name": "Jolene Hill"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1edc29d9b2e67d51d2a",
-            player: {
-              name: "Welch Charles",
+            "id": "66e3c39604ec646802f0701a",
+            "player": {
+              "name": "Jillian Rose"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ed5e889bca0c950adc",
-            player: {
-              name: "Norma Parsons",
+            "id": "66e3c396831414701ba27a85",
+            "player": {
+              "name": "Casey Blair"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1edd46c5209d5afc05c",
-        bracketName: "Dan 4 and up",
-        bracketType: "Double Elimination",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39683df5f5bcd440958",
+        "bracketName": "Youth",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ed77684d2f585f6e38",
-            player: {
-              name: "Torres Merritt",
+            "id": "66e3c396fe52363a5b8cca1f",
+            "player": {
+              "name": "Lynch Prince"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1edc57e834e9166af37",
-            player: {
-              name: "Celina Castro",
+            "id": "66e3c3964830d4e1eebc0f8a",
+            "player": {
+              "name": "Christy Wallace"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ed3dcd73f3d17fcf04",
-            player: {
-              name: "Hendrix Weaver",
+            "id": "66e3c396e049e233e19e5faf",
+            "player": {
+              "name": "Shana Macias"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1eda19053227e64d1fb",
-            player: {
-              name: "Barlow Humphrey",
+            "id": "66e3c3963bcaa8b2463dd928",
+            "player": {
+              "name": "Velasquez Bishop"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ed16a1ef8e39fa55d1",
-        bracketName: "Youth",
-        bracketType: "Group Stage",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39603e996bf6113a613",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Round Robin"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ede018a05fa9211874",
-            player: {
-              name: "Milagros Gross",
+            "id": "66e3c396226798b8bef93ffa",
+            "player": {
+              "name": "Stuart Faulkner"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ede0642b4615e8d578",
-            player: {
-              name: "Fulton Sears",
+            "id": "66e3c396c6c2186316974b04",
+            "player": {
+              "name": "Angelique Garcia"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1edf165a2e2736634fc",
-            player: {
-              name: "Camille Fox",
+            "id": "66e3c396e579ac9e4de47220",
+            "player": {
+              "name": "Effie Kelly"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1edeccc8860b28cd425",
-            player: {
-              name: "Lessie Berry",
+            "id": "66e3c396881a7b3f74113201",
+            "player": {
+              "name": "Wilda Moran"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1edc16b4b1ec7742bcd",
-        bracketName: "Dan 1-3",
-        bracketType: "Group Stage",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c396effcd3b11c02bd90",
+        "bracketName": "Youth",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ed5b6ce971f858e7f3",
-            player: {
-              name: "Hopper George",
+            "id": "66e3c396b9d6d4a251c618c0",
+            "player": {
+              "name": "Cecelia Mcneil"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ed3edd9034050c5ab4",
-            player: {
-              name: "Beryl Reynolds",
+            "id": "66e3c396779b70294a481cc3",
+            "player": {
+              "name": "Jocelyn Sweeney"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1edc0a81abd24260482",
-            player: {
-              name: "Annabelle Gordon",
+            "id": "66e3c3962ec034f96169cd1d",
+            "player": {
+              "name": "Jeannie Weiss"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ed4579152a1080770e",
-            player: {
-              name: "Laura Weber",
+            "id": "66e3c39616126ed32680f6c0",
+            "player": {
+              "name": "Ida Fry"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1eda718d706e3be95eb",
-        bracketName: "Adult Kyu",
-        bracketType: "Group Stage",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39685de362ccf97d456",
+        "bracketName": "Youth",
+        "bracketType": "Round Robin"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ed60b4368dff009bb3",
-            player: {
-              name: "Opal Hooper",
+            "id": "66e3c396114236c515100263",
+            "player": {
+              "name": "Naomi Pugh"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1edca5236ac11415ab8",
-            player: {
-              name: "Ferguson Riley",
+            "id": "66e3c39667004cdddd503aa3",
+            "player": {
+              "name": "Mcdonald Stein"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ed7e11c1289dad7b74",
-            player: {
-              name: "Mcknight Medina",
+            "id": "66e3c3969ccda5373f5424d7",
+            "player": {
+              "name": "Harrell Simmons"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1edff7cbe4220192f9f",
-            player: {
-              name: "Bauer May",
+            "id": "66e3c396ec4641e257bd6980",
+            "player": {
+              "name": "Vincent Bray"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1edce9aa7666b5e2097",
-        bracketName: "Dan 1-3",
-        bracketType: "Double Elimination",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c396bc34e079310b501a",
+        "bracketName": "Adult Kyu",
+        "bracketType": "Group Stage"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ede0872f270960a029",
-            player: {
-              name: "Merritt Kline",
+            "id": "66e3c39698f55a8ecbf9f8b4",
+            "player": {
+              "name": "Tommie Morin"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ed8e7715f0eede467b",
-            player: {
-              name: "Estrada Carney",
+            "id": "66e3c396d620e3a095e0b17b",
+            "player": {
+              "name": "Jean Snow"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ed6b78e91016410a70",
-            player: {
-              name: "Mccullough Vasquez",
+            "id": "66e3c396de70b03c06d796b6",
+            "player": {
+              "name": "Ofelia Pierce"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1edee82649f8f64cb86",
-            player: {
-              name: "Fannie Coleman",
+            "id": "66e3c396d780a3346ad3df18",
+            "player": {
+              "name": "Tracie William"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1edcf39be058d572ffb",
-        bracketName: "Adult Kyu",
-        bracketType: "Round Robin",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c396ad8cdbf227104033",
+        "bracketName": "Youth",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1edbfa4bb9ac552a214",
-            player: {
-              name: "Vilma Garrett",
+            "id": "66e3c396b2ccfa4d24c907ee",
+            "player": {
+              "name": "Rosa Cunningham"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ed83f6a1db88fd1dba",
-            player: {
-              name: "Perkins Hendrix",
+            "id": "66e3c3967ce016ddb934c77e",
+            "player": {
+              "name": "Nelda Grant"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1edad311e1f57c028da",
-            player: {
-              name: "Brewer Frye",
+            "id": "66e3c396db45c22dd968f2da",
+            "player": {
+              "name": "Rollins Cook"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1edd4a6f634f8247688",
-            player: {
-              name: "Flora Avery",
+            "id": "66e3c39636f8f2f141e7c3d7",
+            "player": {
+              "name": "Gallagher Porter"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1edc288bfa81f8f46e0",
-        bracketName: "Dan 1-3",
-        bracketType: "Double Elimination",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c3965dff2637db3a4860",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Double Elimination"
       },
+      {
+        "slots": [
+          {
+            "id": "66e3c3963f1e31c1c32ff458",
+            "player": {
+              "name": "Sheree Weaver"
+            },
+            "sequence": 1
+          },
+          {
+            "id": "66e3c3962d592c28ed0f2281",
+            "player": {
+              "name": "Walter Morgan"
+            },
+            "sequence": 2
+          },
+          {
+            "id": "66e3c39693bc6f2577c24da2",
+            "player": {
+              "name": "Odonnell Norris"
+            },
+            "sequence": 3
+          },
+          {
+            "id": "66e3c396afe2ce836b339fc7",
+            "player": {
+              "name": "James Washington"
+            },
+            "sequence": 4
+          }
+        ],
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c396c3a1e464dacc41c5",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Group Stage"
+      }
     ],
     status: "Past",
   },
@@ -703,293 +649,190 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "San Jose",
     brackets: [
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ef879b62a8841804d9",
-            player: {
-              name: "Mitzi Cannon",
+            "id": "66e3c39afaaf54bccca33299",
+            "player": {
+              "name": "Marcy Velasquez"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1efc0cd538ffd3540fa",
-            player: {
-              name: "Estrada Ryan",
+            "id": "66e3c39a02e3e47071b63ebb",
+            "player": {
+              "name": "Sonja Griffin"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ef8e01808525cb30b2",
-            player: {
-              name: "Deena Cabrera",
+            "id": "66e3c39aec1b7c2cf02202dd",
+            "player": {
+              "name": "Bernadine Holmes"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ef0caef5c55ba45024",
-            player: {
-              name: "Banks Blanchard",
+            "id": "66e3c39a8acb67739f5d4c5a",
+            "player": {
+              "name": "Stafford Estes"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1ef1d4d01ca39a25ca4",
-        bracketName: "Adult Kyu",
-        bracketType: "Group Stage",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39a466ca6daad51c19d",
+        "bracketName": "Dan 4 and up",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1efd8fd173951bd5a14",
-            player: {
-              name: "Clarissa Orr",
+            "id": "66e3c39a29e48477da2433be",
+            "player": {
+              "name": "Shepard Kim"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ef1ce1f854caceab04",
-            player: {
-              name: "Deleon Haney",
+            "id": "66e3c39a7e868e22b7ea6613",
+            "player": {
+              "name": "June Mcneil"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ef4d7f985e7ffe1ed3",
-            player: {
-              name: "Hart Medina",
+            "id": "66e3c39a4d9ef7669331ac6b",
+            "player": {
+              "name": "Susan Flowers"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ef14399ebd5a04d033",
-            player: {
-              name: "Geneva Ray",
+            "id": "66e3c39a54f5fe2dfe1daeda",
+            "player": {
+              "name": "Colon Fernandez"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1ef9b1265d09366c284",
-        bracketName: "Adult Kyu",
-        bracketType: "Single Elimination",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39a651028648d13117b",
+        "bracketName": "Youth",
+        "bracketType": "Round Robin"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1efe38a84f862599121",
-            player: {
-              name: "Maricela Cooper",
+            "id": "66e3c39a249bae920bfb20d8",
+            "player": {
+              "name": "Gonzalez Gates"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ef01e1ca76042a96f1",
-            player: {
-              name: "Latisha Gonzalez",
+            "id": "66e3c39ae004ed05268f9385",
+            "player": {
+              "name": "Ferguson Brock"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ef839cb3e0b7d90851",
-            player: {
-              name: "Gross Taylor",
+            "id": "66e3c39a9e40599a42d1c4af",
+            "player": {
+              "name": "Ortega Combs"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ef91366bd018393350",
-            player: {
-              name: "Pugh Owen",
+            "id": "66e3c39a4c5cbf0ae0c5f2bc",
+            "player": {
+              "name": "Sanders Bradley"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ef11dd403ee4ca778a",
-        bracketName: "Adult Kyu",
-        bracketType: "Double Elimination",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39a2d444b7613496354",
+        "bracketName": "Dan 4 and up",
+        "bracketType": "Round Robin"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ef1d16ecc2749ac3ab",
-            player: {
-              name: "Robbins Snider",
+            "id": "66e3c39aa7e38301350444cd",
+            "player": {
+              "name": "Mercer Sellers"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1efebf037f3eda0731e",
-            player: {
-              name: "Chelsea Craft",
+            "id": "66e3c39ada915c651bb893f3",
+            "player": {
+              "name": "Deena Taylor"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1efffe69963dfc5220b",
-            player: {
-              name: "Margie Campos",
+            "id": "66e3c39afb43a0584da434e5",
+            "player": {
+              "name": "Williams Scott"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ef5ad9aa12772e0208",
-            player: {
-              name: "Hilda Thompson",
+            "id": "66e3c39a328c58ac17ef9c6d",
+            "player": {
+              "name": "Tara James"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1ef426bd0741184bf95",
-        bracketName: "Youth",
-        bracketType: "Group Stage",
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39a5372fc6cd910733f",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1ef8f066d98cb558354",
-            player: {
-              name: "Alfreda George",
+            "id": "66e3c39aa4beef5a61317464",
+            "player": {
+              "name": "Ronda Benson"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1ef53e71d57baf93fc4",
-            player: {
-              name: "Torres Malone",
+            "id": "66e3c39a21fb88d33fc0f891",
+            "player": {
+              "name": "Haney Finch"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1ef845ef0f79a3b883c",
-            player: {
-              name: "Jannie Best",
+            "id": "66e3c39ad95b4f659fd259a0",
+            "player": {
+              "name": "Sophie Baxter"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1ef77012ea28d7c0efa",
-            player: {
-              name: "Maldonado Wong",
+            "id": "66e3c39a5aad6bc1abf482c2",
+            "player": {
+              "name": "Robinson Anthony"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1ef5aece0a3631fd356",
-        bracketName: "Dan 4 and up",
-        bracketType: "Group Stage",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1efee4871c4076d5ed0",
-            player: {
-              name: "Clements Aguirre",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1ef463c5fad6e82f3b0",
-            player: {
-              name: "Beatriz Hinton",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1ef3820073fd4e71d6f",
-            player: {
-              name: "Ladonna Harper",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1ef7d789b8473f2362a",
-            player: {
-              name: "Deirdre Salinas",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Running",
-        bracketCode: "66e3b1efd564d568687e32cc",
-        bracketName: "Adult Kyu",
-        bracketType: "Round Robin",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1efef8dc90dc2f336b9",
-            player: {
-              name: "Russo Barr",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1efea3fcef556f3de07",
-            player: {
-              name: "Tamera Spencer",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1ef4cbb7e78596159ac",
-            player: {
-              name: "Christa Mcconnell",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1efa1856d923c4a1f8b",
-            player: {
-              name: "Rosalinda Ferrell",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Editing",
-        bracketCode: "66e3b1ef6842de3102d21c72",
-        bracketName: "Dan 4 and up",
-        bracketType: "Double Elimination",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1efbabdc9ac9883cf48",
-            player: {
-              name: "Dorsey Ramsey",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1efc7b94a76b68ea220",
-            player: {
-              name: "Queen Ramos",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1ef7a363055b0925ad4",
-            player: {
-              name: "Davidson Sanford",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1efe3d11fc755ae1bd8",
-            player: {
-              name: "Sheree Miller",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Running",
-        bracketCode: "66e3b1ef89676a680108ecf3",
-        bracketName: "Adult Kyu",
-        bracketType: "Double Elimination",
-      },
+        "status": "Editing",
+        "progress": 0,
+        "bracketCode": "66e3c39a1b00ba15c629f373",
+        "bracketName": "Dan 4 and up",
+        "bracketType": "Group Stage"
+      }
     ],
     status: "Past",
   },
@@ -997,293 +840,227 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "NCKF Championships",
     brackets: [
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1f179cb66783904f132",
-            player: {
-              name: "Simmons Roberts",
+            "id": "66e3c39da32676f787509304",
+            "player": {
+              "name": "Adkins Weiss"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1f1cef1ce8a5390d1cb",
-            player: {
-              name: "Talley Mayer",
+            "id": "66e3c39d538caaa4ebcf995e",
+            "player": {
+              "name": "Sheila Frazier"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1f179738571da13a774",
-            player: {
-              name: "Madge Santos",
+            "id": "66e3c39db4b856f3cbf60d24",
+            "player": {
+              "name": "Finley Kaufman"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1f1b81dfcc010ede7bc",
-            player: {
-              name: "Irwin Spencer",
+            "id": "66e3c39d630f29cb3cb30800",
+            "player": {
+              "name": "Margret Frederick"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1f1ecefd7196c195ee5",
-        bracketName: "Dan 1-3",
-        bracketType: "Round Robin",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39dca07725aa798762d",
+        "bracketName": "Adult Kyu",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1f143917b6ff70d201c",
-            player: {
-              name: "Lottie Collins",
+            "id": "66e3c39dc10e509897c72b5d",
+            "player": {
+              "name": "Reva Green"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1f1f044506a93190141",
-            player: {
-              name: "Avila Woodard",
+            "id": "66e3c39dbe729d9204230e94",
+            "player": {
+              "name": "Gutierrez Herring"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1f1d82dc326387b3e60",
-            player: {
-              name: "Shepherd Griffith",
+            "id": "66e3c39d56df9912864cae19",
+            "player": {
+              "name": "Melanie Paul"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1f19bdfecaecae37256",
-            player: {
-              name: "Good Campbell",
+            "id": "66e3c39d7cfadf2b6b21877a",
+            "player": {
+              "name": "Dudley Snider"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1f1a4b5fdb4980bd5c7",
-        bracketName: "Youth",
-        bracketType: "Round Robin",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39db9b05b9f51e54a1d",
+        "bracketName": "Youth",
+        "bracketType": "Double Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1f1768370a28c343400",
-            player: {
-              name: "Fernandez Hernandez",
+            "id": "66e3c39d4db488dbe35bfadf",
+            "player": {
+              "name": "Finch Coleman"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1f135cbe94fd8aa4e19",
-            player: {
-              name: "Wendi Lawrence",
+            "id": "66e3c39dfbac98487832a831",
+            "player": {
+              "name": "Burns Carroll"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1f10b1b5f11f0ec0c8c",
-            player: {
-              name: "Kay Sullivan",
+            "id": "66e3c39d0947cdf7b89f3ee8",
+            "player": {
+              "name": "Ray Gilliam"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1f158a8c9da95c81548",
-            player: {
-              name: "Nichole Wilcox",
+            "id": "66e3c39d68ddc346783a1bfb",
+            "player": {
+              "name": "Mcintyre Harris"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1f11149dfed8a6f80a2",
-        bracketName: "Adult Kyu",
-        bracketType: "Double Elimination",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39d90976d2f32480f18",
+        "bracketName": "Adult Kyu",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1f1f72f256848542f4e",
-            player: {
-              name: "Lila Huffman",
+            "id": "66e3c39d0af917e736994b09",
+            "player": {
+              "name": "Hannah Rocha"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1f1108d1b9c9791ab8c",
-            player: {
-              name: "Burch Wise",
+            "id": "66e3c39d25a47a9c8d8bf12c",
+            "player": {
+              "name": "Obrien Mills"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1f1d80e0f4e108ef4bd",
-            player: {
-              name: "Barrera Watts",
+            "id": "66e3c39d900a493efc0d689c",
+            "player": {
+              "name": "Swanson Espinoza"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1f1ebc627d764b786b4",
-            player: {
-              name: "Garza Willis",
+            "id": "66e3c39d06c04e1e51ed0f8e",
+            "player": {
+              "name": "Carson Hoover"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Running",
-        bracketCode: "66e3b1f1c4fc6a187536c2f5",
-        bracketName: "Dan 4 and up",
-        bracketType: "Double Elimination",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39df7b5d87e017cfb3e",
+        "bracketName": "Adult Kyu",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1f17a5db0b2aafaa353",
-            player: {
-              name: "Delores Hayden",
+            "id": "66e3c39dd76cdb35a89eff59",
+            "player": {
+              "name": "Glover Price"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1f15060d535f04f143c",
-            player: {
-              name: "Mabel Parrish",
+            "id": "66e3c39d6d85eccb669a0119",
+            "player": {
+              "name": "Ruiz Calhoun"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1f13f3ff064515fa639",
-            player: {
-              name: "Brandi Holden",
+            "id": "66e3c39dd4dffa8939223953",
+            "player": {
+              "name": "Beatriz Jenkins"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1f10630ca3ece0fd19b",
-            player: {
-              name: "Gertrude Harding",
+            "id": "66e3c39db19b636e20a56a43",
+            "player": {
+              "name": "Spencer Dixon"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1f17dbec614a9de718a",
-        bracketName: "Dan 4 and up",
-        bracketType: "Round Robin",
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39d0989723238e1844f",
+        "bracketName": "Dan 4 and up",
+        "bracketType": "Single Elimination"
       },
       {
-        slots: [
+        "slots": [
           {
-            id: "66e3b1f1c7b2b29fd7285911",
-            player: {
-              name: "Noel Stevens",
+            "id": "66e3c39d20ddbfdf2d736816",
+            "player": {
+              "name": "Ofelia Terrell"
             },
-            sequence: 1,
+            "sequence": 1
           },
           {
-            id: "66e3b1f19e5bc70c33769246",
-            player: {
-              name: "Simone Guerrero",
+            "id": "66e3c39dd24df16847277e1c",
+            "player": {
+              "name": "Ebony Sutton"
             },
-            sequence: 2,
+            "sequence": 2
           },
           {
-            id: "66e3b1f1d6736d174249efd7",
-            player: {
-              name: "Latonya Little",
+            "id": "66e3c39d2ee04b6299a69509",
+            "player": {
+              "name": "Diann Burch"
             },
-            sequence: 3,
+            "sequence": 3
           },
           {
-            id: "66e3b1f1044bf2b17ad0a152",
-            player: {
-              name: "Kim Schultz",
+            "id": "66e3c39dbae90a56f26ef8ee",
+            "player": {
+              "name": "Patty Dodson"
             },
-            sequence: 4,
-          },
+            "sequence": 4
+          }
         ],
-        status: "Editing",
-        bracketCode: "66e3b1f1ee35f5a9ac251b21",
-        bracketName: "Adult Kyu",
-        bracketType: "Single Elimination",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1f11045029a67a87e54",
-            player: {
-              name: "Katharine Winters",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1f1cec1cc6e6178d9ea",
-            player: {
-              name: "Garcia Delacruz",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1f1ae75bff30e1a0b45",
-            player: {
-              name: "Fitzgerald Shelton",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1f15d3b917fb6e0c084",
-            player: {
-              name: "Kerr Foster",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Editing",
-        bracketCode: "66e3b1f12e62a11a2e81d945",
-        bracketName: "Youth",
-        bracketType: "Double Elimination",
-      },
-      {
-        slots: [
-          {
-            id: "66e3b1f1dcefdb08e23ef628",
-            player: {
-              name: "Rene Love",
-            },
-            sequence: 1,
-          },
-          {
-            id: "66e3b1f1648e51482cbda722",
-            player: {
-              name: "Lakisha Trujillo",
-            },
-            sequence: 2,
-          },
-          {
-            id: "66e3b1f1df63fc55b237c4ef",
-            player: {
-              name: "Taylor Snider",
-            },
-            sequence: 3,
-          },
-          {
-            id: "66e3b1f16b1b93336bb64b2e",
-            player: {
-              name: "Leticia Patrick",
-            },
-            sequence: 4,
-          },
-        ],
-        status: "Running",
-        bracketCode: "66e3b1f16870ad1d8d8bba46",
-        bracketName: "Adult Kyu",
-        bracketType: "Double Elimination",
-      },
+        "status": "Completed",
+        "progress": 100,
+        "bracketCode": "66e3c39dcb75d3fdb4b6fb48",
+        "bracketName": "Dan 1-3",
+        "bracketType": "Single Elimination"
+      }
     ],
     status: "Upcoming",
   },
@@ -1292,6 +1069,7 @@ const dummyTournamentData: Tournament[] = [
 export type {
   TournamentStatusType,
   BracketType,
+  RoundType, 
   Player,
   Slot,
   Bracket,

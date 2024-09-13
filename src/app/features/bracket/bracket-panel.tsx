@@ -4,6 +4,7 @@ import { TbTournament } from "react-icons/tb";
 import { Play, Users } from "lucide-react";
 import InformationPanel from "./information-panel";
 import ParticipantsPanel from "./participants-panel";
+import PlayPanel from "./play-panel";
 
 type NavItemType = {
   value: string;
@@ -44,7 +45,7 @@ const BracketPanel = () => {
     <Tabs.Root
       className="bg-neutral8 flex w-full max-w-[410px] font-poppins "
       orientation="vertical"
-      defaultValue="bracketInfo"
+      defaultValue="bracketPlay"
     >
       <Tabs.List
         className="w-full max-w-[60px] h-full flex flex-col shadow-[2px_0px_2px_0px_rgba(0,0,0,0.3)] bg-neutral7"
@@ -65,6 +66,12 @@ const BracketPanel = () => {
         className="w-full h-full overflow-y-scroll no-scrollbar"
       >
         <ParticipantsPanel />
+      </Tabs.Content>
+      <Tabs.Content
+        value="bracketPlay"
+        className="w-full h-full overflow-y-scroll no-scrollbar"
+      >
+        <PlayPanel />
       </Tabs.Content>
     </Tabs.Root>
   );
