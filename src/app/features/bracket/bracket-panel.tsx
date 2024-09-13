@@ -2,17 +2,12 @@ import React from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { TbTournament } from "react-icons/tb";
 import { Play, Users } from "lucide-react";
-import { Bracket } from "@/types/bracket_t";
 import InformationPanel from "./information-panel";
 import ParticipantsPanel from "./participants-panel";
 
 type NavItemType = {
   value: string;
   icon: JSX.Element;
-};
-
-type BracketPanelProps = {
-  bracketData: Bracket;
 };
 
 const NavItems: NavItemType[] = [
@@ -44,7 +39,7 @@ const TriggerItem = ({ value, icon }: NavItemType) => {
   );
 };
 
-const BracketPanel = ({ bracketData }: BracketPanelProps) => {
+const BracketPanel = () => {
   return (
     <Tabs.Root
       className="bg-neutral8 flex w-full max-w-[410px] font-poppins "
@@ -60,10 +55,10 @@ const BracketPanel = ({ bracketData }: BracketPanelProps) => {
         ))}
       </Tabs.List>
       <Tabs.Content value="bracketInfo" className="w-full h-full overflow-y-scroll no-scrollbar">
-        <InformationPanel bracketData={bracketData} />
+        <InformationPanel />
       </Tabs.Content>
       <Tabs.Content value="bracketParticipants" className="w-full h-full overflow-y-scroll no-scrollbar">
-        <ParticipantsPanel bracketParticipants={bracketData.slots}/>
+        <ParticipantsPanel />
       </Tabs.Content>
     </Tabs.Root>
   );

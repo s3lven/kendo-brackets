@@ -13,6 +13,7 @@ export type SlotActions = {
   removeSlot: (id: number) => void;
   moveSlot: (activeIndex: number, overIndex: number) => void;
   shuffleSlots: () => void
+  setSlots: (slots: Slot[]) => void
 };
 
 export type SlotStore = SlotState & SlotActions;
@@ -95,6 +96,11 @@ export const useSlotStore = create<SlotStore>()(
         })
         console.log(dirtySlots)
         state.slots = dirtySlots
+      })
+    },
+    setSlots: (slots: Slot[]) => {
+      set((state) => {
+        state.slots = slots
       })
     }
   }))

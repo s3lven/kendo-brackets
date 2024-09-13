@@ -1,17 +1,16 @@
 "use client";
 
-import { Bracket, BracketType } from "@/types/bracket_t";
+import { BracketType } from "@/types/bracket_t";
 import { Button, Input } from "@headlessui/react";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
+import { useBracketStore } from "./stores/bracket-store";
 
-type InformationPanelProps = {
-  bracketData: Bracket | undefined;
-};
 
-const InformationPanel = ({ bracketData }: InformationPanelProps) => {
-  const [typeSelect, setTypeSelect] = useState(bracketData?.bracketType);
+const InformationPanel = () => {
+  const bracket = useBracketStore((state) => state.bracket)
+  const [typeSelect, setTypeSelect] = useState(bracket.bracketType);
   const [showPassword, setShowPassword] = useState(false);
 
   const isOfBracketType = (value: string): value is BracketType => {
@@ -36,7 +35,7 @@ const InformationPanel = ({ bracketData }: InformationPanelProps) => {
             className="w-[160px] h-full px-1 bg-transparent border border-grey font-poppins text-grey text-desc
                 transition-all ease-out duration-500
                 data-[focus]:scale-[1.05]"
-            defaultValue={bracketData?.bracketName}
+            defaultValue={bracket.bracketName}
           />
         </div>
         <div className="w-full h-full flex flex-wrap justify-between ">
@@ -105,7 +104,7 @@ const InformationPanel = ({ bracketData }: InformationPanelProps) => {
             <Input
               className="w-full h-full bg-transparent"
               defaultValue={
-                showPassword ? bracketData?.bracketCode : "aaaaaaaaaaaa"
+                showPassword ? bracket.bracketCode : "aaaaaaaaaaaa"
               }
               type={showPassword ? "text" : "password"}
               readOnly

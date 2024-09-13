@@ -18,7 +18,7 @@ import {
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import ParticipantSlot from "./participants-slot";
-import { useSlotStore } from "./bracket-store";
+import { useSlotStore } from "./stores/slots-store";
 
 const DnDContextWithNoSSR = dynamic(
   () => import("@dnd-kit/core").then((mod) => mod.DndContext),

@@ -1,18 +1,13 @@
-"use client"
+"use client";
 
-import { Slot } from "@/types/bracket_t";
 import ParticipantsList from "./participants-list";
 import { Button } from "@headlessui/react";
 import { Shuffle } from "lucide-react";
-import { useSlotStore } from "./bracket-store";
+import { useSlotStore } from "./stores/slots-store";
 
-type ParticipantsPanelProps = {
-  bracketParticipants: Slot[];
-};
-
-const ParticipantsPanel = ({ }: ParticipantsPanelProps) => {
+const ParticipantsPanel = () => {
   const addSlot = useSlotStore((state) => state.addSlot);
-  const shuffleSlots = useSlotStore((state) => state.shuffleSlots)
+  const shuffleSlots = useSlotStore((state) => state.shuffleSlots);
   return (
     <div className="w-full h-max flex flex-col gap-2.5 p-4 pb-80 font-poppins ">
       <p className="text-grey text-label uppercase w-fit">participants</p>
