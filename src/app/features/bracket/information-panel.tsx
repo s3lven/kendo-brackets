@@ -7,9 +7,8 @@ import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useBracketStore } from "./stores/bracket-store";
 
-
 const InformationPanel = () => {
-  const bracket = useBracketStore((state) => state.bracket)
+  const bracket = useBracketStore((state) => state.bracket);
   const [typeSelect, setTypeSelect] = useState(bracket.bracketType);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -35,7 +34,7 @@ const InformationPanel = () => {
             className="w-[160px] h-full px-1 bg-transparent border border-grey font-poppins text-grey text-desc
                 transition-all ease-out duration-500
                 data-[focus]:scale-[1.05]"
-            defaultValue={bracket.bracketName}
+            value={bracket.bracketName}
           />
         </div>
         <div className="w-full h-full flex flex-wrap justify-between ">
@@ -103,9 +102,7 @@ const InformationPanel = () => {
           >
             <Input
               className="w-full h-full bg-transparent"
-              defaultValue={
-                showPassword ? bracket.bracketCode : "aaaaaaaaaaaa"
-              }
+              value={showPassword ? bracket.bracketCode : "aaaaaaaaaaaa"}
               type={showPassword ? "text" : "password"}
               readOnly
             />

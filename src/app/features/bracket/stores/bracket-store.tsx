@@ -18,7 +18,7 @@ export const useBracketStore = create<BracketStore>()(
     bracket: {
       bracketName: "",
       bracketType: "Single Elimination",
-      status: "Active",
+      status: "Upcoming",
       slots: [],
       bracketCode: "",
     },
@@ -48,10 +48,10 @@ export const useBracketStore = create<BracketStore>()(
           if (bracketData === undefined) {
             throw new TypeError("Where did the bracketData go!");
           }
-            state.bracket = bracketData 
+          state.bracket = bracketData;
         } catch (error) {
           console.log(error);
-        }        
+        }
       });
     },
   }))

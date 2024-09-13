@@ -17,23 +17,22 @@ import {
 } from "@dnd-kit/sortable";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
-import ParticipantSlot from "./participants-slot";
 import { useSlotStore } from "./stores/slots-store";
+import ParticipantSlotEdit from "./participants-slot-edit";
+import { useBracketStore } from "./stores/bracket-store";
+import ParticipantSlotView from "./participants-slot-view";
 
 const DnDContextWithNoSSR = dynamic(
   () => import("@dnd-kit/core").then((mod) => mod.DndContext),
   { ssr: false }
 );
 
-type ParticipantsListProps = {
-  // bracketParticipants: Slot[];
-};
-
-const ParticipantsList = ({}: ParticipantsListProps) => {
+const ParticipantsList = () => {
   const slots = useSlotStore((state) => state.slots);
   const removeSlot = useSlotStore((state) => state.removeSlot);
   const moveSlot = useSlotStore((state) => state.moveSlot);
   const [activeSlot, setActiveSlot] = useState<Slot | undefined>(undefined);
+  const bracketStatus = useBracketStore((state) => state.bracket.status);
 
   // Detect input method
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
@@ -71,35 +70,39 @@ const ParticipantsList = ({}: ParticipantsListProps) => {
 
   return slots?.length ? (
     <div className="flex flex-col gap-2">
-      <DnDContextWithNoSSR
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragCancel={handleDragCancel}
-      >
-        <SortableContext
-          items={slots.map((slot) => slot.sequence)}
-          strategy={verticalListSortingStrategy}
+      {bracketStatus === "Editing" ? (
+        <DnDContextWithNoSSR
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
         >
-          {slots.map((slot) => (
-            <ParticipantSlot
-              key={slot.id}
-              slot={slot}
-              removeSlot={removeSlot}
-            />
-          ))}
-        </SortableContext>
-        <DragOverlay adjustScale className="origin-[0%_0%]">
-          {activeSlot ? (
-            <ParticipantSlot
-              slot={activeSlot}
-              removeSlot={removeSlot}
-              forceDragging
-            />
-          ) : null}
-        </DragOverlay>
-      </DnDContextWithNoSSR>
+          <SortableContext
+            items={slots.map((slot) => slot.sequence)}
+            strategy={verticalListSortingStrategy}
+          >
+            {slots.map((slot) => (
+              <ParticipantSlotEdit
+                key={slot.id}
+                slot={slot}
+                removeSlot={removeSlot}
+              />
+            ))}
+          </SortableContext>
+          <DragOverlay adjustScale className="origin-[0%_0%]">
+            {activeSlot ? (
+              <ParticipantSlotEdit
+                slot={activeSlot}
+                removeSlot={removeSlot}
+                forceDragging
+              />
+            ) : null}
+          </DragOverlay>
+        </DnDContextWithNoSSR>
+      ) : (
+        slots.map((slot) => <ParticipantSlotView key={slot.id} slot={slot} />)
+      )}
     </div>
   ) : null;
 };

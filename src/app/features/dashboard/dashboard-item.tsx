@@ -1,10 +1,10 @@
-import { StatusType, Tournament } from "@/types/bracket_t";
+import { TournamentStatusType, Tournament } from "@/types/bracket_t";
 
 import BracketDialog from "./bracket-dialog";
 
 type DashboardItemProps = {
   tournamentData: Tournament[];
-  status: StatusType;
+  status: TournamentStatusType;
 };
 
 const DashboardItem = ({ tournamentData, status }: DashboardItemProps) => {

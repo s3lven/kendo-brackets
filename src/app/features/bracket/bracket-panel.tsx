@@ -54,10 +54,16 @@ const BracketPanel = () => {
           <TriggerItem key={item.value} value={item.value} icon={item.icon} />
         ))}
       </Tabs.List>
-      <Tabs.Content value="bracketInfo" className="w-full h-full overflow-y-scroll no-scrollbar">
+      <Tabs.Content
+        value="bracketInfo"
+        className="w-full h-full overflow-y-scroll no-scrollbar"
+      >
         <InformationPanel />
       </Tabs.Content>
-      <Tabs.Content value="bracketParticipants" className="w-full h-full overflow-y-scroll no-scrollbar">
+      <Tabs.Content
+        value="bracketParticipants"
+        className="w-full h-full overflow-y-scroll no-scrollbar"
+      >
         <ParticipantsPanel />
       </Tabs.Content>
     </Tabs.Root>

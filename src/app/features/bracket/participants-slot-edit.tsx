@@ -6,17 +6,17 @@ import { Button, Input } from "@headlessui/react";
 import { TbGripVertical } from "react-icons/tb";
 import { X } from "lucide-react";
 
-type ParticipantSlotProps = {
+type ParticipantSlotEditProps = {
   slot: Slot;
-  removeSlot: (id: number) => void;
+  removeSlot: (id: number | string) => void;
   forceDragging?: boolean;
 };
 
-const ParticipantSlot = ({
+const ParticipantSlotEdit = ({
   slot,
   removeSlot,
   forceDragging = false,
-}: ParticipantSlotProps) => {
+}: ParticipantSlotEditProps) => {
   const {
     attributes,
     isDragging,
@@ -36,10 +36,10 @@ const ParticipantSlot = ({
   };
 
   const handleRemoveSlot = () => {
-    console.log("button clicked", slot.id)
+    console.log("button clicked", slot.id);
     removeSlot(slot.id);
+  };
 
-  }
 
   return (
     <div className="w-full h-6" ref={setNodeRef} style={parentStyles}>
@@ -74,4 +74,4 @@ const ParticipantSlot = ({
   );
 };
 
-export default ParticipantSlot;
+export default ParticipantSlotEdit;

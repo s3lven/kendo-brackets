@@ -14,7 +14,7 @@ const LazyBracketList = dynamic(() => import("./bracket-list"));
 const BracketDialog = ({ item }: BracketDialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <div
           className="w-[392px] h-[210px] flex flex-col items-center justify-center 
@@ -39,7 +39,6 @@ const BracketDialog = ({ item }: BracketDialogProps) => {
           <Dialog.Close asChild>
             <button
               className="absolute top-4 right-4 text-white hover:bg-shade2_30 focus:outline-none p-1 rounded-full"
-              onClick={() => setIsOpen(!isOpen)}
             >
               <X size={"1rem"} />
             </button>
