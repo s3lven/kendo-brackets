@@ -7,7 +7,7 @@ type BracketRoundTitleProps = {
 function BracketRoundTitle({roundTitle} : BracketRoundTitleProps) {
   return (
     <div className="w-full h-full max-w-[230px] flex items-center justify-center bg-neutral7">
-      <p className="text-white text-label">{roundTitle}</p>
+      <p className="text-white text-label uppercase">{roundTitle}</p>
     </div>
   );
 }
