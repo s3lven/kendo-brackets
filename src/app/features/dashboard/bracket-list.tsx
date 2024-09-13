@@ -44,14 +44,14 @@ const BracketList = ({ item }: BracketListProps) => {
   const order = ["Active", "Upcoming", "Past"];
   return (
     <div
-      className="w-full h-full flex-grow flex flex-col justify-between gap-2 px-2 py-9
+      className="w-full h-full flex-grow flex flex-col justify-start gap-2 px-2 py-9
                   text-desc text-white focus:outline-none overflow-y-auto scrollbar-thin scrollbar-webkit"
     >
       {item.brackets
         .toSorted((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
         .map((bracket) => (
           <BracketContent
-            key={`${bracket.bracketName}-${bracket.status}`}
+            key={`${bracket.bracketCode}`}
             tournament={item.tournamentName}
             item={bracket}
           />

@@ -21,7 +21,7 @@ const DashboardItem = ({ tournamentData, status }: DashboardItemProps) => {
           .filter((item) => item.status == status)
           .map((item) => (
             <BracketDialog
-              key={`${item.tournamentName}-${item.status}`}
+              key={`${item.tournamentName}-${item.status}-${item.brackets.length}`}
               item={item}
             />
           ))}

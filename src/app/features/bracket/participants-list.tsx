@@ -21,6 +21,7 @@ import { useSlotStore } from "./stores/slots-store";
 import ParticipantSlotEdit from "./participants-slot-edit";
 import { useBracketStore } from "./stores/bracket-store";
 import ParticipantSlotView from "./participants-slot-view";
+import { useShallow } from "zustand/react/shallow";
 
 const DnDContextWithNoSSR = dynamic(
   () => import("@dnd-kit/core").then((mod) => mod.DndContext),
@@ -28,9 +29,7 @@ const DnDContextWithNoSSR = dynamic(
 );
 
 const ParticipantsList = () => {
-  const slots = useSlotStore((state) => state.slots);
-  const removeSlot = useSlotStore((state) => state.removeSlot);
-  const moveSlot = useSlotStore((state) => state.moveSlot);
+  const {slots, removeSlot, moveSlot} = useSlotStore(useShallow((state) => ({slots: state.slots,removeSlot:state.removeSlot,moveSlot: state.moveSlot})))
   const [activeSlot, setActiveSlot] = useState<Slot | undefined>(undefined);
   const bracketStatus = useBracketStore((state) => state.bracket.status);
 

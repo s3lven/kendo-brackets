@@ -1,4 +1,4 @@
-import { Bracket, dummyTournamentData } from "@/types/bracket_t";
+import { Bracket, BracketType, dummyTournamentData } from "@/types/bracket_t";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -14,6 +14,8 @@ export type BracketActions = {
   completeBracket: () => void;
   openBracket: () => void;
   testBracket: () => void;
+  setBracketName: (name: string) => void
+  setBracketType: (type: BracketType) => void
 };
 
 export type BracketStore = BracketState & BracketActions;
@@ -93,6 +95,12 @@ export const useBracketStore = create<BracketStore>()(
       set((state) => {
         state.bracket.progress = state.bracket.progress + 20;
       });
+    },
+    setBracketName: (name: string) => {
+      set((state) => {state.bracket.bracketName = name})
+    },
+    setBracketType: (type: BracketType) => {
+      set((state) => {state.bracket.bracketType = type})
     },
   }))
 );

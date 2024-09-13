@@ -6,10 +6,25 @@ import * as Select from "@radix-ui/react-select";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useBracketStore } from "./stores/bracket-store";
+import { useShallow } from "zustand/react/shallow";
 
 const InformationPanel = () => {
-  const bracket = useBracketStore((state) => state.bracket);
-  const [typeSelect, setTypeSelect] = useState(bracket.bracketType);
+  const {
+    bracketName,
+    bracketType,
+    bracketCode,
+    setBracketName,
+    setBracketType,
+  } = useBracketStore(
+    useShallow((state) => ({
+      bracketName: state.bracket.bracketName,
+      bracketType: state.bracket.bracketType,
+      bracketCode: state.bracket.bracketCode,
+      setBracketName: state.setBracketName,
+      setBracketType: state.setBracketType,
+    }))
+  );
+
   const [showPassword, setShowPassword] = useState(false);
 
   const isOfBracketType = (value: string): value is BracketType => {
@@ -34,16 +49,17 @@ const InformationPanel = () => {
             className="w-[160px] h-full px-1 bg-transparent border border-grey font-poppins text-grey text-desc
                 transition-all ease-out duration-500
                 data-[focus]:scale-[1.05]"
-            value={bracket.bracketName}
+            value={bracketName}
+            onChange={(e) => setBracketName(e.target.value)}
           />
         </div>
         <div className="w-full h-full flex flex-wrap justify-between ">
           <p className="text-grey text-desc">Bracket Type</p>
           <Select.Root
-            defaultValue={typeSelect}
-            value={typeSelect}
+            defaultValue={bracketType}
+            value={bracketType}
             onValueChange={(value) => {
-              if (isOfBracketType(value)) setTypeSelect(value);
+              if (isOfBracketType(value)) setBracketType(value);
             }}
           >
             <Select.Trigger
@@ -51,7 +67,7 @@ const InformationPanel = () => {
               className="w-[160px] h-full px-1 bg-transparent border border-grey font-poppins text-grey text-desc
                     flex justify-between items-center"
             >
-              <Select.Value>{typeSelect}</Select.Value>
+              <Select.Value>{bracketType}</Select.Value>
               <Select.Icon asChild>
                 <ChevronDown size={"1rem"} />
               </Select.Icon>
@@ -102,7 +118,7 @@ const InformationPanel = () => {
           >
             <Input
               className="w-full h-full bg-transparent"
-              value={showPassword ? bracket.bracketCode : "aaaaaaaaaaaa"}
+              value={showPassword ? bracketCode : "aaaaaaaaaaaa"}
               type={showPassword ? "text" : "password"}
               readOnly
             />

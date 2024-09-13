@@ -5,11 +5,18 @@ import { Shuffle } from "lucide-react";
 import { useSlotStore } from "./stores/slots-store";
 import { useBracketStore } from "./stores/bracket-store";
 import EditorButton from "@/components/ui/editor-button";
+import { useShallow } from "zustand/react/shallow";
 
 const ParticipantsPanel = () => {
-  const addSlot = useSlotStore((state) => state.addSlot);
-  const shuffleSlots = useSlotStore((state) => state.shuffleSlots);
-  const bracketStatus = useBracketStore((state) => state.bracket.status);
+  const { addSlot, shuffleSlots } = useSlotStore(
+    useShallow((state) => ({
+      addSlot: state.addSlot,
+      shuffleSlots: state.shuffleSlots,
+    }))
+  );
+  const { bracketStatus } = useBracketStore(
+    useShallow((state) => ({ bracketStatus: state.bracket.status }))
+  );
 
   return (
     <div className="w-full h-max flex flex-col gap-2.5 p-4 pb-80 font-poppins">
@@ -23,10 +30,7 @@ const ParticipantsPanel = () => {
               text={<Shuffle size={"24px"} />}
               onClickHandler={shuffleSlots}
             />
-            <EditorButton 
-              text="Add Participant"
-              onClickHandler={addSlot}
-            />
+            <EditorButton text="Add Participant" onClickHandler={addSlot} />
           </div>
         ) : null}
       </div>
