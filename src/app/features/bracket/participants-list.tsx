@@ -19,6 +19,7 @@ import {
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import ParticipantSlot from "./participants-slot";
+import { useSlotStore } from "./bracket-store";
 
 const DnDContextWithNoSSR = dynamic(
   () => import("@dnd-kit/core").then((mod) => mod.DndContext),
@@ -26,23 +27,17 @@ const DnDContextWithNoSSR = dynamic(
 );
 
 type ParticipantsListProps = {
-  bracketParticipants: Slot[];
+  // bracketParticipants: Slot[];
 };
 
-const ParticipantsList = ({ bracketParticipants }: ParticipantsListProps) => {
-  const [slots, setSlots] = useState(bracketParticipants);
+const ParticipantsList = ({  }: ParticipantsListProps) => {
+  const slots = useSlotStore((state) => state.slots)
+  const removeSlot = useSlotStore((state) => state.removeSlot)
+  const moveSlot = useSlotStore((state) => state.moveSlot)
   const [activeSlot, setActiveSlot] = useState<Slot | undefined>(undefined);
 
-  console.log(slots)
   // Detect input method
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
-
-  const removeSlot = (id: number) => {
-    const updated = slots.filter((slot) => slot.id !== id)
-      .map((slot, index) => ({ ...slot, sequence: index + 1 }));
-      console.log(id)
-    setSlots(updated);
-  };
 
   // Trigger when dragging starts
   const handleDragStart = (event: DragStartEvent) => {
@@ -65,12 +60,7 @@ const ParticipantsList = ({ bracketParticipants }: ParticipantsListProps) => {
     const overIndex = slots.findIndex((slot) => slot.sequence === over.id);
 
     if (activeIndex !== overIndex) {
-      setSlots((prev) => {
-        const updated = arrayMove(prev, activeIndex, overIndex).map(
-          (slot, index) => ({ ...slot, sequence: index + 1 })
-        );
-        return updated;
-      });
+      moveSlot(activeIndex, overIndex)
     }
 
     setActiveSlot(undefined);
@@ -80,41 +70,33 @@ const ParticipantsList = ({ bracketParticipants }: ParticipantsListProps) => {
     setActiveSlot(undefined);
   };
 
-  return (
-    <div className="w-full flex flex-col gap-2 px-2 py-4 bg-shade2_30 shadow rounded-sm">
-      {slots?.length ? (
-        <DnDContextWithNoSSR
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
-        >
-          <SortableContext
-            items={slots.map((slot) => slot.sequence)}
-            strategy={verticalListSortingStrategy}
-          >
-            {slots.map((slot) => (
-              <ParticipantSlot
-                key={slot.id}
-                slot={slot}
-                removeSlot={removeSlot}
-              />
-            ))}
-          </SortableContext>
-          <DragOverlay adjustScale className="origin-[0%_0%]">
-            {activeSlot ? (
-              <ParticipantSlot
-                slot={activeSlot}
-                removeSlot={removeSlot}
-                forceDragging
-              />
-            ) : null}
-          </DragOverlay>
-        </DnDContextWithNoSSR>
-      ) : null}
-    </div>
-  );
+  return slots?.length ? (
+    <DnDContextWithNoSSR
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
+    >
+      <SortableContext
+        items={slots.map((slot) => slot.sequence)}
+        strategy={verticalListSortingStrategy}
+      >
+        {slots.map((slot) => (
+          <ParticipantSlot key={slot.id} slot={slot} removeSlot={removeSlot} />
+        ))}
+      </SortableContext>
+      <DragOverlay adjustScale className="origin-[0%_0%]">
+        {activeSlot ? (
+          <ParticipantSlot
+            slot={activeSlot}
+            removeSlot={removeSlot}
+            forceDragging
+          />
+        ) : null}
+      </DragOverlay>
+    </DnDContextWithNoSSR>
+  ) : null;
 };
 
 export default ParticipantsList;

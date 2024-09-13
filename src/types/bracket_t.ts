@@ -8,7 +8,7 @@ type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku";
 
 type Player = {
   name: string;
-  id: number;
+  id?: number;
 };
 
 type Slot = {

@@ -33,8 +33,8 @@ const EditBracketPage = ({ params }: EditBracketPageProps) => {
     throw new TypeError("Where did the bracketData go!");
   }
   // console.log(params)
-  console.log(tournamentData);
-  console.log(bracketData);
+  // console.log(tournamentData);
+  // console.log(bracketData);
 
   return (
     <div className="w-full h-full flex gap-5 bg-shade2">
