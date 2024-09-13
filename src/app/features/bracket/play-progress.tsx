@@ -1,16 +1,22 @@
 import EditorButton from "@/components/ui/editor-button";
-import React from "react";
-import { useBracketStore } from "./stores/bracket-store";
 import * as Progress from "@radix-ui/react-progress";
+import {
+  useBracketActions,
+  useBracketProgress,
+  useBracketStatus,
+} from "./stores/bracket-view-store";
 
 const PlayProgress = () => {
-  const bracketStatus = useBracketStore((state) => state.bracket.status);
-  const progress = useBracketStore((state) => state.bracket.progress);
-  const runBracket = useBracketStore((state) => state.runBracket);
-  const resetBracket = useBracketStore((state) => state.resetBracket);
-  const completeBracket = useBracketStore((state) => state.completeBracket);
-  const openBracket = useBracketStore((state) => state.openBracket);
-  const testBracket = useBracketStore((state) => state.testBracket);
+  const {
+    runBracket,
+    resetBracket,
+    completeBracket,
+    openBracket,
+    testBracket,
+  } = useBracketActions();
+
+  const progress = useBracketProgress();
+  const bracketStatus = useBracketStatus();
   return (
     <>
       <div className="w-full pb-2 border-b border-neutral8 ">

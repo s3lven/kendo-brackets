@@ -6,7 +6,7 @@ type BracketType =
 type TournamentStatusType = "Active" | "Upcoming" | "Past";
 type BracketStatusType = "Editing" | "In Progress" | "Completed";
 type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku";
-type RoundType = "Round 1" | "Round 2" | "Round 3" | "Quarter-Finals" | "Semi-Finals" | "Finals"
+type RoundType = `Round ${number}` | "Quarter-Finals" | "Semi-Finals" | "Finals"
 
 type Player = {
   name: string;

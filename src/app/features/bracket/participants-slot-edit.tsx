@@ -40,7 +40,6 @@ const ParticipantSlotEdit = ({
     removeSlot(slot.id);
   };
 
-
   return (
     <div className="w-full h-6" ref={setNodeRef} style={parentStyles}>
       <div

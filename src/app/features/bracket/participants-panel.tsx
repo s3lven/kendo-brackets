@@ -2,21 +2,12 @@
 
 import ParticipantsList from "./participants-list";
 import { Shuffle } from "lucide-react";
-import { useSlotStore } from "./stores/slots-store";
-import { useBracketStore } from "./stores/bracket-store";
 import EditorButton from "@/components/ui/editor-button";
-import { useShallow } from "zustand/react/shallow";
+import { useBracketStatus, useCombinedStore } from "./stores/bracket-view-store";
 
 const ParticipantsPanel = () => {
-  const { addSlot, shuffleSlots } = useSlotStore(
-    useShallow((state) => ({
-      addSlot: state.addSlot,
-      shuffleSlots: state.shuffleSlots,
-    }))
-  );
-  const { bracketStatus } = useBracketStore(
-    useShallow((state) => ({ bracketStatus: state.bracket.status }))
-  );
+  const { addSlot, shuffleSlots } = useCombinedStore()
+  const bracketStatus = useBracketStatus()
 
   return (
     <div className="w-full h-max flex flex-col gap-2.5 p-4 pb-80 font-poppins">

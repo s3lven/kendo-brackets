@@ -1,6 +1,7 @@
 "use client";
 
 import BracketPanel from "@/app/features/bracket/bracket-panel";
+import BracketView from "@/app/features/bracket/bracket-view";
 import { useBracketStore } from "@/app/features/bracket/stores/bracket-store";
 import { useSlotStore } from "@/app/features/bracket/stores/slots-store";
 import React, { useEffect } from "react";
@@ -25,6 +26,7 @@ const EditBracketPage = ({ params }: EditBracketPageProps) => {
   return (
     <div className="w-full h-full flex gap-5 bg-shade2">
       <BracketPanel />
+      <BracketView />
     </div>
   );
 };
