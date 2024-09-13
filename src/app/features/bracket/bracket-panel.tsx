@@ -47,7 +47,7 @@ const TriggerItem = ({ value, icon }: NavItemType) => {
 const BracketPanel = ({ bracketData }: BracketPanelProps) => {
   return (
     <Tabs.Root
-      className="bg-neutral8 flex w-full max-w-[410px] font-poppins"
+      className="bg-neutral8 flex w-full max-w-[410px] font-poppins "
       orientation="vertical"
       defaultValue="bracketInfo"
     >
@@ -59,10 +59,10 @@ const BracketPanel = ({ bracketData }: BracketPanelProps) => {
           <TriggerItem key={item.value} value={item.value} icon={item.icon} />
         ))}
       </Tabs.List>
-      <Tabs.Content value="bracketInfo" className="w-full">
+      <Tabs.Content value="bracketInfo" className="w-full h-full overflow-y-scroll no-scrollbar">
         <InformationPanel bracketData={bracketData} />
       </Tabs.Content>
-      <Tabs.Content value="bracketParticipants" className="w-full">
+      <Tabs.Content value="bracketParticipants" className="w-full h-full overflow-y-scroll no-scrollbar">
         <ParticipantsPanel bracketParticipants={bracketData.slots}/>
       </Tabs.Content>
     </Tabs.Root>

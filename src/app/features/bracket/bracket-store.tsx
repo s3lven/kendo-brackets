@@ -1,7 +1,8 @@
-import { Slot } from "@/types/bracket_t";
+import { Player, Slot } from "@/types/bracket_t";
 import { arrayMove } from "@dnd-kit/sortable";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import _ from 'lodash';
 
 export type SlotState = {
   slots: Slot[];
@@ -11,6 +12,7 @@ export type SlotActions = {
   addSlot: () => void;
   removeSlot: (id: number) => void;
   moveSlot: (activeIndex: number, overIndex: number) => void;
+  shuffleSlots: () => void
 };
 
 export type SlotStore = SlotState & SlotActions;
@@ -54,7 +56,15 @@ export const useSlotStore = create<SlotStore>()(
   immer((set) => ({
     ...defaultInitState,
     addSlot: () => {
-      console.log("added a slot");
+      set((state) => {
+        state.slots = [...state.slots, {
+            player: {
+                name: `Team ${state.slots.length + 1}`
+            },
+            sequence: state.slots.length + 1,
+            id: state.slots.length + 1.
+        }]
+      })
     },
     removeSlot: (id: number) => {
       set((state) => {
@@ -72,5 +82,20 @@ export const useSlotStore = create<SlotStore>()(
         state.slots = updated;
       });
     },
+    shuffleSlots: () => {
+      set((state) => {
+        const dirtySlots = [...state.slots]
+        let players: Player[] = []
+        dirtySlots.map((slot) => {
+          players.push(slot.player)
+        })
+        players = _.shuffle(players)
+        dirtySlots.map((slot, index) => {
+          slot.player = players[index]
+        })
+        console.log(dirtySlots)
+        state.slots = dirtySlots
+      })
+    }
   }))
 );
