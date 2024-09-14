@@ -3,11 +3,11 @@ import React from 'react'
 
 type BracketSlotProps = {
     variant: PlayerColorType
-    sequence?: number
+    sequence?: number | string
     name?: string
 }
 
-const BracketSlot = ({ variant, sequence=1, name="Team 1" } : BracketSlotProps) => {
+const BracketSlot = ({ variant, sequence="", name="Team 1" } : BracketSlotProps) => {
   return (
     <div className='max-w-[200px] w-full max-h-[27px] h-full flex items-center font-poppins'>
         <div className={`w-[28px] max-h-[27px] h-full flex items-center justify-center 

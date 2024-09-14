@@ -1,14 +1,14 @@
 import React from "react";
 import { useCombinedStore } from "./stores/bracket-view-store";
 import BracketRoundTitle from "./bracket-round-title";
-import { Match, RoundType, Slot } from "@/types/bracket_t";
+import { RoundType } from "@/types/bracket_t";
 import BracketRound from "./bracket-round";
-import BracketConnector from "./bracket-connector";
-import BracketMatch from "./bracket-match";
 
 const BracketView = () => {
   const { bracket } = useCombinedStore();
   const slotCount = bracket.slots.length;
+  const rounds = Math.ceil(Math.log2(slotCount));
+  // console.log(rounds)
 
   const determineRoundTitles = (numberOfParticipants: number): RoundType[] => {
     const roundTitles: RoundType[] = [];
@@ -39,12 +39,7 @@ const BracketView = () => {
   };
 
   const getBracket = () => {
-    const participantsCount = slotCount;
-    const rounds = Math.ceil(Math.log2(participantsCount));
-    // const bracketSize = Math.pow(2, rounds);
-    // const requiredByes = bracketSize - participantsCount;
-
-    if (participantsCount < 2) {
+    if (slotCount < 2) {
       return [];
     }
 
@@ -55,11 +50,11 @@ const BracketView = () => {
       const sum = Math.pow(2, round + 1) + 1;
 
       for (let i = 0; i < matches.length; i++) {
-        let player1 = changeIntoBye(matches[i][0], participantsCount);
-        let player2 = changeIntoBye(sum - matches[i][0], participantsCount);
+        let player1 = changeIntoBye(matches[i][0]);
+        let player2 = changeIntoBye(sum - matches[i][0]);
         roundMatches.push([player1, player2]);
-        player1 = changeIntoBye(sum - matches[i][1], participantsCount);
-        player2 = changeIntoBye(matches[i][1], participantsCount);
+        player1 = changeIntoBye(sum - matches[i][1]);
+        player2 = changeIntoBye(matches[i][1]);
         roundMatches.push([player1, player2]);
       }
       matches = roundMatches;
@@ -68,9 +63,24 @@ const BracketView = () => {
     return matches;
   };
 
-  const changeIntoBye = (seed: number, participantsCount: number) => {
-    return seed <= participantsCount ? seed : -1;
+  const changeIntoBye = (seed: number) => {
+    return seed <= slotCount ? seed : -1;
   };
+
+  const buildBracket = () => {
+    const bracket = []
+    const initialMatches = getBracket().length
+    bracket.push(getBracket())
+
+    for (let i = 1; i < rounds; i++) {
+      bracket.push(new Array(initialMatches / Math.pow(2, i)).fill([]))
+    }
+
+    return bracket
+  }
+
+  const matches: number[][][] = buildBracket()
+  console.log(matches)
 
   return (
     <div className="w-full h-full space-y-4 pr-5 overflow-y-scroll no-scrollbar pb-20">
@@ -83,86 +93,9 @@ const BracketView = () => {
 
       {/* Bracket */}
       <div className="w-full flex ">
-        <BracketRound initMatchesMap={getBracket} round={1}/>
-        <BracketRound initMatchesMap={() => [[1,3],[4,2]]} round={2}/>
-        
-        {/* <div className="w-full max-w-[200px] flex flex-col justify-between gap-4 py-9">
-          {new Array(8).fill(null).map((_, index) => (
-            <BracketMatch key={index} />
-          ))}
-        </div> */}
-
-        {/* Round 2 Connectors */}
-        {/* <div className="flex flex-col justify-center gap-[138px]">
-          {new Array(4).fill(null).map((_, index) => (
-            <div key={index} className="px-[7px] flex flex-col">
-              <svg height={70} width={20} className="">
-                <path
-                  d="M0 1 L10 1 M10 0 L10 70.5 M10 74.5 L20 70.5 Z"
-                  className="stroke-white stroke-2"
-                />
-              </svg>
-              <svg height={70} width={20} className="">
-                <path
-                  d="M0 69 L10 69 M10 0 L10 70 M10 0.5 L20 0.5 Z"
-                  className="stroke-white stroke-2"
-                />
-              </svg>
-            </div>
-          ))}
-        </div>
-
-        <div className="w-full max-w-[200px] flex flex-col justify-between gap-4 py-[108px]">
-          {new Array(4).fill(null).map((_, index) => (
-            <BracketMatch key={index} />
-          ))}
-        </div> */}
-        
-        {/* Round 3 Connectors */}
-        {/* <div className="flex flex-col justify-center gap-[280px]">
-          {new Array(2).fill(null).map((_, index) => (
-            <div key={index} className="px-[7px] flex flex-col">
-              <svg height={139} width={20} className="">
-                <path
-                  d="M0 1 L10 1 M10 0 L10 139.5 M10 139.5 L20 139.5 Z"
-                  className="stroke-white stroke-2"
-                />
-              </svg>
-              <svg height={139} width={20} className="">
-                <path
-                  d="M0 138 L10 138 M10 0 L10 139 M10 0.5 L20 0.5 Z"
-                  className="stroke-white stroke-2"
-                />
-              </svg>
-            </div>
-          ))}
-        </div>
-        <div className="w-full max-w-[200px] flex flex-col justify-between gap-4 py-[246px]">
-          {new Array(2).fill(null).map((_, index) => (
-            <BracketMatch key={index} />
-          ))}
-        </div>
-        <div className="flex flex-col justify-center">
-          <div className="px-[7px] flex flex-col">
-            <svg height={280} width={20} className="">
-              <path
-                d="M0 1 L10 1 M10 0 L10 280.5 M10 280.5 L20 280.5 Z"
-                className="stroke-white stroke-2"
-              />
-            </svg>
-            <svg height={280} width={20} className="">
-              <path
-                d="M0 279 L10 279 M10 0 L10 280 M10 0.5 L20 0.5 Z"
-                className="stroke-white stroke-2"
-              />
-            </svg>
-          </div>
-        </div>
-        <div className="w-full max-w-[200px] flex flex-col justify-center">
-          {new Array(1).fill(null).map((_, index) => (
-            <BracketMatch key={index} />
-          ))}
-        </div> */}
+        {matches.map((match, index) => (
+          <BracketRound key={index} round={index + 1} initMatchesMap={() => match}/>
+        ) )}
       </div>
     </div>
   );
