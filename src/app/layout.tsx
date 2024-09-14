@@ -5,16 +5,16 @@ import DashboardNav from "@/components/navigation/dashboard-nav";
 
 const poppins = localFont({
   src: [
-    { path: "./fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
-    { path: "./fonts/Poppins-Italic.ttf", weight: "400", style: "italic" },
-    { path: "./fonts/Poppins-Medium.ttf", weight: "500", style: "normal" },
+    { path: "../assets/fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../assets/fonts/Poppins-Italic.ttf", weight: "400", style: "italic" },
+    { path: "../assets/fonts/Poppins-Medium.ttf", weight: "500", style: "normal" },
     {
-      path: "./fonts/Poppins-MediumItalic.ttf",
+      path: "../assets/fonts/Poppins-MediumItalic.ttf",
       weight: "500",
       style: "italic",
     },
-    { path: "./fonts/Poppins-Bold.ttf", weight: "700", style: "normal" },
-    { path: "./fonts/Poppins-BoldItalic.ttf", weight: "700", style: "italic" },
+    { path: "../assets/fonts/Poppins-Bold.ttf", weight: "700", style: "normal" },
+    { path: "../assets/fonts/Poppins-BoldItalic.ttf", weight: "700", style: "italic" },
   ],
   variable: "--font-poppins",
 });

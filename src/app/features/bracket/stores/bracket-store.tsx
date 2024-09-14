@@ -14,8 +14,8 @@ export type BracketActions = {
   completeBracket: () => void;
   openBracket: () => void;
   testBracket: () => void;
-  setBracketName: (name: string) => void
-  setBracketType: (type: BracketType) => void
+  setBracketName: (name: string) => void;
+  setBracketType: (type: BracketType) => void;
 };
 
 export type BracketStore = BracketState & BracketActions;
@@ -93,14 +93,21 @@ export const useBracketStore = create<BracketStore>()(
     },
     testBracket: () => {
       set((state) => {
-        state.bracket.progress = state.bracket.progress + 20;
+        if (state.bracket.progress !== 100) {
+          state.bracket.progress = state.bracket.progress + 20;
+          state.bracket.progress > 100 && (state.bracket.progress = 100);
+        }
       });
     },
     setBracketName: (name: string) => {
-      set((state) => {state.bracket.bracketName = name})
+      set((state) => {
+        state.bracket.bracketName = name;
+      });
     },
     setBracketType: (type: BracketType) => {
-      set((state) => {state.bracket.bracketType = type})
+      set((state) => {
+        state.bracket.bracketType = type;
+      });
     },
   }))
 );

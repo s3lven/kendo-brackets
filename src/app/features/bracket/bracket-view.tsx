@@ -68,19 +68,40 @@ const BracketView = () => {
   };
 
   const buildBracket = () => {
-    const bracket = []
-    const initialMatches = getBracket().length
-    bracket.push(getBracket())
+    const bracket: number[][][] = [];
+    const initialMatches = getBracket().length;
 
+    // Push the initial bracket with
+    bracket.push(getBracket());
+
+    // Fill with blanks matches
     for (let i = 1; i < rounds; i++) {
-      bracket.push(new Array(initialMatches / Math.pow(2, i)).fill([]))
+      console.log(bracket);
+      bracket.push(new Array(initialMatches / Math.pow(2, i)).fill([0, 0]));
     }
 
-    return bracket
-  }
+    // Check for BYE rounds
+    bracket[0].map((match, index) => {
+      // if there's match that has a BYE round
+      if (match.some((sequence) => sequence == -1)) {
+        // Get the red/white position they were in and their seed
+        console.log("Found BYE match at index:", index);
+        const byeWinnerIndex = match.findIndex((sequence) => sequence != -1);
+        const byeWinnerSequence = byeWinnerIndex == 1 ? match[1] : match[0];
+        // construct round
+        const newRound = byeWinnerIndex == 1 ? [0, byeWinnerSequence] : [byeWinnerSequence, 0]
+        // move them up to the next round
+        const nextRoundMatch = Math.floor(index % 2);
+        console.log(nextRoundMatch)
+        bracket[1][nextRoundMatch] = newRound;
+      }
+    });
 
-  const matches: number[][][] = buildBracket()
-  console.log(matches)
+    return bracket;
+  };
+
+  const matches: number[][][] = buildBracket();
+  console.log(matches);
 
   return (
     <div className="w-full h-full space-y-4 pr-5 overflow-y-scroll no-scrollbar pb-20">
@@ -94,8 +115,12 @@ const BracketView = () => {
       {/* Bracket */}
       <div className="w-full flex ">
         {matches.map((match, index) => (
-          <BracketRound key={index} round={index + 1} initMatchesMap={() => match}/>
-        ) )}
+          <BracketRound
+            key={index}
+            round={index + 1}
+            initMatchesMap={() => match}
+          />
+        ))}
       </div>
     </div>
   );

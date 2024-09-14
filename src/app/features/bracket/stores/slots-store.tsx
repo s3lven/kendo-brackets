@@ -58,16 +58,17 @@ export const useSlotStore = create<SlotStore>()(
     ...defaultInitState,
     addSlot: () => {
       set((state) => {
-        state.slots = [
-          ...state.slots,
-          {
-            player: {
-              name: `Team ${state.slots.length + 1}`,
+        state.slots.length < 32 &&
+          (state.slots = [
+            ...state.slots,
+            {
+              player: {
+                name: `Team ${state.slots.length + 1}`,
+              },
+              sequence: state.slots.length + 1,
+              id: state.slots.length + 1,
             },
-            sequence: state.slots.length + 1,
-            id: state.slots.length + 1,
-          },
-        ];
+          ]);
       });
     },
     removeSlot: (id: number | string) => {
