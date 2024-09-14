@@ -71,7 +71,7 @@ const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
     <div
       className={`w-full max-w-[236px] flex flex-col justify-center 
       py-[${viewProperties[round - 1].roundPaddingY}]
-      group
+      group last:h-
       `}
     >
       {initMatchesMap().map((match, index) =>
@@ -82,8 +82,6 @@ const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
         ) : (
           <div key={index} className="flex gap-[7px] pr-[7px]">
             <BracketMatch playerSequences={match} />
-            {/* dont render connectors if its the last match */}
-            {/* {matchCount != 1 && */}
               {index % 2 == 0
                 ? viewProperties[round - 1].connectorTop
                 : viewProperties[round - 1].connectorBot}
