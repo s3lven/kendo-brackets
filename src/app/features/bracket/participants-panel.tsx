@@ -1,13 +1,16 @@
-"use client";
-
-import ParticipantsList from "./participants-list";
+import ParticipantsList from "./components/participants-panel/participants-list";
 import { Shuffle } from "lucide-react";
 import EditorButton from "@/components/ui/editor-button";
-import { useBracketStatus, useCombinedStore } from "./stores/bracket-view-store";
+import {
+  useBracketStatus,
+  useCombinedStore,
+} from "./stores/bracket-view-store";
 
 const ParticipantsPanel = () => {
-  const { addSlot, shuffleSlots } = useCombinedStore()
-  const bracketStatus = useBracketStatus()
+  const { addSlot, shuffleSlots } = useCombinedStore();
+  const bracketStatus = useBracketStatus();
+
+  console.log("ParticipantsPanel rendered");
 
   return (
     <div className="w-full h-max flex flex-col gap-2.5 p-4 pb-80 font-poppins">

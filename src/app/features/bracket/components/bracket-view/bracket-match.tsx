@@ -1,6 +1,6 @@
 import React from "react";
 import BracketSlot from "./bracket-slot";
-import { useCombinedStore } from "./stores/bracket-view-store";
+import { useCombinedStore } from "../../stores/bracket-view-store";
 
 type BracketMatchProps = {
   playerSequences: number[];

@@ -7,7 +7,7 @@ import {
   Round3ConnectorTop,
   Round4ConnectorBot,
   Round4ConnectorTop,
-} from "./assets/round-connectors";
+} from "../../assets/round-connectors";
 import BracketMatch from "./bracket-match";
 
 type BracketRoundProps = {
@@ -64,7 +64,7 @@ const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
       roundPaddingY: "492px",
       matchCount: Math.ceil(matchCount / 16),
       connectorGap: "0px",
-    }
+    },
   ];
 
   return (
@@ -82,9 +82,9 @@ const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
         ) : (
           <div key={index} className="flex gap-[7px] pr-[7px]">
             <BracketMatch playerSequences={match} />
-              {index % 2 == 0
-                ? viewProperties[round - 1].connectorTop
-                : viewProperties[round - 1].connectorBot}
+            {index % 2 == 0
+              ? viewProperties[round - 1].connectorTop
+              : viewProperties[round - 1].connectorBot}
           </div>
         )
       )}

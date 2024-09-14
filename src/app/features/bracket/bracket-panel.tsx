@@ -41,6 +41,7 @@ const TriggerItem = ({ value, icon }: NavItemType) => {
 };
 
 const BracketPanel = () => {
+  console.log("BracketPanel rendered")
   return (
     <Tabs.Root
       className="bg-neutral8 flex w-full max-w-[410px] font-poppins "

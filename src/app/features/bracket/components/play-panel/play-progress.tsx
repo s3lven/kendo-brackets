@@ -4,7 +4,7 @@ import {
   useBracketActions,
   useBracketProgress,
   useBracketStatus,
-} from "./stores/bracket-view-store";
+} from "../../stores/bracket-view-store";
 
 const PlayProgress = () => {
   const {
@@ -17,6 +17,9 @@ const PlayProgress = () => {
 
   const progress = useBracketProgress();
   const bracketStatus = useBracketStatus();
+
+  console.log("PlayProgress rendered");
+
   return (
     <>
       <div className="w-full pb-2 border-b border-neutral8 ">

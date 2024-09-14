@@ -23,6 +23,8 @@ const EditBracketPage = ({ params }: EditBracketPageProps) => {
     setSlots(bracket.slots);
   }, [bracket.slots, fetchBracket, params, setSlots]);
 
+  console.log("EditBracketPage rendered")
+
   return (
     <div className="w-full h-full flex gap-5 bg-shade2">
       <BracketPanel />

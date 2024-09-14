@@ -1,7 +1,8 @@
 import EditorButton from "@/components/ui/editor-button";
-import PlayProgress from "./play-progress";
+import PlayProgress from "./components/play-panel/play-progress";
 
 const PlayPanel = () => {
+  console.log("PlayPanel rendered");
   return (
     <div className="w-full h-full flex flex-col gap-2.5 p-4">
       {/* Bracket Status */}

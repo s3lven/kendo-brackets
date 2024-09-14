@@ -36,7 +36,7 @@ const ParticipantSlotEdit = ({
   };
 
   const handleRemoveSlot = () => {
-    console.log("button clicked", slot.id);
+    // console.log("button clicked", slot.id);
     removeSlot(slot.id);
   };
 

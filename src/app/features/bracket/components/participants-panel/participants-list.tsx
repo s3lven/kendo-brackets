@@ -18,9 +18,10 @@ import {
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import ParticipantSlotEdit from "./participants-slot-edit";
-import { useBracketStore } from "./stores/bracket-store";
 import ParticipantSlotView from "./participants-slot-view";
-import { useCombinedStore } from "./stores/bracket-view-store";
+import { useCombinedStore } from "../../stores/bracket-view-store";
+import { useBracketStore } from "../../stores/bracket-store";
+import { useShallow } from "zustand/react/shallow";
 
 const DnDContextWithNoSSR = dynamic(
   () => import("@dnd-kit/core").then((mod) => mod.DndContext),
@@ -30,7 +31,9 @@ const DnDContextWithNoSSR = dynamic(
 const ParticipantsList = () => {
   const { slots, removeSlot, moveSlot } = useCombinedStore();
   const [activeSlot, setActiveSlot] = useState<Slot | undefined>(undefined);
-  const bracketStatus = useBracketStore((state) => state.bracket.status);
+  const bracketStatus = useBracketStore(
+    useShallow((state) => state.bracket.status)
+  );
 
   // Detect input method
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
@@ -65,6 +68,8 @@ const ParticipantsList = () => {
   const handleDragCancel = () => {
     setActiveSlot(undefined);
   };
+
+  console.log("ParticipantsList rendered");
 
   return slots?.length ? (
     <div className="flex flex-col gap-2">

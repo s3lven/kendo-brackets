@@ -1,0 +1,86 @@
+import BracketRound from "./components/bracket-view/bracket-round";
+import { useSlots } from "./stores/bracket-view-store";
+
+const BracketStructure = () => {
+  const slots = useSlots();
+  const slotCount = slots.length;
+  const rounds = Math.ceil(Math.log2(slotCount));
+
+  const getBracket = () => {
+    if (slotCount < 2) {
+      return [];
+    }
+
+    let matches: number[][] = [[1, 2]];
+
+    for (let round = 1; round < rounds; round++) {
+      const roundMatches = [];
+      const sum = Math.pow(2, round + 1) + 1;
+
+      for (let i = 0; i < matches.length; i++) {
+        let player1 = changeIntoBye(matches[i][0]);
+        let player2 = changeIntoBye(sum - matches[i][0]);
+        roundMatches.push([player1, player2]);
+        player1 = changeIntoBye(sum - matches[i][1]);
+        player2 = changeIntoBye(matches[i][1]);
+        roundMatches.push([player1, player2]);
+      }
+      matches = roundMatches;
+    }
+
+    return matches;
+  };
+
+  const changeIntoBye = (seed: number) => {
+    return seed <= slotCount ? seed : -1;
+  };
+
+  const buildBracket = () => {
+    const bracket: number[][][] = [];
+    const initialMatches = getBracket().length;
+
+    // Push the initial bracket with
+    bracket.push(getBracket());
+
+    // Fill with blanks matches
+    for (let i = 1; i < rounds; i++) {
+      bracket.push(new Array(initialMatches / Math.pow(2, i)).fill([0, 0]));
+    }
+
+    // Check for BYE rounds
+    bracket[0].map((match, index) => {
+      // if there's match that has a BYE round
+      if (match.some((sequence) => sequence == -1)) {
+        // Get the red/white position they were in and their seed
+        const byeWinnerIndex = match.findIndex((sequence) => sequence != -1);
+        const byeWinnerSequence = byeWinnerIndex == 1 ? match[1] : match[0];
+        // move them up to the next round
+        const nextRoundMatch = Math.floor(index / 2);
+        bracket[1][nextRoundMatch] = bracket[1][nextRoundMatch].with(
+          byeWinnerIndex,
+          byeWinnerSequence
+        );
+      }
+    });
+
+    return bracket;
+  };
+
+  const matches: number[][][] = buildBracket();
+
+  console.log("BracketStructure rendered");
+
+  return (
+    <div className="w-full flex ">
+      {matches.map((match, index) => (
+        <BracketRound
+          key={index}
+          round={index + 1}
+          initMatchesMap={() => match}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default BracketStructure;

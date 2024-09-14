@@ -76,7 +76,7 @@ export const useSlotStore = create<SlotStore>()(
         state.slots = state.slots
           .filter((slot) => slot.id !== id)
           .map((slot, index) => ({ ...slot, sequence: index + 1 }));
-        console.log("removed slot:", id);
+        // console.log("removed slot:", id);
       });
     },
     moveSlot: (activeIndex: number, overIndex: number) => {
