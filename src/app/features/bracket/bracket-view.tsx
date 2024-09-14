@@ -88,12 +88,11 @@ const BracketView = () => {
         console.log("Found BYE match at index:", index);
         const byeWinnerIndex = match.findIndex((sequence) => sequence != -1);
         const byeWinnerSequence = byeWinnerIndex == 1 ? match[1] : match[0];
-        // construct round
-        const newRound = byeWinnerIndex == 1 ? [0, byeWinnerSequence] : [byeWinnerSequence, 0]
         // move them up to the next round
-        const nextRoundMatch = Math.floor(index % 2);
-        console.log(nextRoundMatch)
-        bracket[1][nextRoundMatch] = newRound;
+        console.log("Index in bracket[0]: ", index)
+        const nextRoundMatch = Math.floor(index / 2);
+        console.log("Index for bracket[1]", nextRoundMatch)
+        bracket[1][nextRoundMatch] = bracket[1][nextRoundMatch].with(byeWinnerIndex, byeWinnerSequence);
       }
     });
 

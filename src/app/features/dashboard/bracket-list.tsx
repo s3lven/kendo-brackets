@@ -30,7 +30,7 @@ const BracketContent = ({ item, tournament }: BracketContentProps) => {
         </div>
         <div className="flex gap-4 justify-center items-center">
           <div className="flex gap-1 justify-center items-center pr-[56px]">
-            <p>21</p>
+            <p>{item.slots.length}</p>
             <User />
           </div>
         </div>
