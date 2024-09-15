@@ -17,8 +17,8 @@ const BracketSlot = ({ variant, sequence="-1", name="-1" } : BracketSlotProps) =
         </div>
         <div className={`w-full max-h-[27px] h-full flex items-center justify-center pl-2 bg-neutral8
             ${variant === "Red" ? "rounded-tr " : "rounded-br"}`}>
-            <div className='w-full h-full flex items-center '>
-                <p className={`text-desc text-white truncate ${sequence == -1 && "opacity-0"}`}>{name}</p>
+            <div className='w-full h-full flex items-center flex-1'>
+                <p className={`w-[128px] text-desc text-white truncate ${sequence == -1 && "opacity-0"}`}>{name}</p>
             </div>
             <div className='w-9 h-full gap-1 flex items-center justify-center opacity-0'>
                 <div className='w-full h-full flex items-center justify-center'>

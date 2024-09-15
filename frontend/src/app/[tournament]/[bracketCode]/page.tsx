@@ -21,6 +21,7 @@ const EditBracketPage = ({ params }: EditBracketPageProps) => {
   useEffect(() => {
     fetchBracket(params);
     setSlots(bracket.slots);
+    console.log(bracket.slots)
   }, [bracket.slots, fetchBracket, params, setSlots]);
 
   console.log("EditBracketPage rendered")

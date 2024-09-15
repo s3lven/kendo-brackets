@@ -7,7 +7,6 @@ export type BracketState = {
 };
 
 export type BracketActions = {
-  setBracket: (bracket: Bracket) => void;
   fetchBracket: (params: { tournament: string; bracketCode: string }) => void;
   runBracket: () => void;
   resetBracket: () => void;
@@ -29,11 +28,6 @@ export const useBracketStore = create<BracketStore>()(
       slots: [],
       bracketCode: "",
       progress: 10,
-    },
-    setBracket: (bracket: Bracket) => {
-      set((state) => {
-        state.bracket = bracket;
-      });
     },
     fetchBracket: (params: { tournament: string; bracketCode: string }) => {
       set((state) => {

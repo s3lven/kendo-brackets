@@ -23,27 +23,39 @@ export const useCombinedStore = create<CombinedStore>()(
 
     addSlot: () => {
       useSlotStore.getState().addSlot();
+      console.log("Adding slot in CombinedStore")
       get().syncSlotsWithBracket();
     },
 
     removeSlot: (id: number | string) => {
       useSlotStore.getState().removeSlot(id);
+      console.log("Removing slot in CombinedStore")
       get().syncSlotsWithBracket();
     },
 
     moveSlot: (activeIndex: number, overIndex: number) => {
       useSlotStore.getState().moveSlot(activeIndex, overIndex);
+      console.log("Moving slot in CombinedStore")
       get().syncSlotsWithBracket();
     },
 
     shuffleSlots: () => {
       useSlotStore.getState().shuffleSlots();
+      console.log("Shuffling slot in CombinedStore")
       get().syncSlotsWithBracket();
     },
 
     setSlots: (slots) => {
       useSlotStore.getState().setSlots(slots);
+      console.log("Setting slots in CombinedStore")
       get().syncSlotsWithBracket();
+    },
+
+    runBracket: () => {
+      useBracketStore.getState().runBracket()
+      console.log("Running bracket in CombinedStore")
+      get().syncSlotsWithBracket()
+      console.log(get().bracket.slots)
     },
   }))
 );
