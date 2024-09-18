@@ -1,3 +1,4 @@
+import { Match } from "@/types/bracket_t";
 import {
   Round1ConnectorBot,
   Round1ConnectorTop,
@@ -11,7 +12,7 @@ import {
 import BracketMatch from "./bracket-match";
 
 type BracketRoundProps = {
-  initMatchesMap: () => number[][];
+  roundMatches: Match[];
   round: number;
 };
 
@@ -27,8 +28,8 @@ const BracketMatchSkeleton = () => {
   return <div className="w-full h-[73px] bg-neutral8 opacity-0" />;
 };
 
-const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
-  const matchCount = initMatchesMap().length;
+const BracketRound = ({ roundMatches, round }: BracketRoundProps) => {
+  const matchCount = roundMatches.length;
   const viewProperties: ViewPropertiesType[] = [
     {
       connectorTop: <Round1ConnectorTop />,
@@ -74,14 +75,14 @@ const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
       group
       `}
     >
-      {initMatchesMap().map((match, index) =>
+      {roundMatches.map((match, index) =>
         // if there are any bye matches, render the skeleton instead of the matches
-        match.some((match) => match == -1) ? (
+        (match.id === "NULL") ? (
           // render hidden skeleton
           <BracketMatchSkeleton key={index} />
         ) : (
           <div key={index} className="flex gap-[7px] pr-[7px]">
-            <BracketMatch playerSequences={match} />
+            <BracketMatch match={match} />
             {index % 2 == 0
               ? viewProperties[round - 1].connectorTop
               : viewProperties[round - 1].connectorBot}

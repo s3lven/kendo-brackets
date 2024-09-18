@@ -1,31 +1,18 @@
 import BracketSlot from "./bracket-slot";
-import { useCombinedStore } from "../../stores/bracket-view-store";
 import * as Dialog from "@radix-ui/react-dialog";
 import SlotView from "../match-view/slot-view";
 import EditorButton from "@/components/ui/editor-button";
 import { X } from "lucide-react";
+import { Match } from "@/types/bracket_t";
 
 type BracketMatchProps = {
-  playerSequences: number[];
+  match: Match;
 };
 
-const BracketMatch = ({ playerSequences }: BracketMatchProps) => {
-  const { slots } = useCombinedStore();
-
+const BracketMatch = ({ match }: BracketMatchProps) => {
   // Look up the players
-  const redPlayer = slots.find(
-    (player) => player.sequence == playerSequences[0]
-  );
-  const whitePlayer = slots.find(
-    (player) => player.sequence == playerSequences[1]
-  );
-
-  // if (redPlayer) redPlayer.color = "Red"
-  // if (whitePlayer) whitePlayer.color = "White"
-
-  // Given two players and their seeding (sequence), render the match
-  // console.log("Red Player: ", redPlayer?.player.name);
-  // console.log("White Player: ", whitePlayer?.player.name);
+  const redPlayer = match.player1;
+  const whitePlayer = match.player2;
 
   return (
     <Dialog.Root>
@@ -49,10 +36,12 @@ const BracketMatch = ({ playerSequences }: BracketMatchProps) => {
           className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] focus:outline-none
           max-w-[680px] max-h-[425px] flex flex-col justify-between items-center p-4 gap-[10px] bg-neutral8 w-full h-full font-poppins"
         >
-          {/* Title */}
-          <div className="w-full px-4 py-2 border-b border-white ">
-            <p className="text-lead text-white">Report Scores</p>
-          </div>
+          <Dialog.Title asChild>
+            {/* Title */}
+            <div className="w-full px-4 py-2 border-b border-white ">
+              <p className="text-lead text-white">Report Scores</p>
+            </div>
+          </Dialog.Title>
           {/* Overlay Content */}
           <div className="w-full h-full flex flex-col justify-between items-center pt-9">
             {/* Display */}
@@ -67,8 +56,8 @@ const BracketMatch = ({ playerSequences }: BracketMatchProps) => {
                 </div>
               </div>
               <div className="w-full flex flex-col gap-[2px] justify-center">
-                <SlotView player={redPlayer} />
-                <SlotView player={whitePlayer} />
+                <SlotView player={redPlayer} color={"Red"}/>
+                <SlotView player={whitePlayer} color={"White"}/>
               </div>
             </div>
             {/* Button */}
@@ -81,7 +70,11 @@ const BracketMatch = ({ playerSequences }: BracketMatchProps) => {
             </div>
           </div>
           <Dialog.Close className="absolute top-4 right-4">
-            <X size={"1.5rem"} color="#717171" className="hover:bg-shade2_30 rounded-full"/>
+            <X
+              size={"1.5rem"}
+              color="#717171"
+              className="hover:bg-shade2_30 rounded-full"
+            />
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>

@@ -5,7 +5,7 @@ type BracketType =
   | "Group Stage";
 type TournamentStatusType = "Active" | "Upcoming" | "Past";
 type BracketStatusType = "Editing" | "In Progress" | "Completed";
-type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku" | null;
+type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku" | '';
 type RoundType =
   | `Round ${number}`
   | "Quarter-Finals"
@@ -15,7 +15,7 @@ type PlayerColorType = "Red" | "White";
 
 type Player = {
   name: string;
-  id?: number;
+  id: number;
 };
 
 type Slot = {
@@ -29,11 +29,18 @@ type Slot = {
 };
 
 type Match = {
-  player1: Slot | null
-  player2: Slot | null
-  player1Score: IpponType[]
-  player2Score: IpponType[]
-  winner: Slot | null
+  id?: string;
+  player1: Slot | null;
+  player2: Slot | null;
+  player1Score: IpponType[];
+  player2Score: IpponType[];
+  winner: Slot | null;
+};
+
+type MatchResult = {
+  scores1: IpponType[]
+  scores2: IpponType[]
+  winnerId: string
 }
 
 type Bracket = {
@@ -2893,9 +2900,11 @@ export type {
   BracketType,
   RoundType,
   PlayerColorType,
+  IpponType,
   Player,
   Slot,
   Match,
+  MatchResult,
   Bracket,
   Tournament,
 };
