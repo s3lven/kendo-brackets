@@ -5,7 +5,7 @@ type BracketType =
   | "Group Stage";
 type TournamentStatusType = "Active" | "Upcoming" | "Past";
 type BracketStatusType = "Editing" | "In Progress" | "Completed";
-type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku";
+type IpponType = "Men" | "Kote" | "Do" | "Tsuki" | "Hantei" | "Hansoku" | null;
 type RoundType =
   | `Round ${number}`
   | "Quarter-Finals"
@@ -31,6 +31,9 @@ type Slot = {
 type Match = {
   player1: Slot | null
   player2: Slot | null
+  player1Score: IpponType[]
+  player2Score: IpponType[]
+  winner: Slot | null
 }
 
 type Bracket = {

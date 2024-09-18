@@ -69,6 +69,7 @@ const BracketStructure = () => {
   const matches: number[][][] = buildBracket();
 
   console.log("BracketStructure rendered");
+  console.log(matches)
 
   return (
     <div className="w-full flex ">

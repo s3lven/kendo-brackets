@@ -71,7 +71,7 @@ const BracketRound = ({ initMatchesMap, round }: BracketRoundProps) => {
     <div
       className={`w-full max-w-[236px] flex flex-col justify-center 
       py-[${viewProperties[round - 1].roundPaddingY}]
-      group last:h-
+      group
       `}
     >
       {initMatchesMap().map((match, index) =>
