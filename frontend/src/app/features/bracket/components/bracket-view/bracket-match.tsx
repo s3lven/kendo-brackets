@@ -3,16 +3,28 @@ import * as Dialog from "@radix-ui/react-dialog";
 import SlotView from "../match-view/slot-view";
 import EditorButton from "@/components/ui/editor-button";
 import { X } from "lucide-react";
-import { Match } from "@/types/bracket_t";
+import { Match, Slot } from "@/types/bracket_t";
+import { useState } from "react";
+import { useBracketStatus } from "../../stores/bracket-view-store";
 
 type BracketMatchProps = {
   match: Match;
 };
 
 const BracketMatch = ({ match }: BracketMatchProps) => {
-  // Look up the players
   const redPlayer = match.player1;
   const whitePlayer = match.player2;
+
+  const bracketStatus = useBracketStatus()
+
+  const [winner, setWinner] = useState<Slot | null>(null);
+  const handleWinner = (player: Slot | null) => {
+    if (player === redPlayer) {
+      setWinner(redPlayer);
+    } else if (player === whitePlayer) {
+      setWinner(whitePlayer);
+    }
+  };
 
   return (
     <Dialog.Root>
@@ -43,31 +55,73 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
             </div>
           </Dialog.Title>
           {/* Overlay Content */}
-          <div className="w-full h-full flex flex-col justify-between items-center pt-9">
-            {/* Display */}
-            <div className="flex flex-col w-full">
-              {/* Match Labels */}
-              <div className="w-full flex justify-end items-center gap-[28px] px-[22px] ">
-                <div className="flex items-center justify-center">
-                  <p className="text-label uppercase text-white">winner</p>
+          <div
+            className={`w-full h-full flex flex-col items-center ${
+              bracketStatus === "In Progress" && redPlayer && whitePlayer
+                ? "pt-9 justify-between"
+                : "justify-center"
+            }`}
+          >
+            {bracketStatus === "In Progress" && redPlayer && whitePlayer ? (
+              <>
+                {/* Display */}
+                <div className="flex flex-col w-full">
+                  {/* Match Labels */}
+                  <div className="w-full flex justify-end items-center gap-[28px] px-[22px] ">
+                    <div className="flex items-center justify-center">
+                      <p className="text-label uppercase text-white">winner</p>
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <p className="text-label uppercase text-white">score</p>
+                    </div>
+                  </div>
+                  <div className="w-full flex flex-col gap-[2px] justify-center">
+                    <SlotView
+                      player={redPlayer}
+                      color={"Red"}
+                      handleWinner={handleWinner}
+                      winner={winner}
+                    />
+                    <SlotView
+                      player={whitePlayer}
+                      color={"White"}
+                      handleWinner={handleWinner}
+                      winner={winner}
+                    />
+                  </div>
                 </div>
-                <div className="flex items-center justify-center">
-                  <p className="text-label uppercase text-white">score</p>
+                {/* Button */}
+                <div className="flex justify-center items-center">
+                  <EditorButton text={"submit scores"} />
                 </div>
-              </div>
-              <div className="w-full flex flex-col gap-[2px] justify-center">
-                <SlotView player={redPlayer} color={"Red"}/>
-                <SlotView player={whitePlayer} color={"White"}/>
-              </div>
-            </div>
-            {/* Button */}
-            <div className="flex justify-center items-center">
-              <EditorButton text={"submit scores"} />
-            </div>
-            {/* Reset Button */}
-            <div className="absolute bottom-4 right-4">
-              <EditorButton text={"reset bracket"} variant="no-outline" />
-            </div>
+                {/* Reset Button */}
+                <div className="absolute bottom-4 right-4">
+                  <EditorButton text={"reset bracket"} variant="no-outline" />
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Display */}
+                <div className="flex flex-col w-full">
+                  <div className="w-full flex flex-col gap-[2px] justify-center">
+                    <SlotView
+                      player={redPlayer}
+                      color={"Red"}
+                      isPending
+                      handleWinner={handleWinner}
+                      winner={winner}
+                    />
+                    <SlotView
+                      player={whitePlayer}
+                      color={"White"}
+                      isPending
+                      handleWinner={handleWinner}
+                      winner={winner}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <Dialog.Close className="absolute top-4 right-4">
             <X
