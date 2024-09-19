@@ -1,6 +1,7 @@
 import { IpponType, Match, Slot } from "@/types/bracket_t";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { useBracketStore } from "./bracket-store";
 
 export type MatchesState = {
   rounds: Match[][];
@@ -12,12 +13,13 @@ export type MatchesActions = {
   submitScore: (matchId: string, winner: Slot | null) => void;
   updateTournament: () => void;
   resetMatch: (matchId: string) => void;
+  calculateProgress: () => number;
 };
 
 export type MatchesStore = MatchesState & MatchesActions;
 
 export const useMatchesStore = create<MatchesStore>()(
-  immer((set) => ({
+  immer((set, get) => ({
     rounds: [],
 
     setScore: (matchId, player, index, value) =>
@@ -38,6 +40,8 @@ export const useMatchesStore = create<MatchesStore>()(
         if (match) {
           match.winner = winner;
         }
+        const progress = get().calculateProgress();
+      useBracketStore.getState().updateProgress(progress);
       }),
 
     updateTournament: () => {
@@ -58,40 +62,64 @@ export const useMatchesStore = create<MatchesStore>()(
           })
         );
       });
+      const progress = get().calculateProgress();
+      useBracketStore.getState().updateProgress(progress);
     },
 
     setTournament: (rounds) => set({ rounds }),
 
     resetMatch: (matchId) =>
       set((state) => {
-        const match = state.rounds.flat().find(m => m.id === matchId);
-        if (match) {
-          match.player1Score = [];
-          match.player2Score = [];
-          match.winner = null;
+        const resetRoundIndex = state.rounds.findIndex(round => round.some(m => m.id === matchId));
+        if (resetRoundIndex === -1) return;
 
-          // Reset subsequent rounds
-          const resetRoundIndex = state.rounds.findIndex(round => round.some(m => m.id === matchId));
-          let resetMatchIndex = state.rounds[resetRoundIndex].findIndex(m => m.id === matchId);
+        let resetMatchIndex = state.rounds[resetRoundIndex].findIndex(m => m.id === matchId);
+        const currentMatch = state.rounds[resetRoundIndex][resetMatchIndex];
 
-          for (let roundIndex = resetRoundIndex + 1; roundIndex < state.rounds.length; roundIndex++) {
-            const nextRoundMatchIndex = Math.floor(resetMatchIndex / 2);
-            const nextMatch = state.rounds[roundIndex][nextRoundMatchIndex];
+        // Reset the current match
+        currentMatch.player1Score = [];
+        currentMatch.player2Score = [];
+        currentMatch.winner = null;
 
-            if (nextMatch) {
-              if (resetMatchIndex % 2 === 0) {
-                nextMatch.player1 = null;
-              } else {
-                nextMatch.player2 = null;
-              }
-              nextMatch.player1Score = [];
-              nextMatch.player2Score = [];
-              nextMatch.winner = null;
+        // Reset subsequent rounds
+        for (let roundIndex = resetRoundIndex; roundIndex < state.rounds.length; roundIndex++) {
+          const nextRoundMatchIndex = Math.floor(resetMatchIndex / 2);
+          const nextMatch = state.rounds[roundIndex + 1]?.[nextRoundMatchIndex];
+
+          if (nextMatch) {
+            if (resetMatchIndex % 2 === 0) {
+              nextMatch.player1 = null;
+            } else {
+              nextMatch.player2 = null;
             }
-
-            resetMatchIndex = nextRoundMatchIndex;
+            nextMatch.player1Score = [];
+            nextMatch.player2Score = [];
+            nextMatch.winner = null;
           }
+
+          resetMatchIndex = nextRoundMatchIndex;
         }
+
+        const progress = get().calculateProgress();
+        useBracketStore.getState().updateProgress(progress);
       }),
+
+      calculateProgress: () => {
+        const state = get();
+        let totalMatches = 0;
+        let completedMatches = 0;
+  
+        state.rounds.flat().forEach(match => {
+          // Check if the match is not a bye (both players are present)
+          if (match.player1 !== null && match.player2 !== null) {
+            totalMatches++;
+            if (match.winner !== null) {
+              completedMatches++;
+            }
+          }
+        });
+  
+        return totalMatches > 0 ? Math.round((completedMatches / totalMatches) * 100) : 0;
+      },
   }))
 );

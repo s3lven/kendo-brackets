@@ -4,7 +4,7 @@ import SlotView from "../match-view/slot-view";
 import EditorButton from "@/components/ui/editor-button";
 import { X } from "lucide-react";
 import { Match, Slot } from "@/types/bracket_t";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBracketStatus } from "../../stores/bracket-view-store";
 import { useMatchesStore } from "../../stores/matches-store";
 import { useShallow } from "zustand/react/shallow";
@@ -56,6 +56,19 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
     setWinner(null);
   };
 
+   // Subscribe to changes in the match
+   const matchFromStore = useMatchesStore(
+    useShallow((state) => 
+      state.rounds.flat().find(m => m.id === match.id)
+    )
+  );
+
+  useEffect(() => {
+    if (matchFromStore) {
+      setWinner(matchFromStore.winner);
+    }
+  }, [matchFromStore]);
+
   // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
   // console.log(`Red Score: ${redScore}, White Score: ${whiteScore}`)
 
@@ -68,14 +81,14 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
             name={redPlayer?.player.name}
             sequence={redPlayer?.sequence}
             isWinner={winner === redPlayer}
-            scores={match.player1Score}
+            scores={matchFromStore?.player1Score || []}
           />
           <BracketSlot
             variant="White"
             name={whitePlayer?.player.name}
             sequence={whitePlayer?.sequence}
             isWinner={winner === whitePlayer}
-            scores={match.player2Score}
+            scores={matchFromStore?.player2Score || []}
           />
         </div>
       </Dialog.Trigger>
