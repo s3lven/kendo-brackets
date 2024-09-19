@@ -1,6 +1,7 @@
 import { Bracket, BracketType, dummyTournamentData } from "@/types/bracket_t";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { useMatchesStore } from "./matches-store";
 
 export type BracketState = {
   bracket: Bracket;
@@ -15,7 +16,7 @@ export type BracketActions = {
   testBracket: () => void;
   setBracketName: (name: string) => void;
   setBracketType: (type: BracketType) => void;
-  updateProgress: (progress: number) => void
+  updateProgress: (progress: number) => void;
 };
 
 export type BracketStore = BracketState & BracketActions;
@@ -28,7 +29,7 @@ export const useBracketStore = create<BracketStore>()(
       status: "Editing",
       slots: [],
       bracketCode: "",
-      progress: 10,
+      progress: 0,
     },
     fetchBracket: (params: { tournament: string; bracketCode: string }) => {
       set((state) => {
@@ -72,7 +73,7 @@ export const useBracketStore = create<BracketStore>()(
       set((state) => {
         if (state.bracket.progress !== 100) {
           console.log(
-            "Error: Bracket is at %c% and is not supposed to be finished",
+            "Error: Bracket is at %d% and is not supposed to be finished",
             state.bracket.progress
           );
           return;
@@ -89,8 +90,7 @@ export const useBracketStore = create<BracketStore>()(
     testBracket: () => {
       set((state) => {
         if (state.bracket.progress !== 100) {
-          state.bracket.progress = state.bracket.progress + 20;
-          state.bracket.progress > 100 && (state.bracket.progress = 100);
+          state.bracket.progress = Math.min(state.bracket.progress + 20, 100);
         }
       });
     },
