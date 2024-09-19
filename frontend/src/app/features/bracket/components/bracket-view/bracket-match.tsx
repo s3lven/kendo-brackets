@@ -28,11 +28,10 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
     }
   };
 
-  const { submitScore, updateTournament } = useMatchesStore(useShallow((state) => ({submitScore: state.submitScore, updateTournament: state.updateTournament})))
+  const { submitScore } = useMatchesStore(useShallow((state) => ({submitScore: state.submitScore})))
   const handleSubmitScore = () => {
     console.log("Submitting score")
     submitScore(match.id!, winner)
-    updateTournament()
   }
 
   // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))

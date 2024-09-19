@@ -49,7 +49,7 @@ const BracketStructure = () => {
 
       // console.log("Mapping of Slots:", matches)
       const bracket = matches.map((match, index) => ({
-        id: `R1-M${index}`,
+        id: `R0-M${index}`,
         player1: match[0],
         player2: match[1],
         player1Score: [],

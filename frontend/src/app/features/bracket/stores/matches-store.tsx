@@ -1,5 +1,4 @@
 import { IpponType, Match, Slot } from "@/types/bracket_t";
-import { match } from "assert";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -13,7 +12,7 @@ export type MatchesActions = {
   setTournament: (rounds: Match[][]) => void;
   setScore: (player: string, index: number, value: IpponType) => void;
   submitScore: (matchid: string, player: Slot | null) => void;
-  updateTournament: () => void;
+  // updateTournament: () => void;
 };
 
 export type MatchesStore = MatchesState & MatchesActions;
@@ -55,52 +54,68 @@ export const useMatchesStore = create<MatchesStore>()(
             state.redScore[matchIndex] = "";
             state.whiteScore[matchIndex] = "";
 
+            const nextRoundMatchIndex = Math.floor(matchIndex / 2);
+            console.log(
+              `${match.winner!.player.name} next match is in round ${roundIndex + 1} match ${nextRoundMatchIndex}`
+            );
+
+            const nextMatch = state.rounds[roundIndex + 1]?.[nextRoundMatchIndex];
+            console.log(roundIndex)
+            console.log("nextMatch",nextMatch)
+            if (nextMatch) {
+              if (matchIndex % 2 === 0) {
+                nextMatch.player1 = player;
+              } else {
+                nextMatch.player2 = player;
+              }
+            }
+
             break; // Exit the loop once we've found and updated the match
           }
         }
       }),
 
-    updateTournament: () => {
-      set((state) => {
-        const dirtyRounds = [...state.rounds];
+    // updateTournament: () => {
+    //   set((state) => {
+    //     const dirtyRounds = [...state.rounds];
 
-        dirtyRounds.forEach((round, roundIndex) => {
-          round.forEach((match, matchIndex) => {
-            if (match.winner != null && match.submitted == false) {
-              console.log("Processing match:", match.id);
+    //     dirtyRounds.forEach((round, roundIndex) => {
+    //       round.forEach((match, matchIndex) => {
+    //         if (match.winner != null && match.submitted == false) {
+    //           console.log("Processing match:", match.id);
 
-              // Check if there's a next round
-              if (roundIndex < dirtyRounds.length - 1) {
-                const nextRoundMatch = Math.floor(matchIndex / 2);
-                const nextRound = dirtyRounds[roundIndex + 1];
+    //           // Check if there's a next round
+    //           if (roundIndex < dirtyRounds.length - 1) {
+    //             const nextRoundMatch = Math.floor(matchIndex / 2);
+    //             const nextRound = dirtyRounds[roundIndex + 1];
 
-                if (nextRound && nextRound[nextRoundMatch]) {
-                  if (matchIndex % 2 === 0) {
-                    nextRound[nextRoundMatch].player1 = match.winner;
-                  } else {
-                    nextRound[nextRoundMatch].player2 = match.winner;
-                  }
-                  console.log(
-                    `Set ${
-                      matchIndex % 2 === 0 ? "player1" : "player2"
-                    } for next round match:`,
-                    nextRoundMatch
-                  );
-                } else {
-                  console.log("No next round match found for:", matchIndex);
-                }
-              } else {
-                console.log("Final match result:", match.winner);
-              }
+    //             if (nextRound && nextRound[nextRoundMatch]) {
+    //               if (matchIndex % 2 === 0) {
+    //                 nextRound[nextRoundMatch].player1 = match.winner;
+    //               } else {
+    //                 nextRound[nextRoundMatch].player2 = match.winner;
+    //               }
+    //               console.log(
+    //                 `Set ${
+    //                   matchIndex % 2 === 0 ? "player1" : "player2"
+    //                 } for next round match:`,
+    //                 nextRoundMatch
+    //               );
+    //             } else {
+    //               console.log("No next round match found for:", matchIndex);
+    //             }
+    //           } else {
+    //             console.log("Final match result:", match.winner);
+    //           }
 
-              match.submitted = true;
-            }
-          });
-        });
+    //           match.submitted = true;
+    //         }
+    //       });
+    //     });
 
-        state.rounds = dirtyRounds;
-      });
-    },
+    //     state.rounds = dirtyRounds;
+    //   });
+    // },
 
     setTournament: (rounds) => set({ rounds }),
   }))
