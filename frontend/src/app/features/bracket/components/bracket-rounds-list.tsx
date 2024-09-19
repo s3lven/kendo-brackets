@@ -2,19 +2,19 @@ import { RoundType } from "@/types/bracket_t";
 import { useSlots } from "../stores/bracket-view-store";
 
 type BracketRoundTitleProps = {
-    roundTitle: RoundType
-}
+  roundTitle: RoundType;
+};
 
-const BracketRoundTitle = ({roundTitle} : BracketRoundTitleProps) => {
+const BracketRoundTitle = ({ roundTitle }: BracketRoundTitleProps) => {
   return (
     <div className="w-full h-full max-w-[230px] flex items-center justify-center bg-neutral7">
       <p className="text-white text-label uppercase">{roundTitle}</p>
     </div>
   );
-}
+};
 
 const BracketRoundsList = () => {
-  const slots = useSlots()
+  const slots = useSlots();
 
   const determineRoundTitles = (numberOfParticipants: number): RoundType[] => {
     const roundTitles: RoundType[] = [];
@@ -44,17 +44,15 @@ const BracketRoundsList = () => {
     return roundTitles;
   };
 
-  console.log("BracketRoundsList rendered")
+  console.log("BracketRoundsList rendered");
 
   return (
     <div className="w-full max-h-[25px] flex gap-1">
-        {determineRoundTitles(slots.length).map((title) => (
-          <BracketRoundTitle roundTitle={title} key={title} />
-        ))}
-      </div>
-  )
-}
-
-
+      {determineRoundTitles(slots.length).map((title) => (
+        <BracketRoundTitle roundTitle={title} key={title} />
+      ))}
+    </div>
+  );
+};
 
 export default BracketRoundsList;

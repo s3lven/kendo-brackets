@@ -15,36 +15,48 @@ const hitMap: Record<string, string> = {
 };
 
 type MatchDropdownType = {
-  color: PlayerColorType;
   index: number;
   matchId: string;
   playerType: "player1" | "player2";
   initialValue: IpponType;
-  disabled: boolean
-}
+  disabled: boolean;
+};
 
-const MatchDropdown = ({ color, index, matchId, playerType, initialValue, disabled } : MatchDropdownType) => {
+const MatchDropdown = ({
+  index,
+  matchId,
+  playerType,
+  initialValue,
+  disabled,
+}: MatchDropdownType) => {
   const [value, setValue] = useState("");
-  const {setScore} = useMatchesStore(useShallow((state) => ({setScore: state.setScore})))
+  const { setScore } = useMatchesStore(
+    useShallow((state) => ({ setScore: state.setScore }))
+  );
 
   useEffect(() => {
     setValue(initialValue || "");
   }, [initialValue]);
 
   const handleSetValue = (valueChange: IpponType) => {
-    setValue(valueChange)
+    setValue(valueChange);
     setScore(matchId, playerType, index, valueChange);
-  }
+  };
 
   return (
-    <Select.Root value={value} onValueChange={handleSetValue} disabled={disabled}>
+    <Select.Root
+      value={value}
+      onValueChange={handleSetValue}
+      disabled={disabled}
+    >
       <Select.Trigger className="h-full w-12 px-3 py-4 border border-grey rounded-lg text-white hover:bg-neutral8 disabled:hover:bg-transparent disabled:border-none">
         <Select.Value aria-label={value} className="">
           {value != "None" && hitMap[value]}
         </Select.Value>
         <Select.Icon
-          className={`${value && value !== "None" ? "hidden" : "block"} ${disabled && "opacity-0"}`
-          }
+          className={`${value && value !== "None" ? "hidden" : "block"} ${
+            disabled && "opacity-0"
+          }`}
         >
           <ChevronDown color="white" />
         </Select.Icon>

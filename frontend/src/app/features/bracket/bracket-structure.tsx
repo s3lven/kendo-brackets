@@ -55,7 +55,7 @@ const BracketStructure = () => {
         player1Score: [],
         player2Score: [],
         winner: null,
-        submitted: false
+        submitted: false,
       }));
       // console.log("Mapping of Matches:", bracket)
       return bracket;
@@ -93,7 +93,7 @@ const BracketStructure = () => {
               player1Score: [],
               player2Score: [],
               winner: null,
-              submitted: false
+              submitted: false,
             };
           } else return match;
         });
@@ -112,7 +112,7 @@ const BracketStructure = () => {
         }
       });
 
-      console.log("Ran createInitialMatches")
+      console.log("Ran createInitialMatches");
       return filledBracket;
     };
 
@@ -120,8 +120,8 @@ const BracketStructure = () => {
   }, [rounds, setMatches, slotCount, slots]);
 
   console.log("BracketStructure rendered");
-  
-  console.log("matches from MatchesStore", matches);
+
+  // console.log("matches from MatchesStore", matches);
 
   return (
     <div className="w-full flex ">

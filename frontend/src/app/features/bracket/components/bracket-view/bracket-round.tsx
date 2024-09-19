@@ -77,7 +77,7 @@ const BracketRound = ({ roundMatches, round }: BracketRoundProps) => {
     >
       {roundMatches.map((match, index) =>
         // if there are any bye matches, render the skeleton instead of the matches
-        (match.id === "NULL") ? (
+        match.id === "NULL" ? (
           // render hidden skeleton
           <BracketMatchSkeleton key={index} />
         ) : (

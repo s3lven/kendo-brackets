@@ -193,7 +193,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <div className="w-full flex flex-col justify-center gap-[2px] hover:outline-primary hover:outline">
+        <div className="w-full flex flex-col justify-center gap-[2px] hover:outline-primary hover:outline cursor-pointer">
           <BracketSlot
             variant="Red"
             name={redPlayer?.player.name}

@@ -62,7 +62,13 @@ const BracketSlot = ({
               key={index}
               className="w-full h-full flex items-center justify-center"
             >
-              <p className={`text-desc w-5 ${isWinner ? "text-green" : "text-white"}`}>{hitMap[score] || "-"}</p>
+              <p
+                className={`text-desc w-5 ${
+                  isWinner ? "text-green" : "text-white"
+                }`}
+              >
+                {hitMap[score] || "-"}
+              </p>
             </div>
           ))}
         </div>
