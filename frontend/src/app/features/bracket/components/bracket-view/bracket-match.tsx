@@ -22,18 +22,37 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   const [winner, setWinner] = useState<Slot | null>(null);
   const handleWinner = (player: Slot | null) => {
     if (player === redPlayer) {
-      setWinner(redPlayer);
-    } else if (player === whitePlayer) {
-      setWinner(whitePlayer);
+      if (winner === redPlayer) {
+        setWinner(null);
+      } else {
+        setWinner(redPlayer);
+      }
+    }
+    if (player === whitePlayer) {
+      if (winner === whitePlayer) {
+        setWinner(null);
+      } else {
+        setWinner(whitePlayer);
+      }
     }
   };
 
-  const { submitScore } = useMatchesStore(
-    useShallow((state) => ({ submitScore: state.submitScore }))
+  const { submitScore, setScore, updateMatches, resetMatch } = useMatchesStore(
+    useShallow((state) => ({
+      submitScore: state.submitScore,
+      setScore: state.setScore,
+      updateMatches: state.updateTournament,
+      resetMatch: state.resetMatch,
+    }))
   );
   const handleSubmitScore = () => {
     console.log("Submitting score");
     submitScore(match.id!, winner);
+    updateMatches();
+  };
+  const handleResetMatch = () => {
+    console.log("Resetting score");
+    resetMatch(match.id!);
   };
 
   // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
@@ -114,7 +133,11 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                 </Dialog.Close>
                 {/* Reset Button */}
                 <div className="absolute bottom-4 right-4">
-                  <EditorButton text={"reset bracket"} variant="no-outline" />
+                  <EditorButton
+                    text={"reset match"}
+                    variant="no-outline"
+                    onClickHandler={handleResetMatch}
+                  />
                 </div>
               </>
             ) : (

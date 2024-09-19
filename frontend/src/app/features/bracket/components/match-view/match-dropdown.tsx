@@ -16,7 +16,7 @@ const hitMap: Record<string, string> = {
 
 type MatchDropdownType = {
   color: PlayerColorType;
-  index: number
+  index: number;
 }
 
 const MatchDropdown = ({ color, index } : MatchDropdownType) => {
