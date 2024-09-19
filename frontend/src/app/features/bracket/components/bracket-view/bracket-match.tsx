@@ -17,7 +17,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   const redPlayer = match.player1;
   const whitePlayer = match.player2;
 
-  const bracketStatus = useBracketStatus()
+  const bracketStatus = useBracketStatus();
 
   const [winner, setWinner] = useState<Slot | null>(null);
   const handleWinner = (player: Slot | null) => {
@@ -28,11 +28,13 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
     }
   };
 
-  const { submitScore } = useMatchesStore(useShallow((state) => ({submitScore: state.submitScore})))
+  const { submitScore } = useMatchesStore(
+    useShallow((state) => ({ submitScore: state.submitScore }))
+  );
   const handleSubmitScore = () => {
-    console.log("Submitting score")
-    submitScore(match.id!, winner)
-  }
+    console.log("Submitting score");
+    submitScore(match.id!, winner);
+  };
 
   // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
   // console.log(`Red Score: ${redScore}, White Score: ${whiteScore}`)
@@ -102,9 +104,14 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                   </div>
                 </div>
                 {/* Button */}
-                <div className="flex justify-center items-center">
-                  <EditorButton text={"submit scores"} onClickHandler={handleSubmitScore}/>
-                </div>
+                <Dialog.Close asChild>
+                  <div className="flex justify-center items-center">
+                    <EditorButton
+                      text={"submit scores"}
+                      onClickHandler={handleSubmitScore}
+                    />
+                  </div>
+                </Dialog.Close>
                 {/* Reset Button */}
                 <div className="absolute bottom-4 right-4">
                   <EditorButton text={"reset bracket"} variant="no-outline" />
