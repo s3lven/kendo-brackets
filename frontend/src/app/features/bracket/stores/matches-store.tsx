@@ -105,21 +105,21 @@ export const useMatchesStore = create<MatchesStore>()(
       }),
 
       calculateProgress: () => {
-        const state = get();
-        let totalMatches = 0;
-        let completedMatches = 0;
-  
-        state.rounds.flat().forEach(match => {
-          // Check if the match is not a bye (both players are present)
-          if (match.player1 !== null && match.player2 !== null) {
-            totalMatches++;
-            if (match.winner !== null) {
-              completedMatches++;
-            }
+      const state = get();
+      let totalMatches = 0;
+      let completedMatches = 0;
+
+      state.rounds.flat().forEach(match => {
+        // Check if the match is not a bye (both players are present)
+        if (match.player1 !== null && match.player2 !== null) {
+          totalMatches++;
+          if (match.winner !== null) {
+            completedMatches++;
           }
-        });
-  
-        return totalMatches > 0 ? Math.round((completedMatches / totalMatches) * 100) : 0;
-      },
+        }
+      });
+
+      return totalMatches > 0 ? Math.round((completedMatches / totalMatches) * 100) : 0;
+    },
   }))
 );

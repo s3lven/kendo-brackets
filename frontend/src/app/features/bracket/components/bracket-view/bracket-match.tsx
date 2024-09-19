@@ -56,11 +56,9 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
     setWinner(null);
   };
 
-   // Subscribe to changes in the match
-   const matchFromStore = useMatchesStore(
-    useShallow((state) => 
-      state.rounds.flat().find(m => m.id === match.id)
-    )
+  // Subscribe to changes in the match
+  const matchFromStore = useMatchesStore(
+    useShallow((state) => state.rounds.flat().find((m) => m.id === match.id))
   );
 
   useEffect(() => {
@@ -71,6 +69,88 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
 
   // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
   // console.log(`Red Score: ${redScore}, White Score: ${whiteScore}`)
+
+  const InProgressMatchView = () => (
+    <>
+      {/* Display */}
+      <div className="flex flex-col w-full">
+        {/* Match Labels */}
+        <div className="w-full flex justify-end items-center gap-[28px] px-[22px] ">
+          <div className="flex items-center justify-center">
+            <p className="text-label uppercase text-white">winner</p>
+          </div>
+          <div className="flex items-center justify-center">
+            <p className="text-label uppercase text-white">score</p>
+          </div>
+        </div>
+        <div className="w-full flex flex-col gap-[2px] justify-center">
+          <SlotView
+            player={redPlayer}
+            color={"Red"}
+            handleWinner={handleWinner}
+            winner={winner}
+            matchId={match.id!}
+            scores={match.player1Score}
+          />
+          <SlotView
+            player={whitePlayer}
+            color={"White"}
+            handleWinner={handleWinner}
+            winner={winner}
+            matchId={match.id!}
+            scores={match.player2Score}
+          />
+        </div>
+      </div>
+      {/* Button */}
+      <Dialog.Close asChild>
+        <div className="flex justify-center items-center">
+          <EditorButton
+            text={"submit scores"}
+            onClickHandler={handleSubmitScore}
+          />
+        </div>
+      </Dialog.Close>
+      {/* Reset Button */}
+      <Dialog.Close asChild>
+        <div className="absolute bottom-4 right-4">
+          <EditorButton
+            text={"reset match"}
+            variant="no-outline"
+            onClickHandler={handleResetMatch}
+          />
+        </div>
+      </Dialog.Close>
+    </>
+  );
+
+  const EditMatchView = () => (
+    <>
+      {/* Display */}
+      <div className="flex flex-col w-full">
+        <div className="w-full flex flex-col gap-[2px] justify-center">
+          <SlotView
+            player={redPlayer}
+            color={"Red"}
+            isPending
+            handleWinner={handleWinner}
+            winner={winner}
+            matchId={match.id!}
+            scores={match.player1Score}
+          />
+          <SlotView
+            player={whitePlayer}
+            color={"White"}
+            isPending
+            handleWinner={handleWinner}
+            winner={winner}
+            matchId={match.id!}
+            scores={match.player2Score}
+          />
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <Dialog.Root>
@@ -112,85 +192,16 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                 : "justify-center"
             }`}
           >
-            {bracketStatus === "In Progress" && redPlayer && whitePlayer ? (
-              <>
-                {/* Display */}
-                <div className="flex flex-col w-full">
-                  {/* Match Labels */}
-                  <div className="w-full flex justify-end items-center gap-[28px] px-[22px] ">
-                    <div className="flex items-center justify-center">
-                      <p className="text-label uppercase text-white">winner</p>
-                    </div>
-                    <div className="flex items-center justify-center">
-                      <p className="text-label uppercase text-white">score</p>
-                    </div>
-                  </div>
-                  <div className="w-full flex flex-col gap-[2px] justify-center">
-                    <SlotView
-                      player={redPlayer}
-                      color={"Red"}
-                      handleWinner={handleWinner}
-                      winner={winner}
-                      matchId={match.id!}
-                      scores={match.player1Score}
-                    />
-                    <SlotView
-                      player={whitePlayer}
-                      color={"White"}
-                      handleWinner={handleWinner}
-                      winner={winner}
-                      matchId={match.id!}
-                      scores={match.player2Score}
-                    />
-                  </div>
-                </div>
-                {/* Button */}
-                <Dialog.Close asChild>
-                  <div className="flex justify-center items-center">
-                    <EditorButton
-                      text={"submit scores"}
-                      onClickHandler={handleSubmitScore}
-                    />
-                  </div>
-                </Dialog.Close>
-                {/* Reset Button */}
-                <Dialog.Close asChild>
-                  <div className="absolute bottom-4 right-4">
-                    <EditorButton
-                      text={"reset match"}
-                      variant="no-outline"
-                      onClickHandler={handleResetMatch}
-                    />
-                  </div>
-                </Dialog.Close>
-              </>
-            ) : (
-              <>
-                {/* Display */}
-                <div className="flex flex-col w-full">
-                  <div className="w-full flex flex-col gap-[2px] justify-center">
-                    <SlotView
-                      player={redPlayer}
-                      color={"Red"}
-                      isPending
-                      handleWinner={handleWinner}
-                      winner={winner}
-                      matchId={match.id!}
-                      scores={match.player1Score}
-                    />
-                    <SlotView
-                      player={whitePlayer}
-                      color={"White"}
-                      isPending
-                      handleWinner={handleWinner}
-                      winner={winner}
-                      matchId={match.id!}
-                      scores={match.player2Score}
-                    />
-                  </div>
-                </div>
-              </>
+            {/* Render based on different scenarios */}
+            {/* If we are in progress and both players are present */}
+            {bracketStatus === "In Progress" && redPlayer && whitePlayer && (
+              <InProgressMatchView />
             )}
+            {/* If we are in progress, but the match isnt ready to score because there aren't enough players */}
+            {bracketStatus === "In Progress" &&
+              (!redPlayer || !whitePlayer) && <EditMatchView />}
+            {/* If we are editting the details/participants list, we should not be able to edit match status */}
+            {bracketStatus === "Editing" && <EditMatchView />}
           </div>
           <Dialog.Close className="absolute top-4 right-4">
             <X

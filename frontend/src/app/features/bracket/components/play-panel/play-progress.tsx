@@ -77,11 +77,11 @@ const PlayProgress = () => {
           </>
         )}
         {/* Button to test the progress bar */}
-        <EditorButton
+        {/* <EditorButton
           variant="no-outline"
           text="add half"
           onClickHandler={testBracket}
-        />
+        /> */}
       </div>
     </>
   );

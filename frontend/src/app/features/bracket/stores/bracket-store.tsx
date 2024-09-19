@@ -107,9 +107,6 @@ export const useBracketStore = create<BracketStore>()(
     updateProgress: (progress: number) => {
       set((state) => {
         state.bracket.progress = progress;
-        if (progress === 100) {
-          state.bracket.status = "Completed";
-        }
       });
     },
   }))
