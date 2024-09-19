@@ -66,7 +66,8 @@ export const useBracketStore = create<BracketStore>()(
     resetBracket: () => {
       set((state) => {
         state.bracket.status = "Editing";
-        state.bracket.progress = 0;
+        state.bracket.progress = 0
+        useMatchesStore.getState().resetBracket()
       });
     },
     completeBracket: () => {
