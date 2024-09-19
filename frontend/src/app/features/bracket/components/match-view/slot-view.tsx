@@ -1,17 +1,26 @@
 import MatchDropdown from "./match-dropdown";
 import { Check } from "lucide-react";
-import { PlayerColorType, Slot } from "@/types/bracket_t";
+import { IpponType, PlayerColorType, Slot } from "@/types/bracket_t";
 
 type SlotProps = {
   player: Slot | null;
   color: PlayerColorType;
-  isPending?: boolean
-  handleWinner: (player: Slot | null) => void
-  winner: Slot | null
+  isPending?: boolean;
+  handleWinner: (player: Slot | null) => void;
+  winner: Slot | null;
+  matchId: string;
+  scores: IpponType[];
 };
 
-const SlotView = ({ player, color, isPending=false, handleWinner, winner }: SlotProps) => {
-
+const SlotView = ({
+  player,
+  color,
+  isPending = false,
+  handleWinner,
+  winner,
+  matchId,
+  scores,
+}: SlotProps) => {
   return (
     <div className="w-full h-[70px] flex items-center">
       <div
@@ -33,7 +42,9 @@ const SlotView = ({ player, color, isPending=false, handleWinner, winner }: Slot
         }`}
       >
         <div className="flex items-center justify-center">
-          <p className="text-desc text-white">{player ? player?.player.name : "To be determined"}</p>
+          <p className="text-desc text-white">
+            {player ? player?.player.name : "To be determined"}
+          </p>
         </div>
         {!isPending && (
           <div className="flex items-center gap-8">
@@ -48,8 +59,20 @@ const SlotView = ({ player, color, isPending=false, handleWinner, winner }: Slot
               />
             </button>
             <div className="flex items-center gap-1">
-              <MatchDropdown color={color} index={0}/>
-              <MatchDropdown color={color} index={1}/>
+              <MatchDropdown
+                color={color}
+                index={0}
+                matchId={matchId}
+                playerType={color === "Red" ? "player1" : "player2"}
+                initialValue={scores[0]}
+              />
+              <MatchDropdown
+                color={color}
+                index={1}
+                matchId={matchId}
+                playerType={color === "Red" ? "player1" : "player2"}
+                initialValue={scores[1]}
+              />
             </div>
           </div>
         )}

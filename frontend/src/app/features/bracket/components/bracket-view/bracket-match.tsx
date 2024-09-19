@@ -53,6 +53,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   const handleResetMatch = () => {
     console.log("Resetting score");
     resetMatch(match.id!);
+    setWinner(null);
   };
 
   // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
@@ -66,11 +67,15 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
             variant="Red"
             name={redPlayer?.player.name}
             sequence={redPlayer?.sequence}
+            isWinner={winner === redPlayer}
+            scores={match.player1Score}
           />
           <BracketSlot
             variant="White"
             name={whitePlayer?.player.name}
             sequence={whitePlayer?.sequence}
+            isWinner={winner === whitePlayer}
+            scores={match.player2Score}
           />
         </div>
       </Dialog.Trigger>
@@ -113,12 +118,16 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                       color={"Red"}
                       handleWinner={handleWinner}
                       winner={winner}
+                      matchId={match.id!}
+                      scores={match.player1Score}
                     />
                     <SlotView
                       player={whitePlayer}
                       color={"White"}
                       handleWinner={handleWinner}
                       winner={winner}
+                      matchId={match.id!}
+                      scores={match.player2Score}
                     />
                   </div>
                 </div>
@@ -132,13 +141,15 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                   </div>
                 </Dialog.Close>
                 {/* Reset Button */}
-                <div className="absolute bottom-4 right-4">
-                  <EditorButton
-                    text={"reset match"}
-                    variant="no-outline"
-                    onClickHandler={handleResetMatch}
-                  />
-                </div>
+                <Dialog.Close asChild>
+                  <div className="absolute bottom-4 right-4">
+                    <EditorButton
+                      text={"reset match"}
+                      variant="no-outline"
+                      onClickHandler={handleResetMatch}
+                    />
+                  </div>
+                </Dialog.Close>
               </>
             ) : (
               <>
@@ -151,6 +162,8 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                       isPending
                       handleWinner={handleWinner}
                       winner={winner}
+                      matchId={match.id!}
+                      scores={match.player1Score}
                     />
                     <SlotView
                       player={whitePlayer}
@@ -158,6 +171,8 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                       isPending
                       handleWinner={handleWinner}
                       winner={winner}
+                      matchId={match.id!}
+                      scores={match.player2Score}
                     />
                   </div>
                 </div>

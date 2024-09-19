@@ -1,7 +1,7 @@
 import { IpponType, PlayerColorType } from "@/types/bracket_t";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMatchesStore } from "../../stores/matches-store";
 import { useShallow } from "zustand/react/shallow";
 const hitMap: Record<string, string> = {
@@ -17,15 +17,22 @@ const hitMap: Record<string, string> = {
 type MatchDropdownType = {
   color: PlayerColorType;
   index: number;
+  matchId: string;
+  playerType: "player1" | "player2";
+  initialValue: IpponType;
 }
 
-const MatchDropdown = ({ color, index } : MatchDropdownType) => {
+const MatchDropdown = ({ color, index, matchId, playerType, initialValue } : MatchDropdownType) => {
   const [value, setValue] = useState("");
   const {setScore} = useMatchesStore(useShallow((state) => ({setScore: state.setScore})))
 
+  useEffect(() => {
+    setValue(initialValue || "");
+  }, [initialValue]);
+
   const handleSetValue = (valueChange: IpponType) => {
     setValue(valueChange)
-    setScore(color, index, valueChange)
+    setScore(matchId, playerType, index, valueChange);
   }
 
   return (
