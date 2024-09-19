@@ -20,9 +20,10 @@ type MatchDropdownType = {
   matchId: string;
   playerType: "player1" | "player2";
   initialValue: IpponType;
+  disabled: boolean
 }
 
-const MatchDropdown = ({ color, index, matchId, playerType, initialValue } : MatchDropdownType) => {
+const MatchDropdown = ({ color, index, matchId, playerType, initialValue, disabled } : MatchDropdownType) => {
   const [value, setValue] = useState("");
   const {setScore} = useMatchesStore(useShallow((state) => ({setScore: state.setScore})))
 
@@ -36,13 +37,14 @@ const MatchDropdown = ({ color, index, matchId, playerType, initialValue } : Mat
   }
 
   return (
-    <Select.Root value={value} onValueChange={handleSetValue}>
-      <Select.Trigger className="h-full w-12 px-3 py-4 border border-grey rounded-lg text-white hover:bg-neutral8">
+    <Select.Root value={value} onValueChange={handleSetValue} disabled={disabled}>
+      <Select.Trigger className="h-full w-12 px-3 py-4 border border-grey rounded-lg text-white hover:bg-neutral8 disabled:hover:bg-transparent disabled:border-none">
         <Select.Value aria-label={value} className="">
           {value != "None" && hitMap[value]}
         </Select.Value>
         <Select.Icon
-          className={`${value && value !== "None" ? "hidden" : "block"}`}
+          className={`${value && value !== "None" ? "hidden" : "block"} ${disabled && "opacity-0"}`
+          }
         >
           <ChevronDown color="white" />
         </Select.Icon>

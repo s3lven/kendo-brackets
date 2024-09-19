@@ -43,7 +43,7 @@ const BracketSlot = ({
         </p>
       </div>
       <div
-        className={`w-full max-h-[27px] h-full flex items-center justify-center pl-2 bg-neutral8
+        className={`w-full max-h-[27px] h-full flex items-center justify-center px-1 bg-neutral8
             ${variant === "Red" ? "rounded-tr " : "rounded-br"}`}
       >
         <div className="w-full h-full flex items-center flex-1">
@@ -62,7 +62,7 @@ const BracketSlot = ({
               key={index}
               className="w-full h-full flex items-center justify-center"
             >
-              <p className={`text-desc w-4 ${isWinner ? "text-green" : "text-white"}`}>{hitMap[score] || "-"}</p>
+              <p className={`text-desc w-5 ${isWinner ? "text-green" : "text-white"}`}>{hitMap[score] || "-"}</p>
             </div>
           ))}
         </div>

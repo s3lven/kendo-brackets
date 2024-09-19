@@ -10,6 +10,7 @@ type SlotProps = {
   winner: Slot | null;
   matchId: string;
   scores: IpponType[];
+  disabled?: boolean
 };
 
 const SlotView = ({
@@ -20,6 +21,7 @@ const SlotView = ({
   winner,
   matchId,
   scores,
+  disabled = false
 }: SlotProps) => {
   return (
     <div className="w-full h-[70px] flex items-center">
@@ -50,7 +52,8 @@ const SlotView = ({
           <div className="flex items-center gap-8">
             <button
               onClick={() => handleWinner(player)}
-              className="outline-none hover:bg-neutral8 rounded"
+              className={`outline-none hover:bg-neutral8 rounded disabled:hover:bg-transparent ${disabled && winner !== player && "opacity-0" }`}
+              disabled={disabled}
             >
               <Check
                 size={"30px"}
@@ -65,6 +68,7 @@ const SlotView = ({
                 matchId={matchId}
                 playerType={color === "Red" ? "player1" : "player2"}
                 initialValue={scores[0]}
+                disabled={disabled}
               />
               <MatchDropdown
                 color={color}
@@ -72,6 +76,7 @@ const SlotView = ({
                 matchId={matchId}
                 playerType={color === "Red" ? "player1" : "player2"}
                 initialValue={scores[1]}
+                disabled={disabled}
               />
             </div>
           </div>
