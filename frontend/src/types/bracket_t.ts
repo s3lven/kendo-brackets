@@ -35,6 +35,7 @@ type Match = {
   player1Score: IpponType[];
   player2Score: IpponType[];
   winner: Slot | null;
+  submitted: boolean
 };
 
 type MatchResult = {

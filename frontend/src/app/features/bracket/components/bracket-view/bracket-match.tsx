@@ -6,6 +6,8 @@ import { X } from "lucide-react";
 import { Match, Slot } from "@/types/bracket_t";
 import { useState } from "react";
 import { useBracketStatus } from "../../stores/bracket-view-store";
+import { useMatchesStore } from "../../stores/matches-store";
+import { useShallow } from "zustand/react/shallow";
 
 type BracketMatchProps = {
   match: Match;
@@ -25,6 +27,16 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
       setWinner(whitePlayer);
     }
   };
+
+  const { submitScore, updateTournament } = useMatchesStore(useShallow((state) => ({submitScore: state.submitScore, updateTournament: state.updateTournament})))
+  const handleSubmitScore = () => {
+    console.log("Submitting score")
+    submitScore(match.id!, winner)
+    updateTournament()
+  }
+
+  // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
+  // console.log(`Red Score: ${redScore}, White Score: ${whiteScore}`)
 
   return (
     <Dialog.Root>
@@ -92,7 +104,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
                 </div>
                 {/* Button */}
                 <div className="flex justify-center items-center">
-                  <EditorButton text={"submit scores"} />
+                  <EditorButton text={"submit scores"} onClickHandler={handleSubmitScore}/>
                 </div>
                 {/* Reset Button */}
                 <div className="absolute bottom-4 right-4">

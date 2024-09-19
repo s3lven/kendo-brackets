@@ -1,14 +1,19 @@
-import { Match, MatchResult } from "@/types/bracket_t";
+import { IpponType, Match, Slot } from "@/types/bracket_t";
+import { match } from "assert";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export type MatchesState = {
   rounds: Match[][];
+  redScore: IpponType[];
+  whiteScore: IpponType[];
 };
 
 export type MatchesActions = {
-//   submitMatchResult: (roundIndex: number, matchIndex: number, result: MatchResult) => void
   setTournament: (rounds: Match[][]) => void;
+  setScore: (player: string, index: number, value: IpponType) => void;
+  submitScore: (matchid: string, player: Slot | null) => void;
+  updateTournament: () => void;
 };
 
 export type MatchesStore = MatchesState & MatchesActions;
@@ -16,37 +21,86 @@ export type MatchesStore = MatchesState & MatchesActions;
 export const useMatchesStore = create<MatchesStore>()(
   immer((set) => ({
     rounds: [],
+    redScore: [],
+    whiteScore: [],
 
-    // submitMatchResult:  (roundIndex, matchIndex, result) =>
-    //     set((state) => {
-    //       const newRounds = [...state.rounds];
-    //       const match = newRounds[roundIndex][matchIndex];
-          
-    //       const updatedMatch = {
-    //         ...match,
-    //         scores1: result.scores1.filter(score => score !== ''),
-    //         scores2: result.scores2.filter(score => score !== ''),
-    //         winner: result.winnerId ? (result.winnerId === match.player1.id ? match.player1 : match.player2) : undefined,
-    //       };
-    
-    //       newRounds[roundIndex][matchIndex] = updatedMatch;
-    
-    //       // Update next round's match if a winner is declared
-    //       if (result.winnerId && roundIndex + 1 < newRounds.length) {
-    //         const nextMatchIndex = Math.floor(matchIndex / 2);
-    //         const nextMatch = newRounds[roundIndex + 1][nextMatchIndex];
-    //         const playerKey = matchIndex % 2 === 0 ? 'player1' : 'player2';
-    //         const scoreKey = matchIndex % 2 === 0 ? 'scores1' : 'scores2';
-            
-    //         newRounds[roundIndex + 1][nextMatchIndex] = {
-    //           ...nextMatch,
-    //           [playerKey]: updatedMatch.winner!,
-    //           [scoreKey]: []
-    //         };
-    //       }
-    
-    //       return { rounds: newRounds };
-    //     }),
+    setScore: (player, index, value) =>
+      set((state) => {
+        if (player === "Red") {
+          state.redScore[index] = value;
+        } else if (player === "White") state.whiteScore[index] = value;
+      }),
+
+    submitScore: (matchId, player) =>
+      set((state) => {
+        for (
+          let roundIndex = 0;
+          roundIndex < state.rounds.length;
+          roundIndex++
+        ) {
+          const matchIndex = state.rounds[roundIndex].findIndex(
+            (match) => match.id === matchId
+          );
+          if (matchIndex !== -1) {
+            const match = state.rounds[roundIndex][matchIndex];
+            const redScore = state.redScore[matchIndex];
+            const whiteScore = state.whiteScore[matchIndex];
+
+            // Update scores
+            match.player1Score = redScore ? [redScore] : [];
+            match.player2Score = whiteScore ? [whiteScore] : [];
+            match.winner = player;
+
+            // Clear the temporary scores
+            state.redScore[matchIndex] = "";
+            state.whiteScore[matchIndex] = "";
+
+            break; // Exit the loop once we've found and updated the match
+          }
+        }
+      }),
+
+    updateTournament: () => {
+      set((state) => {
+        const dirtyRounds = [...state.rounds];
+
+        dirtyRounds.forEach((round, roundIndex) => {
+          round.forEach((match, matchIndex) => {
+            if (match.winner != null && match.submitted == false) {
+              console.log("Processing match:", match.id);
+
+              // Check if there's a next round
+              if (roundIndex < dirtyRounds.length - 1) {
+                const nextRoundMatch = Math.floor(matchIndex / 2);
+                const nextRound = dirtyRounds[roundIndex + 1];
+
+                if (nextRound && nextRound[nextRoundMatch]) {
+                  if (matchIndex % 2 === 0) {
+                    nextRound[nextRoundMatch].player1 = match.winner;
+                  } else {
+                    nextRound[nextRoundMatch].player2 = match.winner;
+                  }
+                  console.log(
+                    `Set ${
+                      matchIndex % 2 === 0 ? "player1" : "player2"
+                    } for next round match:`,
+                    nextRoundMatch
+                  );
+                } else {
+                  console.log("No next round match found for:", matchIndex);
+                }
+              } else {
+                console.log("Final match result:", match.winner);
+              }
+
+              match.submitted = true;
+            }
+          });
+        });
+
+        state.rounds = dirtyRounds;
+      });
+    },
 
     setTournament: (rounds) => set({ rounds }),
   }))

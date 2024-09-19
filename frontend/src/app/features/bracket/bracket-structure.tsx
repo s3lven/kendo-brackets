@@ -55,6 +55,7 @@ const BracketStructure = () => {
         player1Score: [],
         player2Score: [],
         winner: null,
+        submitted: false
       }));
       // console.log("Mapping of Matches:", bracket)
       return bracket;
@@ -92,6 +93,7 @@ const BracketStructure = () => {
               player1Score: [],
               player2Score: [],
               winner: null,
+              submitted: false
             };
           } else return match;
         });
@@ -100,16 +102,17 @@ const BracketStructure = () => {
       filledBracket[0].forEach((match, index) => {
         const nextRoundMatch = Math.floor(index / 2);
         if (match?.player1 === null) {
-          console.log(`Detected BYE round at match ${index}`);
+          // console.log(`Detected BYE round at match ${index}`);
           filledBracket[1][nextRoundMatch]!.player2 = match.player2;
           match.id = "NULL";
         } else if (match?.player2 === null) {
-          console.log(`Detected BYE round at match ${index}`);
+          // console.log(`Detected BYE round at match ${index}`);
           filledBracket[1][nextRoundMatch]!.player1 = match.player1;
           match.id = "NULL";
         }
       });
 
+      console.log("Ran createInitialMatches")
       return filledBracket;
     };
 
@@ -117,6 +120,7 @@ const BracketStructure = () => {
   }, [rounds, setMatches, slotCount, slots]);
 
   console.log("BracketStructure rendered");
+  
   console.log("matches from MatchesStore", matches);
 
   return (

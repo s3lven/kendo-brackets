@@ -1,6 +1,9 @@
+import { IpponType, PlayerColorType } from "@/types/bracket_t";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useMatchesStore } from "../../stores/matches-store";
+import { useShallow } from "zustand/react/shallow";
 const hitMap: Record<string, string> = {
   Men: "M",
   Kote: "K",
@@ -11,11 +14,22 @@ const hitMap: Record<string, string> = {
   None: "",
 };
 
-const MatchDropdown = () => {
+type MatchDropdownType = {
+  color: PlayerColorType;
+  index: number
+}
+
+const MatchDropdown = ({ color, index } : MatchDropdownType) => {
   const [value, setValue] = useState("");
+  const {setScore} = useMatchesStore(useShallow((state) => ({setScore: state.setScore})))
+
+  const handleSetValue = (valueChange: IpponType) => {
+    setValue(valueChange)
+    setScore(color, index, valueChange)
+  }
 
   return (
-    <Select.Root value={value} onValueChange={setValue}>
+    <Select.Root value={value} onValueChange={handleSetValue}>
       <Select.Trigger className="h-full w-12 px-3 py-4 border border-grey rounded-lg text-white hover:bg-neutral8">
         <Select.Value aria-label={value} className="">
           {value != "None" && hitMap[value]}

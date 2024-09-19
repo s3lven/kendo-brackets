@@ -48,8 +48,8 @@ const SlotView = ({ player, color, isPending=false, handleWinner, winner }: Slot
               />
             </button>
             <div className="flex items-center gap-1">
-              <MatchDropdown />
-              <MatchDropdown />
+              <MatchDropdown color={color} index={0}/>
+              <MatchDropdown color={color} index={1}/>
             </div>
           </div>
         )}
