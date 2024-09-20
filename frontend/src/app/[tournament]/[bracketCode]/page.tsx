@@ -1,4 +1,4 @@
-import BracketPageContainer from "@/app/features/bracket/bracket-page-container";
+import BracketPageContainer from "@/features/bracket/bracket-page-container";
 
 type EditBracketPageProps = {
   params: {

@@ -1,7 +1,7 @@
 import { dummyTournamentData, Tournament } from "@/types/bracket_t";
 
-import DashboardItem from "@/app/features/dashboard/dashboard-item";
-import EmptyDashboard from "@/app/features/dashboard/empty-dashboard";
+import DashboardItem from "@/features/dashboard/dashboard-item";
+import EmptyDashboard from "@/features/dashboard/empty-dashboard";
 
 const getTournamentData = () => {
   return new Promise<void>((resolve) => setTimeout(() => resolve(), 0));
