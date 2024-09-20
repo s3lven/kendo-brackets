@@ -15,14 +15,14 @@ type EditBracketPageProps = {
 
 const EditBracketPage = ({ params }: EditBracketPageProps) => {
   const fetchBracket = useBracketStore((state) => state.fetchBracket);
-  const bracket = useBracketStore((state) => state.bracket);
+  const slots = useBracketStore((state) => state.slots)
   const setSlots = useSlotStore((state) => state.setSlots);
 
   useEffect(() => {
     fetchBracket(params);
-    setSlots(bracket.slots);
+    setSlots(slots);
     // console.log(bracket.slots)
-  }, [bracket.slots, fetchBracket, params, setSlots]);
+  }, [slots, fetchBracket, params, setSlots]);
 
   console.log("EditBracketPage rendered")
 

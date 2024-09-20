@@ -66,9 +66,6 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
     }
   }, [matchFromStore]);
 
-  // const {redScore, whiteScore} = useMatchesStore(useShallow((state) => ({redScore: state.redScore, whiteScore: state.whiteScore})))
-  // console.log(`Red Score: ${redScore}, White Score: ${whiteScore}`)
-
   const InProgressMatchView = () => (
     <div
       className={`w-full h-full flex flex-col items-center pt-9 justify-between`}

@@ -3,10 +3,6 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { useMatchesStore } from "./matches-store";
 
-export type BracketState = {
-  bracket: Bracket;
-};
-
 export type BracketActions = {
   fetchBracket: (params: { tournament: string; bracketCode: string }) => void;
   runBracket: () => void;
@@ -19,18 +15,17 @@ export type BracketActions = {
   updateProgress: (progress: number) => void;
 };
 
-export type BracketStore = BracketState & BracketActions;
+export type BracketStore = Bracket & BracketActions;
 
 export const useBracketStore = create<BracketStore>()(
   immer((set) => ({
-    bracket: {
-      bracketName: "",
-      bracketType: "Single Elimination",
-      status: "Editing",
-      slots: [],
-      bracketCode: "",
-      progress: 0,
-    },
+    bracketName: "",
+    bracketType: "Single Elimination",
+    status: "Editing",
+    slots: [],
+    bracketCode: "",
+    progress: 0,
+
     fetchBracket: (params: { tournament: string; bracketCode: string }) => {
       set((state) => {
         try {
@@ -52,7 +47,12 @@ export const useBracketStore = create<BracketStore>()(
           if (bracketData === undefined) {
             throw new TypeError("Where did the bracketData go!");
           }
-          state.bracket = bracketData;
+          state.bracketName = bracketData.bracketName;
+          state.bracketType = bracketData.bracketType;
+          state.status = bracketData.status;
+          state.slots = bracketData.slots;
+          state.bracketCode = bracketData.bracketCode;
+          state.progress = bracketData.progress;
         } catch (error) {
           console.log(error);
         }
@@ -60,55 +60,46 @@ export const useBracketStore = create<BracketStore>()(
     },
     runBracket: () => {
       set((state) => {
-        state.bracket.status = "In Progress";
+        state.status = "In Progress";
       });
     },
     resetBracket: () => {
       set((state) => {
-        state.bracket.status = "Editing";
-        state.bracket.progress = 0;
+        state.status = "Editing";
+        state.progress = 0;
         useMatchesStore.getState().resetBracket();
       });
     },
     completeBracket: () => {
       set((state) => {
-        if (state.bracket.progress !== 100) {
+        if (state.progress !== 100) {
           console.log(
             "Error: Bracket is at %d% and is not supposed to be finished",
-            state.bracket.progress
+            state.progress
           );
           return;
         } else {
-          state.bracket.status = "Completed";
+          state.status = "Completed";
         }
       });
     },
     openBracket: () => {
       set((state) => {
-        state.bracket.status = "In Progress";
+        state.status = "In Progress";
       });
     },
     testBracket: () => {
       set((state) => {
-        if (state.bracket.progress !== 100) {
-          state.bracket.progress = Math.min(state.bracket.progress + 20, 100);
+        if (state.progress !== 100) {
+          state.progress = Math.min(state.progress + 20, 100);
         }
       });
     },
-    setBracketName: (name: string) => {
-      set((state) => {
-        state.bracket.bracketName = name;
-      });
-    },
-    setBracketType: (type: BracketType) => {
-      set((state) => {
-        state.bracket.bracketType = type;
-      });
-    },
-    updateProgress: (progress: number) => {
-      set((state) => {
-        state.bracket.progress = progress;
-      });
-    },
+    setBracketName: (name: string) =>
+      set((state) => {state.bracketName = name}),
+    setBracketType: (type: BracketType) =>
+      set((state) => {state.bracketType = type}),
+    updateProgress: (progress: number) =>
+      set((state) => {state.progress = progress}),
   }))
 );

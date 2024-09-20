@@ -17,7 +17,7 @@ export const useCombinedStore = create<CombinedStore>()(
     syncSlotsWithBracket: () => {
       const slots = get().slots;
       set((state) => {
-        state.bracket.slots = slots;
+        state.slots = slots;
       });
     },
 
@@ -62,7 +62,14 @@ export const useCombinedStore = create<CombinedStore>()(
 
 // Synchronize the stores
 useBracketStore.subscribe((state) => {
-  useCombinedStore.setState({ bracket: state.bracket });
+  useCombinedStore.setState({
+    bracketName: state.bracketName,
+    bracketType: state.bracketType,
+    status: state.status,
+    slots: state.slots,
+    bracketCode: state.bracketCode,
+    progress: state.progress,
+  });
 });
 
 useSlotStore.subscribe((state) => {
@@ -72,13 +79,13 @@ useSlotStore.subscribe((state) => {
 
 // Custom hooks with useShallow
 export const useBracketName = () =>
-  useCombinedStore(useShallow((state) => state.bracket.bracketName));
+  useCombinedStore(useShallow((state) => state.bracketName));
 export const useBracketType = () =>
-  useCombinedStore(useShallow((state) => state.bracket.bracketType));
+  useCombinedStore(useShallow((state) => state.bracketType));
 export const useBracketStatus = () =>
-  useCombinedStore(useShallow((state) => state.bracket.status));
+  useCombinedStore(useShallow((state) => state.status));
 export const useBracketProgress = () =>
-  useCombinedStore(useShallow((state) => state.bracket.progress));
+  useCombinedStore(useShallow((state) => state.progress));
 export const useSlots = () =>
   useCombinedStore(useShallow((state) => state.slots));
 export const useBracketActions = () =>

@@ -7,7 +7,7 @@ import { useShallow } from "zustand/react/shallow";
 const BracketCodeShow = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { bracketCode } = useBracketStore(
-    useShallow((state) => ({ bracketCode: state.bracket.bracketCode }))
+    useShallow((state) => ({ bracketCode: state.bracketCode }))
   );
 
   console.log("BracketCodeShow render");
