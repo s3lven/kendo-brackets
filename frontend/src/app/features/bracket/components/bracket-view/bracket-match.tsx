@@ -215,6 +215,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
         <Dialog.Content
           className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] focus:outline-none
           max-w-[680px] max-h-[425px] flex flex-col justify-between items-center p-4 gap-[10px] bg-neutral8 w-full h-full font-poppins"
+          aria-describedby={undefined}
         >
           <Dialog.Title asChild>
             {/* Title */}
