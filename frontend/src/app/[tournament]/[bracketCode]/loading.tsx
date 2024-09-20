@@ -6,7 +6,7 @@ const LoadingPage = () => {
       <div className="bg-neutral8 flex w-full max-w-[410px]">
         <div className="w-full max-w-[60px] h-full flex flex-col items-center justify-center shadow-[2px_0px_2px_0px_rgba(0,0,0,0.3)] bg-neutral7" />
       </div>
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
         <div role="status">
           <svg
             aria-hidden="true"

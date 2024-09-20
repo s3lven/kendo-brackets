@@ -1,7 +1,5 @@
-"use client";
-import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+import { User, X } from "lucide-react";
 import { Tournament } from "@/types/bracket_t";
 import dynamic from "next/dynamic";
 
@@ -9,17 +7,43 @@ type BracketDialogProps = {
   item: Tournament;
 };
 
-const LazyBracketList = dynamic(() => import("./bracket-list"));
+const LazyBracketList = dynamic(() => import("./bracket-list"), {
+  loading: () => <LoadingBracketList />,
+});
+
+const LoadingBracketList = () => {
+  return (
+    <div className="w-full h-full flex-grow flex flex-col justify-start gap-2 px-2 py-9 overflow-y-auto scrollbar-thin scrollbar-webkit">
+      {[...Array(3)].map((_, index) => (
+        <div key={index} className="animate-pulse">
+          <div className="rounded-lg bg-shade2 flex justify-between px-4 py-4 shadow-lg">
+            <div className="flex flex-col justify-center items-start">
+              <div className="h-4 w-32 bg-shade2_30 rounded mb-2"></div>
+              <div className="h-4 w-24 bg-shade2_30 rounded"></div>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="h-4 w-16 bg-shade2_30 rounded"></div>
+            </div>
+            <div className="flex gap-4 justify-center items-center">
+              <div className="flex gap-1 justify-center items-center pr-[56px]">
+                <div className="h-4 w-8 bg-shade2_30 rounded"></div>
+                <User className="text-shade2_30" />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const BracketDialog = ({ item }: BracketDialogProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root>
       <Dialog.Trigger asChild>
         <div
           className="w-[392px] h-[210px] flex flex-col items-center justify-center 
             bg-slate-300 hover:bg-slate-400 font-poppins cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)}
         >
           {item.tournamentName}
         </div>
@@ -31,11 +55,12 @@ const BracketDialog = ({ item }: BracketDialogProps) => {
             flex flex-col items-center justify-center p-4
             data-[state=open]:animate-contentShow 
             focus:outline-none shadow-lg bg-neutral8 font-poppins"
+            aria-describedby={undefined}
         >
           <Dialog.Title className="text-white text-lead border-b border-white px-4 py-2 w-full">
             {item.tournamentName}
           </Dialog.Title>
-          {isOpen && <LazyBracketList item={item} />}
+          <LazyBracketList item={item} />
           <Dialog.Close asChild>
             <button
               className="absolute top-4 right-4 text-white hover:bg-shade2_30 focus:outline-none p-1 rounded-full"
