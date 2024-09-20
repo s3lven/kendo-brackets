@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Taikai
 
-First, run the development server:
+A tournament bracket tracker web application edsigned for managing and viewing live updates of various tournaments in real-time. Users can create and manage different types of brackets, track progress, and share brackets with others through a unique URL.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Current Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ **1. Bracket Creation**
+-  **Bracket Builder**: An interactive bracket creation tool that supports multiple tournament formats:
+    - Single Elimination (more types coming soon)
+- **Dynamic Participant Management**: Add, remove, shuffle, and reorder participants effortlessly.
+- **Scoring Updates**: Update match scores and track the progression of the bracket
 
-## Learn More
+**2. Tournament Creation**
+- **Bracket Management**: Manage your tournament through a list of bracket tournaments.
 
-To learn more about Next.js, take a look at the following resources:
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**User Management**
+- **Sign Up & Log in**: Create an account and log in to manage their tournament brackets.
+- **Profile and Stats Page**: Track stats from all tournaments you've participated in.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Bracket Creation**
+-  **Bracket Builder**: An interactive bracket creation tool that supports multiple tournament formats:
+    - Double Elimination
+    - Group Stage
+    - Round Robin
+- **Save Changes**: Save match info and the state of the bracket upon score submission, resetting matches, and changing bracket status
+- **More Bracket Tabs**: Add helpful tutorials/terminology dialogs for first time runners.
+- **Add Bulk Participants**: Using a spreadsheet or text field, mass add participants to a bracket.
+- **Bracket Information**: Add various optional information fields to the brackets
+    - Location (Court Numbers/Letters) for each match
 
-## Deploy on Vercel
+**Tournament Creation**
+- **Create, Duplicate, Remove, and Rename Brackets**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Live Bracket Updates**
+- **Real-Time Updates**: Brackets can be shared through a URL, allowing others to follow along as matches are completed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Explore Page**: Find upcoming, active, or past tournaments/brackets
+
+**Dark Mode**
+
+## Tech Stack and Tools
+
+**Front-End**: Next.js (Typescript), Zustand (with Immer Middleware), Radix UI, TailwindCSS
+
