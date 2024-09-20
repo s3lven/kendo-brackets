@@ -14,6 +14,7 @@ export type SlotActions = {
   moveSlot: (activeIndex: number, overIndex: number) => void;
   shuffleSlots: () => void;
   setSlots: (slots: Slot[]) => void;
+  updatePlayerName: (id: number | string, name: string) => void;
 };
 
 export type SlotStore = SlotState & SlotActions;
@@ -23,6 +24,7 @@ export const defaultInitState: SlotState = {
     {
       player: {
         name: "Team Haha",
+        id: 0,
       },
       sequence: 1,
       id: 1,
@@ -30,6 +32,7 @@ export const defaultInitState: SlotState = {
     {
       player: {
         name: "Team Hehe",
+        id: 0,
       },
       sequence: 2,
       id: 2,
@@ -38,6 +41,7 @@ export const defaultInitState: SlotState = {
     {
       player: {
         name: "Team HooHoo",
+        id: 0,
       },
       sequence: 3,
       id: 3,
@@ -46,6 +50,7 @@ export const defaultInitState: SlotState = {
     {
       player: {
         name: "Team HiiHii",
+        id: 0,
       },
       sequence: 4,
       id: 4,
@@ -64,6 +69,7 @@ export const useSlotStore = create<SlotStore>()(
             {
               player: {
                 name: `Team ${state.slots.length + 1}`,
+                id: 0,
               },
               sequence: state.slots.length + 1,
               id: state.slots.length + 1,
@@ -107,5 +113,11 @@ export const useSlotStore = create<SlotStore>()(
         state.slots = slots;
       });
     },
+    updatePlayerName: (id, name) =>
+      set((state) => ({
+        slots: state.slots.map((slot) =>
+          slot.id === id ? { ...slot, player: { ...slot.player, name } } : slot
+        ),
+      })),
   }))
 );

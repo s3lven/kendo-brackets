@@ -2,7 +2,7 @@ import React from "react";
 
 const LoadingPage = () => {
   return (
-    <div className="w-full h-full flex gap-5 bg-shade2 ">
+    <div className="w-full h-full flex gap-5 bg-shade2 font-poppins">
       <div className="bg-neutral8 flex w-full max-w-[410px]">
         <div className="w-full max-w-[60px] h-full flex flex-col items-center justify-center shadow-[2px_0px_2px_0px_rgba(0,0,0,0.3)] bg-neutral7" />
       </div>

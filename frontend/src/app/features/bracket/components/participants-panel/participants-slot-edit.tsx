@@ -5,6 +5,9 @@ import { CSS } from "@dnd-kit/utilities";
 import { Button, Input } from "@headlessui/react";
 import { TbGripVertical } from "react-icons/tb";
 import { X } from "lucide-react";
+import { useCallback, useState } from "react";
+import { debounce } from "lodash";
+import { useSlotStore } from "../../stores/slots-store";
 
 type ParticipantSlotEditProps = {
   slot: Slot;
@@ -35,9 +38,26 @@ const ParticipantSlotEdit = ({
     opacity: isDragging ? "0.4" : "1",
   };
 
+  const [inputValue, setInputValue] = useState(slot.player.name);
+  const updatePlayerName = useSlotStore((state) => state.updatePlayerName);
+
   const handleRemoveSlot = () => {
     // console.log("button clicked", slot.id);
     removeSlot(slot.id);
+  };
+
+  // Debounced function to update the store
+  const debouncedUpdateName = useCallback(
+    debounce((id: number | string, name: string) => {
+      updatePlayerName(id, name);
+    }, 300),
+    [updatePlayerName]
+  );
+
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue); // Update local state immediately
+    debouncedUpdateName(slot.id, newValue); // Debounce the store update
   };
 
   return (
@@ -57,8 +77,8 @@ const ParticipantSlotEdit = ({
         <div className="flex justify-between items-center gap-2">
           <Input
             className="w-[215px] h-full border border-grey bg-neutral8 text-grey px-1"
-            value={slot.player.name}
-            readOnly
+            value={inputValue}
+            onChange={handleChangeName}
           />
           <Button
             className="flex items-center justify-center text-grey
