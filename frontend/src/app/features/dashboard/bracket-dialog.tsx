@@ -2,6 +2,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { User, X } from "lucide-react";
 import { Tournament } from "@/types/bracket_t";
 import dynamic from "next/dynamic";
+import EditorButton from "@/components/ui/editor-button";
+import Link from "next/link";
 
 type BracketDialogProps = {
   item: Tournament;
@@ -52,19 +54,22 @@ const BracketDialog = ({ item }: BracketDialogProps) => {
         <Dialog.Overlay className="bg-shade2/60 data-[state=open]:animate-overlayShow fixed inset-0" />
         <Dialog.Content
           className="w-full max-w-[680px] h-full max-h-[75vh] fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
-            flex flex-col items-center justify-center p-4
+            flex flex-col items-center justify-center p-4 pt-8
             data-[state=open]:animate-contentShow 
             focus:outline-none shadow-lg bg-neutral8 font-poppins"
-            aria-describedby={undefined}
+          aria-describedby={undefined}
         >
-          <Dialog.Title className="text-white text-lead border-b border-white px-4 py-2 w-full">
-            {item.tournamentName}
+          <Dialog.Title asChild>
+            <div className="text-white text-lead border-b border-white px-4 py-2 w-full flex items-center justify-between">
+              {item.tournamentName}
+              <Link href={`/bracket/new`}>
+                <EditorButton text={"New Bracket"} variant="no-outline" />
+              </Link>
+            </div>
           </Dialog.Title>
           <LazyBracketList item={item} />
           <Dialog.Close asChild>
-            <button
-              className="absolute top-4 right-4 text-white hover:bg-shade2_30 focus:outline-none p-1 rounded-full"
-            >
+            <button className="absolute top-4 right-4 text-white hover:bg-shade2_30 focus:outline-none p-1 rounded-full">
               <X size={"1rem"} />
             </button>
           </Dialog.Close>

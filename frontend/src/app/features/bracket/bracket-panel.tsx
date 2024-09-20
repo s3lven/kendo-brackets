@@ -46,7 +46,7 @@ const BracketPanel = () => {
     <Tabs.Root
       className="bg-neutral8 flex w-full max-w-[410px] font-poppins "
       orientation="vertical"
-      defaultValue="bracketPlay"
+      defaultValue="bracketInfo"
     >
       <Tabs.List
         className="w-full max-w-[60px] h-full flex flex-col shadow-[2px_0px_2px_0px_rgba(0,0,0,0.3)] bg-neutral7"
