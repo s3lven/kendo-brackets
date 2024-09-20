@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import DashboardNav from "@/components/navigation/dashboard-nav";
 
-const poppins = localFont({
-  src: [
-    { path: "../assets/fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
-    { path: "../assets/fonts/Poppins-Italic.ttf", weight: "400", style: "italic" },
-    { path: "../assets/fonts/Poppins-Medium.ttf", weight: "500", style: "normal" },
-    {
-      path: "../assets/fonts/Poppins-MediumItalic.ttf",
-      weight: "500",
-      style: "italic",
-    },
-    { path: "../assets/fonts/Poppins-Bold.ttf", weight: "700", style: "normal" },
-    { path: "../assets/fonts/Poppins-BoldItalic.ttf", weight: "700", style: "italic" },
-  ],
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  style: ['normal', 'italic'],
   variable: "--font-poppins",
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -31,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable}`}>
-      <body className="flex flex-col h-screen">
+      <body className="flex flex-col h-screen font-sans">
         <DashboardNav />
         <div className="w-full h-full flex-1 overflow-auto">{children}</div>
       </body>

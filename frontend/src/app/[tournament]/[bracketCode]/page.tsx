@@ -1,10 +1,4 @@
-"use client";
-
-import BracketPanel from "@/app/features/bracket/bracket-panel";
-import BracketView from "@/app/features/bracket/bracket-view";
-import { useBracketStore } from "@/app/features/bracket/stores/bracket-store";
-import { useSlotStore } from "@/app/features/bracket/stores/slots-store";
-import React, { useEffect } from "react";
+import BracketPageContainer from "@/app/features/bracket/bracket-page-container";
 
 type EditBracketPageProps = {
   params: {
@@ -14,23 +8,12 @@ type EditBracketPageProps = {
 };
 
 const EditBracketPage = ({ params }: EditBracketPageProps) => {
-  const fetchBracket = useBracketStore((state) => state.fetchBracket);
-  const slots = useBracketStore((state) => state.slots)
-  const setSlots = useSlotStore((state) => state.setSlots);
-
-  useEffect(() => {
-    fetchBracket(params);
-    setSlots(slots);
-    // console.log(bracket.slots)
-  }, [slots, fetchBracket, params, setSlots]);
-
-  console.log("EditBracketPage rendered")
-
+  console.log("EditBracketPage rendered");
   return (
-    <div className="w-full h-full flex gap-5 bg-shade2">
-      <BracketPanel />
-      <BracketView />
-    </div>
+    <BracketPageContainer
+      tournament={params.tournament}
+      bracketCode={params.bracketCode}
+    />
   );
 };
 
