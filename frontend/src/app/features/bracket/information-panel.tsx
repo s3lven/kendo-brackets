@@ -1,6 +1,7 @@
 import BracketNameInput from "./components/information-panel/bracket-name-input";
 import BracketTypeInput from "./components/information-panel/bracket-type-input";
 import BracketCodeShow from "./components/information-panel/bracket-code-show";
+import TournamentName from "./components/information-panel/tournament-name";
 
 const InformationPanel = () => {
 
@@ -13,6 +14,7 @@ const InformationPanel = () => {
       </p>
       <div className="w-full flex flex-col gap-8 px-2 py-4 bg-shade2_30 shadow rounded-sm">
         <BracketNameInput />
+        <TournamentName />
         <BracketTypeInput />
         <BracketCodeShow />
       </div>

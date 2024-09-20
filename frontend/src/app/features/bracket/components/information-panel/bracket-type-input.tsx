@@ -1,12 +1,13 @@
 import { BracketType } from "@/types/bracket_t";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
-import { useBracketType } from "../../stores/bracket-view-store";
+import { useBracketStatus, useBracketType } from "../../stores/bracket-view-store";
 import { useBracketStore } from "../../stores/bracket-store";
 import { useShallow } from "zustand/react/shallow";
 
 const BracketTypeInput = () => {
   const bracketType = useBracketType();
+  const bracketStatus = useBracketStatus()
   const { setBracketType } = useBracketStore(
     useShallow((state) => ({ setBracketType: state.setBracketType }))
   );
@@ -29,16 +30,17 @@ const BracketTypeInput = () => {
         defaultValue={bracketType}
         value={bracketType}
         onValueChange={(value) => {
-          if (isOfBracketType(value)) setBracketType(value);
+          if (isOfBracketType(value) && bracketStatus === "Editing") setBracketType(value);
         }}
+        disabled={bracketStatus !== "Editing"}
       >
         <Select.Trigger
           aria-label="bracket type"
-          className="w-[160px] h-full px-1 bg-transparent border border-grey font-poppins text-grey text-desc
-                    flex justify-between items-center"
+          className={`w-[160px] h-full px-1 bg-transparent  border-grey font-poppins text-grey text-desc
+                    flex justify-between items-center ${bracketStatus !== "Editing" ? "": "border"}`}
         >
           <Select.Value>{bracketType}</Select.Value>
-          <Select.Icon asChild>
+          <Select.Icon asChild className={`${bracketStatus !== "Editing" && "hidden"}`}>
             <ChevronDown size={"1rem"} />
           </Select.Icon>
         </Select.Trigger>
@@ -57,7 +59,8 @@ const BracketTypeInput = () => {
               >
                 Single Elimination
               </Select.Item>
-              <Select.Item
+              {/* TODO: Implement these rendering modes!!! */}
+              {/* <Select.Item
                 value="Double Elimination"
                 className="hover:bg-neutral7 px-4 py-2 cursor-pointer"
               >
@@ -74,7 +77,7 @@ const BracketTypeInput = () => {
                 className="hover:bg-neutral7 px-4 py-2 cursor-pointer"
               >
                 Group Stage
-              </Select.Item>
+              </Select.Item> */}
             </Select.Viewport>
           </Select.Content>
         </Select.Portal>

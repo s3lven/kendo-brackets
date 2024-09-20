@@ -15,7 +15,11 @@ export type BracketActions = {
   updateProgress: (progress: number) => void;
 };
 
-export type BracketStore = Bracket & BracketActions;
+interface BracketWithTournament extends Bracket {
+  tournamentName: string
+}
+
+export type BracketStore = BracketWithTournament & BracketActions;
 
 export const useBracketStore = create<BracketStore>()(
   immer((set) => ({
@@ -25,6 +29,7 @@ export const useBracketStore = create<BracketStore>()(
     slots: [],
     bracketCode: "",
     progress: 0,
+    tournamentName: "",
 
     fetchBracket: (params: { tournament: string; bracketCode: string }) => {
       set((state) => {
@@ -53,6 +58,7 @@ export const useBracketStore = create<BracketStore>()(
           state.slots = bracketData.slots;
           state.bracketCode = bracketData.bracketCode;
           state.progress = bracketData.progress;
+          state.tournamentName = tournamentData.tournamentName
         } catch (error) {
           console.log(error);
         }
