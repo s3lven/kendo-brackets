@@ -2,6 +2,7 @@
 
 # dependencies
 /frontend/node_modules
+/backend/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -12,6 +13,8 @@
 # next.js
 /frontend/.next/
 /out/
+
+*.log
 
 # production
 /build
@@ -27,6 +30,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
