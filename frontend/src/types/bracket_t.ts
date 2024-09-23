@@ -67,59 +67,10 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "Sacramento Taikai",
     brackets: [
       {
-        bracketName: "Youth",
+        bracketName: "",
         bracketType: "Single Elimination",
         bracketCode: "66e4acc8d4d9496462652f09",
         slots: [
-          {
-            player: {
-              name: "Lora Hutchinson",
-            },
-            sequence: 1,
-            id: "66e4acc8e056a2b8e20b6653",
-          },
-          {
-            player: {
-              name: "Lizzie Dean",
-            },
-            sequence: 2,
-            id: "66e4acc82cd7fe8ea4714d90",
-          },
-          {
-            player: {
-              name: "Schwartz Doyle",
-            },
-            sequence: 3,
-            id: "66e4acc83f9027c7eaef2852",
-          },
-          {
-            player: {
-              name: "Michael Barr",
-            },
-            sequence: 4,
-            id: "66e4acc85382c075a6e4f06f",
-          },
-          {
-            player: {
-              name: "Mercer Hughes",
-            },
-            sequence: 5,
-            id: "66e4acc87e873a39d7f1bcf3",
-          },
-          {
-            player: {
-              name: "Teri Meyer",
-            },
-            sequence: 6,
-            id: "66e4acc8470a68036c9921fe",
-          },
-          {
-            player: {
-              name: "Parrish Shelton",
-            },
-            sequence: 7,
-            id: "66e4acc80579179b597c36a2",
-          },
         ],
         progress: 0,
         status: "Editing",
@@ -591,48 +542,13 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "HSSK Taikai",
     brackets: [
       {
-        bracketName: "Youth",
+        bracketName: "",
         bracketType: "Double Elimination",
         bracketCode: "66e4acc806bc8794e178b384",
         slots: [
-          {
-            player: {
-              name: "Gomez Jennings",
-            },
-            sequence: 1,
-            id: "66e4acc853a4e24f9ee98f36",
-          },
-          {
-            player: {
-              name: "Graves Bowen",
-            },
-            sequence: 2,
-            id: "66e4acc8301fa296ee6f30a5",
-          },
-          {
-            player: {
-              name: "Barnett Petty",
-            },
-            sequence: 3,
-            id: "66e4acc8511e75486ff46360",
-          },
-          {
-            player: {
-              name: "Swanson Delaney",
-            },
-            sequence: 4,
-            id: "66e4acc84eedb80e1122032c",
-          },
-          {
-            player: {
-              name: "Jennings Hickman",
-            },
-            sequence: 5,
-            id: "66e4acc89f2892db16f5a09f",
-          },
         ],
-        progress: 100,
-        status: "Completed",
+        progress: 0,
+        status: "Editing",
       },
       {
         bracketName: "Youth",
@@ -1173,59 +1089,10 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "San Jose Taikai",
     brackets: [
       {
-        bracketName: "Dan 1-3",
+        bracketName: "",
         bracketType: "Double Elimination",
         bracketCode: "66e4acc8d13b1f5c390e4d3e",
         slots: [
-          {
-            player: {
-              name: "Nadine Good",
-            },
-            sequence: 1,
-            id: "66e4acc82f1195fc897f3de8",
-          },
-          {
-            player: {
-              name: "Dawson Swanson",
-            },
-            sequence: 2,
-            id: "66e4acc80d9c0bc07092dc43",
-          },
-          {
-            player: {
-              name: "Geneva Briggs",
-            },
-            sequence: 3,
-            id: "66e4acc833a60d5345bac941",
-          },
-          {
-            player: {
-              name: "Burton Elliott",
-            },
-            sequence: 4,
-            id: "66e4acc80ede06faa464cf10",
-          },
-          {
-            player: {
-              name: "Heath Clay",
-            },
-            sequence: 5,
-            id: "66e4acc8368a6d17764c3c0d",
-          },
-          {
-            player: {
-              name: "Quinn Brewer",
-            },
-            sequence: 6,
-            id: "66e4acc818ce58dede4296ac",
-          },
-          {
-            player: {
-              name: "Nicole Gates",
-            },
-            sequence: 7,
-            id: "66e4acc88a95b1eaee66de2a",
-          },
         ],
         progress: 0,
         status: "Editing",
@@ -2046,52 +1913,10 @@ const dummyTournamentData: Tournament[] = [
     tournamentName: "NCKF Championships",
     brackets: [
       {
-        bracketName: "Dan 1-3",
+        bracketName: "",
         bracketType: "Round Robin",
         bracketCode: "66e4acc88f63cf513bd30e35",
         slots: [
-          {
-            player: {
-              name: "Alford Tyson",
-            },
-            sequence: 1,
-            id: "66e4acc801134633bf517f89",
-          },
-          {
-            player: {
-              name: "Douglas Herman",
-            },
-            sequence: 2,
-            id: "66e4acc85a361af5887e65ce",
-          },
-          {
-            player: {
-              name: "Corrine Cross",
-            },
-            sequence: 3,
-            id: "66e4acc8cd5162f4b3a1d53d",
-          },
-          {
-            player: {
-              name: "Levine Sparks",
-            },
-            sequence: 4,
-            id: "66e4acc8050423480b01bc6f",
-          },
-          {
-            player: {
-              name: "Mai Barrera",
-            },
-            sequence: 5,
-            id: "66e4acc89be4fdd8e5bc7206",
-          },
-          {
-            player: {
-              name: "Rita Sims",
-            },
-            sequence: 6,
-            id: "66e4acc8500359be8c12b966",
-          },
         ],
         progress: 0,
         status: "Editing",

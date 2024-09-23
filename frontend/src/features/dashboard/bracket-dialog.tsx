@@ -62,7 +62,7 @@ const BracketDialog = ({ item }: BracketDialogProps) => {
           <Dialog.Title asChild>
             <div className="text-white text-lead border-b border-white px-4 py-2 w-full flex items-center justify-between">
               {item.tournamentName}
-              <Link href={`/bracket/new`}>
+              <Link href={`/${item.tournamentName}/new`}>
                 <EditorButton text={"New Bracket"} variant="no-outline" />
               </Link>
             </div>

@@ -13,6 +13,7 @@ export type BracketActions = {
   setBracketName: (name: string) => void;
   setBracketType: (type: BracketType) => void;
   updateProgress: (progress: number) => void;
+  // createBracket: (tournamentName: string) => string
 };
 
 interface BracketWithTournament extends Bracket {
@@ -31,6 +32,17 @@ export const useBracketStore = create<BracketStore>()(
     progress: 0,
     tournamentName: "",
 
+    // createBracket: async (tournamentName) => {
+    //   console.log("Sending request for a new bracket in", tournamentName)
+    //   const response = new Promise((resolve) => {
+    //     setTimeout(() => resolve({
+    //       bracketCode: "123456"
+
+    //     }), 5000)
+    //   })
+    //   const data = await response.json()
+    //   return data
+    // },
     fetchBracket: (params: { tournament: string; bracketCode: string }) => {
       set((state) => {
         try {
