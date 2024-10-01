@@ -35,7 +35,7 @@ app.use(
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/", authRouter)
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Running on Port ${PORT}`);
