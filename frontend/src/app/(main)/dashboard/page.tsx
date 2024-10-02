@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import DashboardContent from "../../features/dashboard/dashboard-content";
-import DashboardLoading from "../../features/dashboard/dashboard-loading";
+import DashboardContent from "../../../features/dashboard/dashboard-content";
+import DashboardLoading from "../../../features/dashboard/dashboard-loading";
 
 const DashboardPage = () => {
   return (
