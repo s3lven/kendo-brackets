@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import DashboardNav from "@/components/navigation/dashboard-nav";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -25,8 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable}`}>
       <body className="flex flex-col h-screen font-sans">
-        <DashboardNav />
-        <div className="w-full h-full flex-1 overflow-auto">{children}</div>
+        {children}
       </body>
     </html>
   );
