@@ -11,7 +11,7 @@ import logger from "./logger";
 import { AuthRequest } from "../types/auth_t";
 
 export const authenticateToken = async (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
