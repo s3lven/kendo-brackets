@@ -8,9 +8,10 @@ import {
   setTokenCookies,
 } from "../utils/tokens";
 import logger from "./logger";
+import { AuthRequest } from "../types/auth_t";
 
 export const authenticateToken = async (
-  req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
