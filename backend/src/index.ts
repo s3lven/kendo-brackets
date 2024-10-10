@@ -1,6 +1,7 @@
 import express from "express";
 import usersRouter from "./routes/users";
 import authRouter from "./routes/auth"
+import errorRouter from './routes/error'
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
@@ -34,6 +35,7 @@ app.use(
 
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/", authRouter)
+app.use('', errorRouter)
 
 const PORT = process.env.PORT || 5000;
 

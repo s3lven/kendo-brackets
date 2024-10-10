@@ -1,10 +1,9 @@
-import { AuthRequest } from "../../../types/auth_t";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { db } from "../../../database";
 import { eq } from "drizzle-orm";
 import { users } from "../../../database/schema";
 
-export const getUserById = async (request: AuthRequest, response: Response) => {
+export const getUserById = async (request: Request, response: Response) => {
   const userId = parseInt(request.params.id);
 
   if (!request.user) {
