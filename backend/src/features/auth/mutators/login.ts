@@ -10,11 +10,12 @@ import {
 import bcrypt from "bcrypt";
 
 export const login = async (req: Request, res: Response) => {
+  console.log(req.body)
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required" });
-  }
+  // if (!email || !password) {
+  //   return res.status(400).json({ error: "Email and password are required" });
+  // }
 
   try {
     const user = await db
@@ -23,18 +24,18 @@ export const login = async (req: Request, res: Response) => {
       .where(eq(users.email, email))
       .limit(1);
 
-    if (user.length === 0) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+    // if (user.length === 0) {
+    //   return res.status(401).json({ error: "Invalid credentials" });
+    // }
 
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      user[0].passwordHash
-    );
+    // const isPasswordValid = await bcrypt.compare(
+    //   password,
+    //   user[0].passwordHash
+    // );
 
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+    // if (!isPasswordValid) {
+    //   return res.status(401).json({ error: "Invalid credentials" });
+    // }
 
     const tokens = generateTokens({ userId: user[0].id, email: user[0].email });
     await updateUserRefreshToken(user[0].id, tokens.refreshToken);

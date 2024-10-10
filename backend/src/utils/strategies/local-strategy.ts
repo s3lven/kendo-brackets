@@ -21,8 +21,8 @@ passport.use(
 			);
 			if (!isPasswordValid) throw new Error("Invalid credentials");
 
+            console.log("Successfully logged in with local strategy")
 			// Else, user is valid
-            req.user = user
 			done(null, user);
 		} catch (error) {
 			done(error, false);

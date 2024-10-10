@@ -1,6 +1,5 @@
 import { Router } from "express";
 import * as Queries from "../features/users/queries";
-import { authenticateToken } from "../middleware/authenticateTokens";
 import passport from "passport";
 
 const router = Router();
