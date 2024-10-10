@@ -1,18 +1,16 @@
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 
-const router = Router()
+const errorHandler = (req: Request, res: Response) => {
+	try {
+		res.status(404).json({
+			message: "No route matches your request",
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			error: "An error occurred during catch-all error",
+		});
+	}
+};
 
-router.all('*', async(req: Request, res: Response) => {
-    try {
-        
-        res.status(404).json({
-            message: "No route matches your request"
-        })
-
-    } catch (error) {
-        console.error(error)
-        res.status(500).json({ error: "An error occurred during catch-all error" });
-    }
-})
-
-export default router
+export default errorHandler;

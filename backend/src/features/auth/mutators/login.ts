@@ -49,7 +49,7 @@ export const login = async (req: Request, res: Response) => {
 
     res
       .status(200)
-      .json({ message: "Login successful", username: user[0].username });
+      .json({ message: "Login successful", email: user[0].email });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred during login" });
