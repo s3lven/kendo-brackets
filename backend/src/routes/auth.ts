@@ -6,6 +6,7 @@ import {
 	registerValidation,
 } from "../middleware/validate";
 import passport from "passport";
+import { authenticateJwt } from "../middleware/authenticate-jwt";
 
 const router = Router();
 
@@ -33,10 +34,6 @@ router.get("/logout", Mutators.logout);
 router.get("/refresh-token", Mutators.refreshToken);
 
 // /api/v1/verify-auth
-router.get(
-	"verify-auth",
-	passport.authenticate("jwt", { session: false }),
-	Mutators.verifyAuth
-);
+router.get("verify-auth", authenticateJwt, Mutators.verifyAuth);
 
 export default router;

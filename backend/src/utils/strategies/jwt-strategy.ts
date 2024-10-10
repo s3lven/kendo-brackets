@@ -20,7 +20,6 @@ passport.use(
 	new Strategy(
 		JWTOptions,
 		async (req: Request, jwt_payload: any, done: VerifiedCallback) => {
-			console.log(jwt_payload);
 			try {
 				const user = await db.query.users.findFirst({
 					where: eq(jwt_payload.email, users.email),

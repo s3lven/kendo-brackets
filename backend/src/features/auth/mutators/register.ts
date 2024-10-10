@@ -25,7 +25,7 @@ export const register = async (
 			.limit(1);
 
 		if (existingUser.length > 0) {
-			return res.status(409).json({
+			return res.status(400).json({
 				error: "User with this email or username already exists",
 			});
 		}
