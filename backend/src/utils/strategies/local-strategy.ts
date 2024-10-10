@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 
 passport.use(
-	new Strategy({usernameField: "email", passReqToCallback: true}, async (req, email, password, done) => {
+	new Strategy({usernameField: "email", passReqToCallback: true, session: false}, async (req, email, password, done) => {
 		try {
 			// check email and throw error if not found
 			const user = await db.query.users.findFirst({

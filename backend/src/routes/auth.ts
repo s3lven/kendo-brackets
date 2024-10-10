@@ -1,15 +1,14 @@
 import { Router } from "express";
 import * as Mutators from '../features/auth/mutators'
 import { handleValidationErrors, loginValidation, registerValidation } from "../middleware/validate";
-import passport from "passport";
 
 const router = Router();
 
 // /api/v1/register
-router.post("/register", registerValidation, handleValidationErrors, passport.authenticate('local'), Mutators.register);
+router.post("/register", registerValidation, handleValidationErrors, Mutators.register);
 
 // /api/v1/login
-router.post("/login", loginValidation, handleValidationErrors,  Mutators.login)
+router.post("/login", loginValidation, handleValidationErrors, Mutators.login)
 
 // /api/v1/logout
 router.get("/logout", Mutators.logout)

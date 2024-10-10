@@ -13,7 +13,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import logger from "./middleware/logger";
 import passport from "passport";
-import "./utils/strategies/local-strategy"
+import "./utils/strategies/jwt-strategy"
 
 const app = express();
 
