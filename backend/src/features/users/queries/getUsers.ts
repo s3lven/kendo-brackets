@@ -3,7 +3,7 @@ import { users } from "../../../database/schema";
 import { db } from "../../../database";
 import { AuthRequest } from "../../../types/auth_t";
 
-export const getUsers = async (request: AuthRequest, response: Response) => {
+export const getUsers = async (request: Request, response: Response) => {
   if (!request.user) {
     return response.status(401).json({ error: 'User not authenticated' });
   }

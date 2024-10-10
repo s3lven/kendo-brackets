@@ -10,7 +10,10 @@ import {
 import bcrypt from "bcrypt";
 import { RegisterRequestBody } from "../../../types/auth_t";
 
-export const register = async (req: Request<{}, {}, RegisterRequestBody>, res: Response) => {
+export const register = async (
+	req: Request<{}, {}, RegisterRequestBody>,
+	res: Response
+) => {
 	const { firstName, lastName, dojo, email, password } = req.body;
 
 	try {
@@ -22,11 +25,9 @@ export const register = async (req: Request<{}, {}, RegisterRequestBody>, res: R
 			.limit(1);
 
 		if (existingUser.length > 0) {
-			return res
-				.status(409)
-				.json({
-					error: "User with this email or username already exists",
-				});
+			return res.status(409).json({
+				error: "User with this email or username already exists",
+			});
 		}
 
 		// Hash password
