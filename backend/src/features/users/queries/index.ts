@@ -1,2 +1,2 @@
-export * from './getUsers'
-export * from './getUserById'
+export * from './get-users'
+export * from './get-user-by-id'

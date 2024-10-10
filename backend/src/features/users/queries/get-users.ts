@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { users } from "../../../database/schema";
 import { db } from "../../../database";
-import { AuthRequest } from "../../../types/auth_t";
 
 export const getUsers = async (request: Request, response: Response) => {
   if (!request.user) {

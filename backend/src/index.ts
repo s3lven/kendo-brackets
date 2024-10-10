@@ -14,6 +14,7 @@ import morgan from "morgan";
 import logger from "./middleware/logger";
 import passport from "passport";
 import "./utils/strategies/jwt-strategy"
+import "./utils/strategies/local-strategy"
 
 const app = express();
 
