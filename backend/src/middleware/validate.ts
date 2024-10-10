@@ -61,7 +61,7 @@ export const handleValidationErrors = (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		// Format the errors for a more user-friendly response
-		const formattedErrors = errors.array().map((err: { msg: any; }) => ({
+		const formattedErrors = errors.array().map((err: { msg: any }) => ({
 			message: err.msg,
 		}));
 		return res
