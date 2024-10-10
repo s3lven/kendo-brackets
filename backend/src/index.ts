@@ -13,8 +13,8 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import logger from "./middleware/logger";
 import passport from "passport";
-import "./utils/strategies/jwt-strategy"
-import "./utils/strategies/local-strategy"
+import "./utils/strategies/jwt-strategy";
+import "./utils/strategies/local-strategy";
 
 const app = express();
 
@@ -26,8 +26,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(passport.initialize());
-
-
 
 const morganFormat = ":method :url :status :response-time ms";
 
