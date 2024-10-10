@@ -22,6 +22,7 @@ export const refreshToken = async (req: Request, res: Response) => {
                 await updateUserRefreshToken(user.userId, newTokens.refreshToken);
 
                 setTokenCookies(res, newTokens);
+                console.log(newTokens.refreshToken)
 
                 return res.json({ message: 'Token refreshed successfully' });
             }
