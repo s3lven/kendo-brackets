@@ -1,5 +1,4 @@
-import { AuthRequest } from "../types/auth_t";
-import { Response, NextFunction } from "express";
+import { Response, NextFunction, Request } from "express";
 import {
   verifyAccessToken,
   verifyRefreshToken,
@@ -11,7 +10,7 @@ import {
 import logger from "./logger";
 
 export const authenticateToken = async (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
