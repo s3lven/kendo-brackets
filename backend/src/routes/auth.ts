@@ -36,4 +36,20 @@ router.get("/refresh-token", Mutators.refreshToken);
 // /api/v1/verify-auth
 router.get("verify-auth", authenticateJwt, Mutators.verifyAuth);
 
+// /api/v1/google
+router.get(
+	"/google",
+	passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// /api/v1/google/callback
+router.get(
+	"/google/callback",
+	passport.authenticate("google", {
+		session: false,
+		successRedirect: "http://localhost:3000/dashboard",
+		failureRedirect: "http://localhost:3000/login",
+	})
+);
+
 export default router;

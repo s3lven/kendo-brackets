@@ -9,7 +9,7 @@ import { BadRequestException } from "../error-handling/http.exceptions";
 passport.use(
 	new Strategy(
 		{ usernameField: "email", passReqToCallback: true, session: false },
-		async (req, email, password, done) => {
+		async (_req, email, password, done) => {
 			try {
 				// check email and throw error if not found
 				const user = await db.query.users.findFirst({

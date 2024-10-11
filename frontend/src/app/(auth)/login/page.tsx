@@ -11,6 +11,7 @@ const LoginPage = () => {
         </p>
       </div>
       <LoginForm />
+      <Link href={"http://localhost:5000/api/v1/google"}>Login with Google</Link>
       <span className="text-paragraph">
         Don&apos;t have an account?&nbsp;
         <Link href={"/register"} className="text-secondary hover:underline">
