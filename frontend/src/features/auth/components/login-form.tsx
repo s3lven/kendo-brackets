@@ -29,10 +29,22 @@ const LoginForm = () => {
 
 		try {
 			// Login through the backend and redirect
+			const requestBody = JSON.stringify(formData)
+			console.log(requestBody)
+			const response = await fetch('http://localhost:5000/api/v1/login', {
+				method: 'POST',
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: requestBody
+			})
+			console.log(response)
 			router.push("/dashboard");
 		} catch (error) {
 			setError("Please try again later")
 		}
+
+		setIsLoading(false)
 	};
 
 	return (

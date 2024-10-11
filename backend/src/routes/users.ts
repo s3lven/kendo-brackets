@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as Queries from "../features/users/queries";
 import { authenticateJwt } from "../middleware/authenticate-jwt";
+import { handleValidationErrors, idParamValidation } from "../middleware/validate";
 
 const router = Router();
 
@@ -15,6 +16,8 @@ router.get(
 router.get(
 	"/:id",
 	authenticateJwt,
+    idParamValidation,
+    handleValidationErrors,
 	Queries.getUserById
 );
 

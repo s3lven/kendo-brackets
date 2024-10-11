@@ -2,8 +2,10 @@ import { Request, Response } from "express";
 import { db } from "../../../database";
 import { users } from "../../../database/schema";
 import { eq } from "drizzle-orm";
+import asyncHandler from "express-async-handler"
 
-export const logout = async (req: Request, res: Response) => {
+
+export const logout = asyncHandler(async (req: Request, res: Response) => {
 	const refreshToken = req.cookies["refreshToken"];
 
 	if (refreshToken) {
@@ -19,4 +21,4 @@ export const logout = async (req: Request, res: Response) => {
 	res.clearCookie("refreshToken");
 
 	res.status(200).json({ message: "Logged out successfully" });
-};
+});
