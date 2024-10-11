@@ -14,6 +14,7 @@ import logger from "./middleware/logger";
 import passport from "passport";
 import "./utils/strategies/jwt-strategy";
 import "./utils/strategies/local-strategy";
+import "./utils/strategies/google-strategy"
 import { errorHandler } from "./middleware/exception-handler";
 import { pageNotFoundExceptionHandler } from "./middleware/page-not-found-exception-handler";
 
@@ -47,7 +48,7 @@ app.use(
 );
 
 app.use("/api/v1/users", usersRouter);
-app.use("/api/v1/", authRouter);
+app.use("/api/v1", authRouter);
 app.use('*', pageNotFoundExceptionHandler)
 app.use(errorHandler);
 
