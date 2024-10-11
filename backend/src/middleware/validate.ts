@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { ValidationChain } from "express-validator/lib/chain/validation-chain";
-import { body } from "express-validator/lib/middlewares/validation-chain-builders";
+import {
+	body,
+	query,
+} from "express-validator/lib/middlewares/validation-chain-builders";
 import { validationResult } from "express-validator/lib/validation-result";
 
 // Middleware for login validation
@@ -53,6 +56,12 @@ export const registerValidation: ValidationChain[] = [
 		.withMessage("Dojo name must be between 2 and 100 characters"),
 ];
 
+export const idParamValidation = [
+	query("id")
+		.isInt({ min: 0, max: 2147483647 })
+		.withMessage("ID query parameter must be positive integer with a maximum value of INT_MAX"),
+];
+
 export const handleValidationErrors = (
 	req: Request,
 	res: Response,
@@ -61,9 +70,10 @@ export const handleValidationErrors = (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		// Format the errors for a more user-friendly response
-		const formattedErrors = errors.array().map((err: { msg: any }) => ({
-			message: err.msg,
-		}));
+		const formattedErrors = errors
+			.array()
+			.map((err: { msg: any }) => err.msg);
+		// throw new BadRequestException(formattedErrors)
 		return res
 			.status(400)
 			.json({ success: false, errors: formattedErrors });

@@ -2,16 +2,14 @@ import { Request, Response } from "express";
 import { db } from "../../../database";
 import { eq } from "drizzle-orm";
 import { users } from "../../../database/schema";
+import asyncHandler from 'express-async-handler'
+import { BadRequestException } from "../../../utils/error-handling/http.exceptions";
 
-export const getUserById = async (request: Request, response: Response) => {
+export const getUserById = asyncHandler(async (request: Request, response: Response) => {
   const userId = parseInt(request.params.id);
 
-  if (!request.user) {
-    return response.status(401).json({ error: 'User not authenticated' });
-  }
-
   if (isNaN(userId)) {
-    return response.status(400).json({ error: "Invalid user ID" });
+    throw new BadRequestException("Invalid user ID")
   }
 
   try {
@@ -22,7 +20,7 @@ export const getUserById = async (request: Request, response: Response) => {
       .limit(1);
 
     if (user.length === 0) {
-      return response.status(404).json({ error: "User not found" });
+      response.status(404).json({ error: "User not found" });
     }
 
     response.json(user[0]);
@@ -32,4 +30,4 @@ export const getUserById = async (request: Request, response: Response) => {
       .status(500)
       .json({ error: "An error occurred while fetching the user" });
   }
-};
+});

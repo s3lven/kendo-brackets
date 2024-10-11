@@ -9,14 +9,13 @@ import {
 } from "../../../utils/tokens";
 import bcrypt from "bcrypt";
 import { RegisterRequestBody } from "../../../types/auth_t";
+import { BadRequestException } from "../../../utils/error-handling/http.exceptions";
+import asyncHandler from "express-async-handler";
 
-export const register = async (
-	req: Request<{}, {}, RegisterRequestBody>,
-	res: Response
-) => {
-	const { firstName, lastName, dojo, email, password } = req.body;
+export const register = asyncHandler(
+	async (req: Request<{}, {}, RegisterRequestBody>, res: Response) => {
+		const { firstName, lastName, dojo, email, password } = req.body;
 
-	try {
 		// Check if user already exists
 		const existingUser = await db
 			.select()
@@ -25,9 +24,9 @@ export const register = async (
 			.limit(1);
 
 		if (existingUser.length > 0) {
-			return res.status(400).json({
-				error: "User with this email or username already exists",
-			});
+			throw new BadRequestException(
+				"User with this email or username already exists"
+			);
 		}
 
 		// Hash password
@@ -58,10 +57,5 @@ export const register = async (
 		setTokenCookies(res, tokens);
 
 		res.status(201).json({ message: "Registration successful", email });
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({
-			error: "An error occurred during registration",
-		});
 	}
-};
+);
