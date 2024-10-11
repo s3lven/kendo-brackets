@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import {
 	generateTokens,
 	getUserRefreshToken,
@@ -39,14 +39,13 @@ export const refreshToken = asyncHandler(
 				);
 
 				setTokenCookies(res, newTokens);
-				console.log(newTokens.refreshToken);
 
 				res.status(200).json({
 					message: "Token refreshed successfully",
 				});
 			}
+		} else {
+			throw new ForbiddenException("Invalid refresh token");
 		}
-
-		throw new ForbiddenException("Invalid refresh token");
 	}
 );

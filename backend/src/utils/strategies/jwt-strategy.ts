@@ -9,6 +9,7 @@ import { db } from "../../database";
 import { eq } from "drizzle-orm";
 import { Request } from "express";
 import { users } from "../../database/schema";
+import { NotFoundException } from "../error-handling/http.exceptions";
 
 const JWTOptions: StrategyOptionsWithRequest = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -26,7 +27,7 @@ passport.use(
 				});
 
 				if (!user) {
-					throw new Error("No user found");
+					throw new NotFoundException("User not found while validating tokens")
 				}
 
 				return done(null, user);
