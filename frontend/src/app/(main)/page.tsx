@@ -1,6 +1,7 @@
 // import Image from "next/image";
 
 import EditorButton from "@/components/ui/editor-button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,11 +12,13 @@ export default function Home() {
             <p className="text-headline text-center text-white">Never miss your next match</p>
             <p className="text-header text-center text-white ">Welcome to Taikai</p>
           </div>
-          <p className="text-xl leading-8 tracking-wider text-center text-white text-pretty w-2/5">Taikai provides intuitive bracket creation, real-time match updates, and easy navigation to ensure your taikai  runs smoothly.</p>
+          <p className="text-xl leading-8 tracking-wider text-center text-white text-pretty w-2/5">Taikai provides intuitive bracket creation, real-time match updates, and easy navigation to ensure your taikai runs smoothly.</p>
 
         </div>
         <div className="flex gap-6">
+          <Link href={"/sign-in"}>
           <EditorButton text={"Get Started"}/>
+          </Link>
         </div>
       </div>
     </div>

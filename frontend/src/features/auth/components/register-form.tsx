@@ -1,5 +1,7 @@
 "use client";
 
+// TODO: OLD REGISTER FORM, NEEDS TO BE REDONE WITH CLERK ELEMENTS
+
 import { Button, Input } from "@headlessui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import _ from "lodash";

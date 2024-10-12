@@ -1,5 +1,5 @@
-import RegisterForm from "@/features/auth/components/register-form";
-import Link from "next/link";
+import { SignUp } from "@clerk/nextjs";
+// import Link from "next/link";
 
 const RegisterPage = () => {
   return (
@@ -10,13 +10,13 @@ const RegisterPage = () => {
           Sign up and start managing your taikai.
         </p>
       </div>
-      <RegisterForm />
-      <span className="text-paragraph">
+      <SignUp />
+      {/* <span className="text-paragraph">
         Already have an account?&nbsp;
-        <Link href={"/login"} className="text-secondary hover:underline">
+        <Link href={"/sign-in"} className="text-secondary hover:underline">
           Sign in now
         </Link>
-      </span>
+      </span> */}
     </>
   );
 };
