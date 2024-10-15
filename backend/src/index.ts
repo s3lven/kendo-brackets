@@ -2,7 +2,6 @@ import express from "express";
 
 // Routes
 import usersRouter from "./routes/users";
-import authRouter from "./routes/auth";
 
 // Utilities
 import cors from "cors";
@@ -11,15 +10,13 @@ import cookieParser from "cookie-parser";
 // Middlewares
 import morgan from "morgan";
 import logger from "./middleware/logger";
-import passport from "passport";
-import "./utils/strategies/jwt-strategy";
-import "./utils/strategies/local-strategy";
-import "./utils/strategies/google-strategy"
 import { errorHandler } from "./middleware/exception-handler";
 import { pageNotFoundExceptionHandler } from "./middleware/page-not-found-exception-handler";
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
+// app.use(clerkMiddleware())
 app.use(express.json());
 app.use(
 	cors({
@@ -27,7 +24,6 @@ app.use(
 	})
 );
 app.use(cookieParser());
-app.use(passport.initialize());
 
 const morganFormat = ":method :url :status :response-time ms";
 
@@ -48,7 +44,6 @@ app.use(
 );
 
 app.use("/api/v1/users", usersRouter);
-app.use("/api/v1", authRouter);
 app.use('*', pageNotFoundExceptionHandler)
 app.use(errorHandler);
 

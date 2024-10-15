@@ -6,9 +6,9 @@ import { UnauthorizedException } from "../../../utils/error-handling/http.except
 
 export const getUsers = asyncHandler(
 	async (request: Request, response: Response) => {
-		if (!request.user) {
-			throw new UnauthorizedException("User is not authenticated");
-		}
+		// if (!request.user) {
+		// 	throw new UnauthorizedException("User is not authenticated");
+		// }
 
 		const allUsers = await db
 			.select({ id: users.id, email: users.email })
