@@ -12,7 +12,6 @@ export const getUserById = asyncHandler(async (request: Request, response: Respo
     throw new BadRequestException("Invalid user ID")
   }
 
-  try {
     const user = await db
       .select({ id: users.id, email: users.email })
       .from(users)
@@ -24,10 +23,4 @@ export const getUserById = asyncHandler(async (request: Request, response: Respo
     }
 
     response.json(user[0]);
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    response
-      .status(500)
-      .json({ error: "An error occurred while fetching the user" });
-  }
 });
