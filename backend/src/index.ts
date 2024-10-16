@@ -2,6 +2,8 @@ import express from "express";
 
 // Routes
 import usersRouter from "./routes/users";
+import tournamentsRouter from './routes/tournaments'
+import bracketsRouter from './routes/brackets'
 
 // Utilities
 import cors from "cors";
@@ -12,11 +14,9 @@ import morgan from "morgan";
 import logger from "./middleware/logger";
 import { errorHandler } from "./middleware/exception-handler";
 import { pageNotFoundExceptionHandler } from "./middleware/page-not-found-exception-handler";
-import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
-// app.use(clerkMiddleware())
 app.use(express.json());
 app.use(
 	cors({
@@ -44,6 +44,8 @@ app.use(
 );
 
 app.use("/api/v1/users", usersRouter);
+app.use('/api/v1/tournaments', tournamentsRouter)
+app.use('/api/v1/brackets', bracketsRouter)
 app.use('*', pageNotFoundExceptionHandler)
 app.use(errorHandler);
 

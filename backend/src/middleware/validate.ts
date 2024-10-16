@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ValidationChain } from "express-validator/lib/chain/validation-chain";
 import {
 	body,
-	query,
+	param,
 } from "express-validator/lib/middlewares/validation-chain-builders";
 import { validationResult } from "express-validator/lib/validation-result";
 
@@ -57,7 +57,7 @@ export const registerValidation: ValidationChain[] = [
 ];
 
 export const idParamValidation = [
-	query("id")
+	param("id")
 		.isInt({ min: 0, max: 2147483647 })
 		.withMessage("ID query parameter must be positive integer with a maximum value of INT_MAX"),
 ];

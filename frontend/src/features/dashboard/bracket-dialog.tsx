@@ -1,43 +1,44 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { User, X } from "lucide-react";
 import { Tournament } from "@/types/bracket_t";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import EditorButton from "@/components/ui/editor-button";
 import Link from "next/link";
+import BracketList from "./bracket-list";
 
 type BracketDialogProps = {
   item: Tournament;
 };
 
-const LazyBracketList = dynamic(() => import("./bracket-list"), {
-  loading: () => <LoadingBracketList />,
-});
+// const LazyBracketList = dynamic(() => import("./bracket-list"), {
+//   loading: () => <LoadingBracketList />,
+// });
 
-const LoadingBracketList = () => {
-  return (
-    <div className="w-full h-full flex-grow flex flex-col justify-start gap-2 px-2 py-9 overflow-y-auto scrollbar-thin scrollbar-webkit">
-      {[...Array(3)].map((_, index) => (
-        <div key={index} className="animate-pulse">
-          <div className="rounded-lg bg-shade2 flex justify-between px-4 py-4 shadow-lg">
-            <div className="flex flex-col justify-center items-start">
-              <div className="h-4 w-32 bg-shade2_30 rounded mb-2"></div>
-              <div className="h-4 w-24 bg-shade2_30 rounded"></div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="h-4 w-16 bg-shade2_30 rounded"></div>
-            </div>
-            <div className="flex gap-4 justify-center items-center">
-              <div className="flex gap-1 justify-center items-center pr-[56px]">
-                <div className="h-4 w-8 bg-shade2_30 rounded"></div>
-                <User className="text-shade2_30" />
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+// const LoadingBracketList = () => {
+//   return (
+//     <div className="w-full h-full flex-grow flex flex-col justify-start gap-2 px-2 py-9 overflow-y-auto scrollbar-thin scrollbar-webkit">
+//       {[...Array(3)].map((_, index) => (
+//         <div key={index} className="animate-pulse">
+//           <div className="rounded-lg bg-shade2 flex justify-between px-4 py-4 shadow-lg">
+//             <div className="flex flex-col justify-center items-start">
+//               <div className="h-4 w-32 bg-shade2_30 rounded mb-2"></div>
+//               <div className="h-4 w-24 bg-shade2_30 rounded"></div>
+//             </div>
+//             <div className="flex items-center justify-center">
+//               <div className="h-4 w-16 bg-shade2_30 rounded"></div>
+//             </div>
+//             <div className="flex gap-4 justify-center items-center">
+//               <div className="flex gap-1 justify-center items-center pr-[56px]">
+//                 <div className="h-4 w-8 bg-shade2_30 rounded"></div>
+//                 <User className="text-shade2_30" />
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
 
 const BracketDialog = ({ item }: BracketDialogProps) => {
   return (
@@ -67,7 +68,8 @@ const BracketDialog = ({ item }: BracketDialogProps) => {
               </Link>
             </div>
           </Dialog.Title>
-          <LazyBracketList item={item} />
+          {/* <LazyBracketList item={item} /> */}
+          <BracketList item={item} />
           <Dialog.Close asChild>
             <button className="absolute top-4 right-4 text-white hover:bg-shade2_30 focus:outline-none p-1 rounded-full">
               <X size={"1rem"} />
