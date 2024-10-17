@@ -7,6 +7,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { tournaments } from "./tournaments";
 import { sql } from "drizzle-orm/sql";
+import { relations } from "drizzle-orm";
+import { participantsToBrackets } from "./participants-to-brackets";
 
 export const brackets = pgTable("brackets", {
 	id: serial("id").primaryKey(),
@@ -22,3 +24,7 @@ export const brackets = pgTable("brackets", {
 		.default(sql`substring(md5(random()::text) from 1 for 8)`),
 	// currentRound: integer('current_round').default(0),
 });
+
+export const bracketRelations = relations(brackets, ({ many }) => ({
+	participantsToBrackets: many(participantsToBrackets)
+}))
