@@ -1,9 +1,9 @@
 import { tournaments } from "./tournaments";
 import { users } from "./users";
-import { participants } from "./participants";
-import { brackets } from "./brackets";
+import { participants, participantsRelations } from "./participants";
+import { brackets, bracketRelations } from "./brackets";
 import { matches } from "./matches";
-import { participantsToBrackets } from "./participants-to-brackets";
+import { participantsToBrackets, participantsToBracketsRelations } from "./participants-to-brackets";
 
 export const schema = {
 	users,
@@ -11,7 +11,10 @@ export const schema = {
 	brackets,
 	participants,
 	matches,
-	participantsToBrackets
+	participantsToBrackets,
+	participantsRelations,
+	bracketRelations,
+	participantsToBracketsRelations
 };
 
 export { tournaments, users, participants, brackets, matches, participantsToBrackets };

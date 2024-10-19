@@ -9,7 +9,7 @@ const router = Router();
 router.get(
 	"/",
 	requireAuth(),
-	Queries.getBrackets
+	Queries.getAllBrackets
 );
 
 // /api/v1/brackets/id
@@ -18,7 +18,12 @@ router.get(
 	requireAuth(),
     idParamValidation,
     handleValidationErrors,
-	Queries.getBracketsById
+	Queries.getBracketsByTournament
 );
+
+router.get(
+	"/info/:code",
+	Queries.getBracketInfo
+)
 
 export default router;

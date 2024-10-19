@@ -39,6 +39,7 @@ type Bracket = {
   status: BracketStatusType;
   bracketCode: string;
   progress: number;
+  slots: Slot[];
 };
 
 type Tournament = {

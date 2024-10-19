@@ -5,7 +5,7 @@ import { brackets } from "../../../database/schema";
 import asyncHandler from 'express-async-handler'
 import { BadRequestException } from "../../../utils/error-handling/http.exceptions";
 
-export const getBracketsById = asyncHandler(async (request: Request, response: Response) => {
+export const getBracketsByTournament = asyncHandler(async (request: Request, response: Response) => {
   const tournamentId = parseInt(request.params.id);
 
   if (isNaN(tournamentId)) {
@@ -21,5 +21,5 @@ export const getBracketsById = asyncHandler(async (request: Request, response: R
       response.status(404).json({ error: "User not found" });
     }
 
-    response.json(allBrackets);
+    response.status(200).json(allBrackets);
 });
