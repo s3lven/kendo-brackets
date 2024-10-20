@@ -1,3 +1,5 @@
+"use client"
+
 import EditorButton from "@/components/ui/editor-button";
 import * as Progress from "@radix-ui/react-progress";
 import {

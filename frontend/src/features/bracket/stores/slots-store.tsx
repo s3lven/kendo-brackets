@@ -1,4 +1,4 @@
-import { Player, Slot } from "@/types/bracket_t";
+import { Slot } from "@/types/bracket_t";
 import { arrayMove } from "@dnd-kit/sortable";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -22,36 +22,24 @@ export type SlotStore = SlotState & SlotActions;
 export const defaultInitState: SlotState = {
   slots: [
     {
-      player: {
-        name: "Team Haha",
-        id: 0,
-      },
+      name: "Team Haha",
       sequence: 1,
       id: 1,
     },
     {
-      player: {
-        name: "Team Hehe",
-        id: 0,
-      },
+      name: "Team Hehe",
       sequence: 2,
       id: 2,
     },
 
     {
-      player: {
-        name: "Team HooHoo",
-        id: 0,
-      },
+      name: "Team HooHoo",
       sequence: 3,
       id: 3,
     },
 
     {
-      player: {
-        name: "Team HiiHii",
-        id: 0,
-      },
+      name: "Team HiiHii",
       sequence: 4,
       id: 4,
     },
@@ -67,10 +55,7 @@ export const useSlotStore = create<SlotStore>()(
           (state.slots = [
             ...state.slots,
             {
-              player: {
-                name: `Team ${state.slots.length + 1}`,
-                id: 0,
-              },
+              name: `Team ${state.slots.length + 1}`,
               sequence: state.slots.length + 1,
               id: state.slots.length + 1,
             },
@@ -88,7 +73,7 @@ export const useSlotStore = create<SlotStore>()(
     moveSlot: (activeIndex: number, overIndex: number) => {
       set((state) => {
         const updated = arrayMove(state.slots, activeIndex, overIndex).map(
-          (slot, index) => ({ ...slot, sequence: index + 1 })
+          (slot, index) => ({ ...slot, sequence: index + 1 }),
         );
         state.slots = updated;
       });
@@ -96,15 +81,14 @@ export const useSlotStore = create<SlotStore>()(
     shuffleSlots: () => {
       set((state) => {
         const dirtySlots = [...state.slots];
-        let players: Player[] = [];
+        let players: string[] = [];
         dirtySlots.map((slot) => {
-          players.push(slot.player);
+          players.push(slot.name);
         });
         players = _.shuffle(players);
         dirtySlots.map((slot, index) => {
-          slot.player = players[index];
+          slot.name = players[index];
         });
-        console.log(dirtySlots);
         state.slots = dirtySlots;
       });
     },
@@ -116,8 +100,8 @@ export const useSlotStore = create<SlotStore>()(
     updatePlayerName: (id, name) =>
       set((state) => ({
         slots: state.slots.map((slot) =>
-          slot.id === id ? { ...slot, player: { ...slot.player, name } } : slot
+          slot.id === id ? { ...slot, name: name } : slot,
         ),
       })),
-  }))
+  })),
 );

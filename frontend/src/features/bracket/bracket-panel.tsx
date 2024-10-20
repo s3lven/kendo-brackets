@@ -1,4 +1,3 @@
-import React from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { TbTournament } from "react-icons/tb";
 import { Play, Users } from "lucide-react";

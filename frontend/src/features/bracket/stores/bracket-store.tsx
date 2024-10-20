@@ -1,10 +1,10 @@
-import { Bracket, BracketType, dummyTournamentData } from "@/types/bracket_t";
+import { BracketType, BracketWithTournament } from "@/types/bracket_t";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { useMatchesStore } from "./matches-store";
 
 export type BracketActions = {
-  fetchBracket: (params: { tournament: string; bracketCode: string }) => void;
+  // fetchBracket: (params: { tournament: string; bracketCode: string }) => void;
   runBracket: () => void;
   resetBracket: () => void;
   completeBracket: () => void;
@@ -13,12 +13,8 @@ export type BracketActions = {
   setBracketName: (name: string) => void;
   setBracketType: (type: BracketType) => void;
   updateProgress: (progress: number) => void;
-  // createBracket: (tournamentName: string) => string
+  setBracket: (bracket: BracketWithTournament) => void
 };
-
-interface BracketWithTournament extends Bracket {
-  tournamentName: string
-}
 
 export type BracketStore = BracketWithTournament & BracketActions;
 
@@ -32,48 +28,16 @@ export const useBracketStore = create<BracketStore>()(
     progress: 0,
     tournamentName: "",
 
-    // createBracket: async (tournamentName) => {
-    //   console.log("Sending request for a new bracket in", tournamentName)
-    //   const response = new Promise((resolve) => {
-    //     setTimeout(() => resolve({
-    //       bracketCode: "123456"
-
-    //     }), 5000)
-    //   })
-    //   const data = await response.json()
-    //   return data
-    // },
-    fetchBracket: (params: { tournament: string; bracketCode: string }) => {
+    setBracket: (bracket) => {
       set((state) => {
-        try {
-          const tournamentData = dummyTournamentData.find((tournament) => {
-            const searchTerm = params.tournament.replace("%20", " ");
-            return tournament.tournamentName === searchTerm;
-          });
-
-          if (tournamentData === undefined) {
-            throw new TypeError("Where did the tournamentData go!");
-          }
-
-          const bracketData = tournamentData?.brackets.find((bracket) => {
-            if (bracket.bracketCode === params.bracketCode) {
-              return true;
-            } else return false;
-          });
-
-          if (bracketData === undefined) {
-            throw new TypeError("Where did the bracketData go!");
-          }
-          state.bracketName = bracketData.bracketName;
-          state.bracketType = bracketData.bracketType;
-          state.status = bracketData.status;
-          state.slots = bracketData.slots;
-          state.bracketCode = bracketData.bracketCode;
-          state.progress = bracketData.progress;
-          state.tournamentName = tournamentData.tournamentName
-        } catch (error) {
-          console.log(error);
-        }
+        
+          state.bracketName = bracket.bracketName
+          state.bracketType = bracket.bracketType;
+          state.status = bracket.status;
+          state.slots = bracket.slots;
+          state.bracketCode = bracket.bracketCode;
+          state.progress = bracket.progress;
+          state.tournamentName = bracket.tournamentName
       });
     },
     runBracket: () => {

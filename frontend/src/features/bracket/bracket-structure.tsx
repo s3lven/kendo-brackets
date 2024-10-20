@@ -1,3 +1,5 @@
+"use client"
+
 import { Match, Slot } from "@/types/bracket_t";
 import BracketRound from "./components/bracket-view/bracket-round";
 import { useSlots } from "./stores/bracket-view-store";

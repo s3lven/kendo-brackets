@@ -42,7 +42,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
       submitScore: state.submitScore,
       updateMatches: state.updateTournament,
       resetMatch: state.resetMatch,
-    }))
+    })),
   );
   const handleSubmitScore = () => {
     console.log("Submitting score");
@@ -57,7 +57,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
 
   // Subscribe to changes in the match
   const matchFromStore = useMatchesStore(
-    useShallow((state) => state.rounds.flat().find((m) => m.id === match.id))
+    useShallow((state) => state.rounds.flat().find((m) => m.id === match.id)),
   );
 
   useEffect(() => {
@@ -68,12 +68,12 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
 
   const InProgressMatchView = () => (
     <div
-      className={`w-full h-full flex flex-col items-center pt-9 justify-between`}
+      className={`flex h-full w-full flex-col items-center justify-between pt-9`}
     >
       {/* Display */}
-      <div className="flex flex-col w-full">
+      <div className="flex w-full flex-col">
         {/* Match Labels */}
-        <div className="w-full flex justify-end items-center gap-[28px] px-[22px] ">
+        <div className="flex w-full items-center justify-end gap-[28px] px-[22px]">
           <div className="flex items-center justify-center">
             <p className="text-label uppercase text-white">winner</p>
           </div>
@@ -81,7 +81,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
             <p className="text-label uppercase text-white">score</p>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-[2px] justify-center">
+        <div className="flex w-full flex-col justify-center gap-[2px]">
           <SlotView
             player={redPlayer}
             color={"Red"}
@@ -102,7 +102,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
       </div>
       {/* Button */}
       <Dialog.Close asChild>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <EditorButton
             text={"submit scores"}
             onClickHandler={handleSubmitScore}
@@ -123,10 +123,10 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   );
 
   const EditMatchView = () => (
-    <div className={`w-full h-full flex flex-col items-center justify-center`}>
+    <div className={`flex h-full w-full flex-col items-center justify-center`}>
       {/* Display */}
-      <div className="flex flex-col w-full">
-        <div className="w-full flex flex-col gap-[2px] justify-center">
+      <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col justify-center gap-[2px]">
           <SlotView
             player={redPlayer}
             color={"Red"}
@@ -151,11 +151,11 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   );
 
   const CompletedView = () => (
-    <div className={`w-full h-full flex flex-col items-center justify-center`}>
+    <div className={`flex h-full w-full flex-col items-center justify-center`}>
       {/* Display */}
-      <div className="flex flex-col w-full">
+      <div className="flex w-full flex-col">
         {/* Match Labels */}
-        <div className="w-full flex justify-end items-center gap-[36px] px-[25.5px] ">
+        <div className="flex w-full items-center justify-end gap-[36px] px-[25.5px]">
           <div className="flex items-center justify-center">
             <p className="text-label uppercase text-white">winner</p>
           </div>
@@ -163,7 +163,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
             <p className="text-label uppercase text-white">score</p>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-[2px] justify-center">
+        <div className="flex w-full flex-col justify-center gap-[2px]">
           <SlotView
             player={redPlayer}
             color={"Red"}
@@ -190,17 +190,17 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <div className="w-full flex flex-col justify-center gap-[2px] hover:outline-primary hover:outline cursor-pointer">
+        <div className="hover:outline-primary flex w-full cursor-pointer flex-col justify-center gap-[2px] hover:outline">
           <BracketSlot
             variant="Red"
-            name={redPlayer?.player.name}
+            name={redPlayer?.name}
             sequence={redPlayer?.sequence}
             isWinner={winner === redPlayer}
             scores={matchFromStore?.player1Score || []}
           />
           <BracketSlot
             variant="White"
-            name={whitePlayer?.player.name}
+            name={whitePlayer?.name}
             sequence={whitePlayer?.sequence}
             isWinner={winner === whitePlayer}
             scores={matchFromStore?.player2Score || []}
@@ -210,13 +210,12 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
       <Dialog.Portal>
         <Dialog.Overlay className="bg-shade2/80 data-[state=open]:animate-overlayShow fixed inset-0" />
         <Dialog.Content
-          className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] focus:outline-none
-          max-w-[680px] max-h-[425px] flex flex-col justify-between items-center p-4 gap-[10px] bg-neutral8 w-full h-full font-poppins"
+          className="data-[state=open]:animate-contentShow bg-neutral8 font-poppins fixed left-[50%] top-[50%] flex h-full max-h-[425px] w-full max-w-[680px] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-between gap-[10px] p-4 focus:outline-none"
           aria-describedby={undefined}
         >
           <Dialog.Title asChild>
             {/* Title */}
-            <div className="w-full px-4 py-2 border-b border-white ">
+            <div className="w-full border-b border-white px-4 py-2">
               <p className="text-lead text-white">Report Scores</p>
             </div>
           </Dialog.Title>
@@ -233,7 +232,7 @@ const BracketMatch = ({ match }: BracketMatchProps) => {
           {/* If we are editting the details/participants list, we should not be able to edit match status */}
           {bracketStatus === "Editing" && <EditMatchView />}
           {bracketStatus === "Completed" && <CompletedView />}
-          <Dialog.Close className="absolute top-4 right-4">
+          <Dialog.Close className="absolute right-4 top-4">
             <X
               size={"1.5rem"}
               color="#717171"

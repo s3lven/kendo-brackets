@@ -1,26 +1,21 @@
 import { Slot } from "@/types/bracket_t";
 import { Input } from "@headlessui/react";
 
-
 type ParticipantSlotViewProps = {
   slot: Slot;
 };
 
-const ParticipantSlotView = ({
-  slot,
-}: ParticipantSlotViewProps) => {
+const ParticipantSlotView = ({ slot }: ParticipantSlotViewProps) => {
   return (
-    <div className="w-full h-6" >
-      <div
-        className={`flex justify-center items-center gap-4 group`}
-      >
-        <div className="flex gap-1 items-center">
-          <p className="w-4 text-desc text-grey text-center">{slot.sequence}</p>
+    <div className="h-6 w-full">
+      <div className={`group flex items-center justify-center gap-4`}>
+        <div className="flex items-center gap-1">
+          <p className="text-desc text-grey w-4 text-center">{slot.sequence}</p>
         </div>
-        <div className="flex justify-between items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <Input
-            className="w-[215px] h-full border border-grey bg-neutral8 text-grey px-1"
-            value={slot.player.name}
+            className="border-grey bg-neutral8 text-grey h-full w-[215px] border px-1"
+            value={slot.name}
             readOnly
           />
         </div>

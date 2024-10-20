@@ -38,7 +38,7 @@ const ParticipantSlotEdit = ({
     opacity: isDragging ? "0.4" : "1",
   };
 
-  const [inputValue, setInputValue] = useState(slot.player.name);
+  const [inputValue, setInputValue] = useState(slot.name);
   const updatePlayerName = useSlotStore((state) => state.updatePlayerName);
 
   const handleRemoveSlot = () => {
@@ -51,7 +51,7 @@ const ParticipantSlotEdit = ({
     debounce((id: number | string, name: string) => {
       updatePlayerName(id, name);
     }, 300),
-    [updatePlayerName]
+    [updatePlayerName],
   );
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,28 +61,27 @@ const ParticipantSlotEdit = ({
   };
 
   return (
-    <div className="w-full h-6" ref={setNodeRef} style={parentStyles}>
+    <div className="h-6 w-full" ref={setNodeRef} style={parentStyles}>
       <div
         ref={setActivatorNodeRef}
         className={`${
           isDragging || forceDragging ? "cursor-grabbing" : "cursor-grab"
-        } flex justify-between items-center gap-4 group`}
+        } group flex items-center justify-between gap-4`}
         {...attributes}
         {...listeners}
       >
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <TbGripVertical className="text-neutral6" size={"1.5rem"} />
-          <p className="w-4 text-desc text-grey text-center">{slot.sequence}</p>
+          <p className="text-desc text-grey w-4 text-center">{slot.sequence}</p>
         </div>
-        <div className="flex justify-between items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <Input
-            className="w-[215px] h-full border border-grey bg-neutral8 text-grey px-1"
+            className="border-grey bg-neutral8 text-grey h-full w-[215px] border px-1"
             value={inputValue}
             onChange={handleChangeName}
           />
           <Button
-            className="flex items-center justify-center text-grey
-                opacity-0 transition-opacity ease-in-out duration-300 group-hover:opacity-100"
+            className="text-grey flex items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
             onMouseDown={handleRemoveSlot}
           >
             <X size={"1rem"} />

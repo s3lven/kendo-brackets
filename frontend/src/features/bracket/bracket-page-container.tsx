@@ -2,34 +2,31 @@
 
 import { useBracketStore } from "@/features/bracket/stores/bracket-store";
 import { useSlotStore } from "@/features/bracket/stores/slots-store";
-import React, { useEffect } from "react";
-
-import BracketPanel from "@/features/bracket/bracket-panel";
-import BracketView from "@/features/bracket/bracket-view";
+import { BracketWithTournament } from "@/types/bracket_t";
+import { useEffect } from "react";
 
 type BracketContainerProps = {
-  tournament: string;
-  bracketCode: string;
+  bracket: BracketWithTournament
+  children: React.ReactNode
 };
 
 const BracketPageContainer = ({
-  tournament,
-  bracketCode,
+  bracket,
+  children
 }: BracketContainerProps) => {
-  const fetchBracket = useBracketStore((state) => state.fetchBracket);
+  const setBracket = useBracketStore((state) => state.setBracket);
   const slots = useBracketStore((state) => state.slots);
   const setSlots = useSlotStore((state) => state.setSlots);
 
   useEffect(() => {
-    fetchBracket({ tournament, bracketCode });
+    setBracket(bracket);
     setSlots(slots);
     // console.log(bracket.slots)
-  }, [slots, fetchBracket, setSlots, tournament, bracketCode]);
+  }, [slots, setSlots, setBracket, bracket]);
 
   return (
     <div className="w-full h-full flex gap-5 bg-shade2">
-      <BracketPanel />
-      <BracketView />
+      {children}
     </div>
   );
 };

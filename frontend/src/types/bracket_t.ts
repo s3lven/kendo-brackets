@@ -19,7 +19,8 @@ type Player = {
 };
 
 type Slot = {
-  player: Player;
+  // player: Player;
+  name: string
   sequence: number;
   id: number | string;
 };
@@ -42,6 +43,10 @@ type Bracket = {
   slots: Slot[];
 };
 
+interface BracketWithTournament extends Bracket {
+  tournamentName: string
+}
+
 type Tournament = {
   id: number;
   tournamentName: string;
@@ -60,5 +65,6 @@ export type {
   Slot,
   Match,
   Bracket,
+  BracketWithTournament,
   Tournament,
 };

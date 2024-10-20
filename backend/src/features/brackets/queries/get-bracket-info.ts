@@ -36,11 +36,12 @@ export const getBracketInfo = asyncHandler(async (request: Request, response: Re
 
     const responseObject = {
         bracketName: bracketInfo.name,
-        type: bracketInfo.type,
-        bracketStatus: bracketInfo.status,
+        bracketType: bracketInfo.type,
+        status: bracketInfo.status,
         bracketCode: bracketInfo.bracketCode,
         tournamentName: tournament.name,
-        participants: participantsList
+        progress: bracketInfo.progress,
+        slots: participantsList
     }
         
 

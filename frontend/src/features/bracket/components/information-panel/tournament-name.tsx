@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+
 import { useBracketStore } from "../../stores/bracket-store";
 import * as Tooltip from "@radix-ui/react-tooltip";
 

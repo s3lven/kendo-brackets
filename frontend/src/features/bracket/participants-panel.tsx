@@ -1,3 +1,5 @@
+"use client"
+
 import ParticipantsList from "./components/participants-panel/participants-list";
 import { Shuffle } from "lucide-react";
 import EditorButton from "@/components/ui/editor-button";

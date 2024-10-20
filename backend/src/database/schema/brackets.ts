@@ -2,6 +2,7 @@ import {
 	integer,
 	pgTable,
 	serial,
+	smallint,
 	timestamp,
 	varchar,
 } from "drizzle-orm/pg-core";
@@ -22,7 +23,7 @@ export const brackets = pgTable("brackets", {
 	tournamentId: integer("tournament_id").references(() => tournaments.id),
 	version: integer("version").notNull().default(1),
 	updatedAt: timestamp("updated_at").defaultNow(),
-	// currentRound: integer('current_round').default(0),
+	progress: smallint("progress").default(0).notNull()
 });
 
 export const bracketRelations = relations(brackets, ({ many }) => ({

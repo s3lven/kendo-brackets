@@ -1,3 +1,5 @@
+"use client"
+
 import { RoundType } from "@/types/bracket_t";
 import { useSlots } from "../stores/bracket-view-store";
 

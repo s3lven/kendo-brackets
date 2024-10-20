@@ -1,3 +1,5 @@
+"use client"
+
 import { BracketType } from "@/types/bracket_t";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";

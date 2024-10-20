@@ -1,4 +1,4 @@
-import { IpponType, PlayerColorType } from "@/types/bracket_t";
+import { IpponType } from "@/types/bracket_t";
 import * as Select from "@radix-ui/react-select";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";

@@ -24,10 +24,10 @@ const SlotView = ({
   disabled = false,
 }: SlotProps) => {
   return (
-    <div className="w-full h-[70px] flex items-center">
+    <div className="flex h-[70px] w-full items-center">
       <div
-        className={`w-[28px] h-full flex items-center justify-center ${
-          color === "Red" ? "bg-error rounded-tl" : "bg-white rounded-bl"
+        className={`flex h-full w-[28px] items-center justify-center ${
+          color === "Red" ? "bg-error rounded-tl" : "rounded-bl bg-white"
         }`}
       >
         <p
@@ -39,20 +39,20 @@ const SlotView = ({
         </p>
       </div>
       <div
-        className={`w-full h-full flex justify-between items-center px-2 bg-shade2_30 ${
+        className={`bg-shade2_30 flex h-full w-full items-center justify-between px-2 ${
           color === "Red" ? "rounded-tr" : "rounded-br"
         }`}
       >
         <div className="flex items-center justify-center">
           <p className="text-desc text-white">
-            {player ? player?.player.name : "To be determined"}
+            {player ? player?.name : "To be determined"}
           </p>
         </div>
         {!isPending && (
           <div className="flex items-center gap-8">
             <button
               onClick={() => handleWinner(player)}
-              className={`outline-none hover:bg-neutral8 rounded disabled:hover:bg-transparent ${
+              className={`hover:bg-neutral8 rounded outline-none disabled:hover:bg-transparent ${
                 disabled && winner !== player && "opacity-0"
               }`}
               disabled={disabled}

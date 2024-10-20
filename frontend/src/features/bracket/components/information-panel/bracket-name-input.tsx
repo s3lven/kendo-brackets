@@ -1,3 +1,5 @@
+"use client"
+
 import { Input } from "@headlessui/react";
 import { useBracketName } from "../../stores/bracket-view-store";
 import { useBracketStore } from "../../stores/bracket-store";

@@ -1,3 +1,5 @@
+"use client"
+
 import { Button, Input } from "@headlessui/react";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
