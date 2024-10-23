@@ -21,7 +21,6 @@ const BracketPageContainer = ({
   useEffect(() => {
     setBracket(bracket);
     setSlots(slots);
-    // console.log(bracket.slots)
   }, [slots, setSlots, setBracket, bracket]);
 
   return (

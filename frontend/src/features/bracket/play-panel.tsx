@@ -1,8 +1,12 @@
+"use client"
+
 import EditorButton from "@/components/ui/editor-button";
 import PlayProgress from "./components/play-panel/play-progress";
+import { useBatchUpdates } from "./hooks/useBatchUpdates";
 
 const PlayPanel = () => {
   console.log("PlayPanel rendered");
+  const {forceSendUpdates} = useBatchUpdates()
   return (
     <div className="w-full h-full flex flex-col gap-2.5 p-4">
       {/* Bracket Status */}
@@ -21,7 +25,7 @@ const PlayPanel = () => {
           Save your changes to make sure your work doesn&apos;t disappear!
         </p>
         <div className="flex justify-center items-center">
-          <EditorButton text="save changes" />
+          <EditorButton text="save changes" onClickHandler={forceSendUpdates}/>
         </div>
       </div>
 
