@@ -81,7 +81,7 @@ const ParticipantsList = () => {
           >
             {slots.map((slot) => (
               <ParticipantSlotEdit
-                key={slot.id}
+                key={`${slot.id}-${slot.name}`}
                 slot={slot}
                 removeSlot={removeSlot}
               />
