@@ -3,6 +3,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import _ from "lodash";
+import { useChangeTrackerStore } from "./change-tracker-store";
 
 export type SlotState = {
   slots: Slot[];
@@ -60,6 +61,11 @@ export const useSlotStore = create<SlotStore>()(
               id: state.slots.length + 1,
             },
           ]);
+        useChangeTrackerStore.getState().addChange({
+          store: "slots",
+          field: "slots",
+          value: state.slots,
+        });
       });
     },
     removeSlot: (id: number | string) => {
@@ -68,6 +74,11 @@ export const useSlotStore = create<SlotStore>()(
           .filter((slot) => slot.id !== id)
           .map((slot, index) => ({ ...slot, sequence: index + 1 }));
         // console.log("removed slot:", id);
+        useChangeTrackerStore.getState().addChange({
+          store: "slots",
+          field: "slots",
+          value: state.slots,
+        });
       });
     },
     moveSlot: (activeIndex: number, overIndex: number) => {
@@ -76,6 +87,11 @@ export const useSlotStore = create<SlotStore>()(
           (slot, index) => ({ ...slot, sequence: index + 1 }),
         );
         state.slots = updated;
+        useChangeTrackerStore.getState().addChange({
+          store: "slots",
+          field: "slots",
+          value: updated,
+        });
       });
     },
     shuffleSlots: () => {
@@ -90,6 +106,11 @@ export const useSlotStore = create<SlotStore>()(
           slot.name = players[index];
         });
         state.slots = dirtySlots;
+        useChangeTrackerStore.getState().addChange({
+          store: "slots",
+          field: "slots",
+          value: dirtySlots,
+        });
       });
     },
     setSlots: (slots: Slot[]) => {
@@ -98,10 +119,15 @@ export const useSlotStore = create<SlotStore>()(
       });
     },
     updatePlayerName: (id, name) =>
-      set((state) => ({
-        slots: state.slots.map((slot) =>
+      set((state) => {
+        state.slots = state.slots.map((slot) =>
           slot.id === id ? { ...slot, name: name } : slot,
-        ),
-      })),
+        );
+        useChangeTrackerStore.getState().addChange({
+          store: "slots",
+          field: "slots",
+          value: state.slots
+        });
+      }),
   })),
 );

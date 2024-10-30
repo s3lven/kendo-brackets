@@ -1,49 +1,52 @@
-import { useEffect } from 'react'
-import { Change, useChangeTrackerStore } from '../stores/change-tracker-store'
+import { Change, useChangeTrackerStore } from "../stores/change-tracker-store";
+import { useBracketStore } from "../stores/bracket-store";
+import { useShallow } from "zustand/react/shallow";
 
-// const API_URL = 'http://your-backend-url/api'
+export const useBatchUpdates = () => {
+    const { getPendingChanges, clearChanges } = useChangeTrackerStore();
+    const { bracketCode } = useBracketStore(
+        useShallow((state) => ({ bracketCode: state.bracketCode }))
+    );
 
-const sendBatchUpdates = async (updates: Change[]) => {
-  try {
-    console.log("SENDING UPDATES TO API: ", updates)
-  } catch (error) {
-    console.error('Error sending batch updates:', error)
-    throw error
-  }
-}
+    const sendBatchUpdates = async (updates: Change[]) => {
+        try {
+            console.log("SENDING UPDATES TO API: ", updates);
+            const response = await fetch(
+                `http://localhost:5000/api/v1/brackets/${bracketCode}/update-bracket`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(updates)
 
-export const useBatchUpdates = (interval = 5000) => {
-  const { getPendingChanges, clearChanges } = useChangeTrackerStore()
+                }
+            );
 
-  useEffect(() => {
-    const sendUpdates = async () => {
-      const pendingChanges = getPendingChanges()
-      if (pendingChanges.length === 0) return
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to send batch updates. ${response.statusText}`
+                );
+            }
 
-      try {
-        await sendBatchUpdates(pendingChanges)
-        clearChanges()
-      } catch (error) {
-        console.error('Failed to send batch updates:', error)
-      }
-    }
+            const data = await response.json()
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    const intervalId = setInterval(sendUpdates, interval)
+    const forceSendUpdates = async () => {
+        const pendingChanges = getPendingChanges();
 
-    return () => clearInterval(intervalId)
-  }, [getPendingChanges, clearChanges, interval])
+        if (pendingChanges.length === 0) return;
 
-  const forceSendUpdates = async () => {
-    const pendingChanges = getPendingChanges()
-    if (pendingChanges.length === 0) return
+        try {
+            await sendBatchUpdates(pendingChanges);
+            clearChanges();
+        } catch (error) {
+            console.error("Failed to force send batch updates:", error);
+        }
+    };
 
-    try {
-      await sendBatchUpdates(pendingChanges)
-      clearChanges()
-    } catch (error) {
-      console.error('Failed to force send batch updates:', error)
-    }
-  }
-
-  return { forceSendUpdates }
-}
+    return { forceSendUpdates };
+};
