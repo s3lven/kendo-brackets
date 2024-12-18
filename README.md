@@ -3,6 +3,8 @@
 
 A tournament bracket tracker web application edsigned for managing and viewing live updates of various tournaments in real-time. Users can create and manage different types of brackets, track progress, and share brackets with others through a unique URL.
 
+Update (12/14): I've recently come back to this project and will be moving this to a different repo!
+
 
 
 ## Current Features
